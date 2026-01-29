@@ -77,7 +77,7 @@ const Footer = ({
       ],
     },
   ],
-  copyright = "© 2024 Apex Learning. All rights reserved.",
+  copyright = `© ${new Date().getFullYear()} Apex Learning. All rights reserved.`,
   bottomLinks = [
     { text: "Terms and Conditions", url: "#" },
     { text: "Privacy Policy", url: "#" },
@@ -85,7 +85,7 @@ const Footer = ({
 }: FooterProps) => {
   return (
     <section className={cn("py-8", className)}>
-      <div className="container mx-auto">
+      <div className="wrapper">
         <footer>
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
             <div className="col-span-2 mb-8 lg:mb-0">

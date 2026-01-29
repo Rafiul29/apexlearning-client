@@ -122,4 +122,12 @@
   body {
     @apply bg-background text-foreground;
   }
+
+ 
+}
+
+@layer components {
+  .wrapper {
+    @apply container mx-auto  px-4 lg:px-0;
+  }
 }
