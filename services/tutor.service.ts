@@ -56,5 +56,17 @@ export const TutorService = {
             return { data: null, error: { message: "Something Went Wrong" } };
         }
 
+    },
+    getTutorById: async function (id: string) {
+        try {
+            const res = await fetch(`${API_URL}/tutors/${id}`, {
+                next: { revalidate: 60 }
+            });
+            if (!res.ok) return { data: null, error: "Tutor not found" };
+            const result = await res.json();
+            return { data: result.data, error: null };
+        } catch (err) {
+            return { data: null, error: err };
+        }
     }
 }

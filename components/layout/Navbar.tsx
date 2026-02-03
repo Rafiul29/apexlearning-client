@@ -29,6 +29,7 @@ import {
 import Link from "next/link";
 import { ModeToggle } from "./MobileToogle";
 import Image from "next/image";
+import SearchModal from "../modules/shared/SearchModal";
 
 interface MenuItem {
   title: string;
@@ -178,10 +179,9 @@ const Navbar = ({
             </div>
           </div>
           <div className="flex gap-2">
-            <div>
-              {" "}
-              <ModeToggle />
-            </div>
+            <SearchModal />
+            <ModeToggle />
+
             <Button asChild variant="outline" size="sm">
               <Link href={auth.login.url}>{auth.login.title}</Link>
             </Button>

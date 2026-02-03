@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Tutor } from "@/types";
 import { Star } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const TutorCard = ({ tutor }: { tutor: Tutor }) => {
   return (
@@ -72,10 +73,12 @@ const TutorCard = ({ tutor }: { tutor: Tutor }) => {
           <span className="text-xs font-normal">/hr</span>
         </span>
         <Button
+          variant={"link"}
           size="sm"
           className="bg-[#FF6B6B] hover:bg-[#ff5252] text-white rounded-xl px-5 shadow-lg shadow-[#FF6B6B]/20"
         >
-          View Profile
+          <Link href={`/tutors/${tutor.id}`}>View Profile </Link>
+          
         </Button>
       </div>
     </div>
