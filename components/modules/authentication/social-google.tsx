@@ -16,6 +16,7 @@ const SocialGoogle = ({ title }: { title: string }) => {
         provider: "google",
         callbackURL: window.location.origin,
       });
+      
     } catch (error: any) {
       toast.error(error.message || "Failed to connect to Google");
       setIsLoading(false);

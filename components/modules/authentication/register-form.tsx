@@ -32,11 +32,10 @@ const formSchema = z.object({
     .trim()
     .min(1, "Email is required!")
     .max(254)
-    .email("Invalid email format!")
     .refine((value) => value === value.toLowerCase(), {
       message: "Email must be in lowercase!",
     }),
-  password: z.string().min(6, "Password is required!").max(20),
+  password: z.string().min(8, "Minimum length is 8").max(20),
 });
 
 export function RegisterForm({

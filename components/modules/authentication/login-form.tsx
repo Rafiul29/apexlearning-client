@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,17 +11,59 @@ import {
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import SocialGoogle from "./social-google";
 import Link from "next/link";
+import * as z from "zod";
+import { useForm } from "@tanstack/react-form";
+import { toast } from "sonner";
+import { authClient } from "@/lib/auth-client";
+import { Spinner } from "@/components/ui/spinner";
+
+const formSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .min(1, "Email is required!")
+    .max(254)
+    .refine((value) => value === value.toLowerCase(), {
+      message: "Email must be in lowercase!",
+    }),
+  password: z.string().min(8, "Minimum length is 8").max(20),
+});
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const form = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    validators: {
+      onSubmit: formSchema,
+    },
+    onSubmit: async ({ value }) => {
+      const toastId = toast.loading("Logging in...");
+      try {
+        const { data, error } = await authClient.signIn.email(value);
+        console.log(error,"errr")
+        if (error) {
+          toast.error(error.message, { id: toastId });
+          return;
+        }
+        toast.success("User Logged in Successfully", { id: toastId });
+      } catch (err) {
+        toast.error("Something went wrong, please try again.", { id: toastId });
+      }
+    },
+  });
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -31,34 +74,82 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form
+            id="login-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              form.handleSubmit();
+            }}
+          >
             <FieldGroup>
+              <form.Field
+                name="email"
+                children={(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                      <Input
+                        type="email"
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        placeholder="m@example.com"
+                        onChange={(e) => field.handleChange(e.target.value)}
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              />
+
+              <form.Field
+                name="password"
+                children={(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field>
+                      <div className="flex items-center">
+                        <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                        <Link
+                          href="forget-password"
+                          className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                        >
+                          Forgot your password?
+                        </Link>
+                      </div>
+                      <Input
+                        type="password"
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              />
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  required
+                <form.Subscribe
+                  selector={(state) => [state.canSubmit, state.isSubmitting]}
+                  children={([canSubmit, isSubmitting]) => (
+                    <Button type="submit" disabled={!canSubmit || isSubmitting}>
+                      {isSubmitting && <Spinner />}
+                      {isSubmitting ? "Login..." : "Login"}
+                    </Button>
+                  )}
                 />
-              </Field>
-              <Field>
-                <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
-                <Input id="password" type="password" required />
-              </Field>
-              <Field>
-                <Button type="submit">Login</Button>
                 <SocialGoogle title="Sigin In with Google" />
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <Link href="/register">Register</Link>
+                  Don&apos;t have an account?{" "}
+                  <Link href="/register">Register</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

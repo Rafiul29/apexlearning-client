@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/sheet";
 import Link from "next/link";
 import { ModeToggle } from "./MobileToogle";
+import Image from "next/image";
 
 interface MenuItem {
   title: string;
@@ -62,9 +63,9 @@ interface Navbar1Props {
 const Navbar = ({
   logo = {
     url: "/",
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
+    src: "/logo.png",
     alt: "logo",
-    title: "Apex Learning",
+    title: "",
   },
   menu = [
     { title: "Home", url: "#" },
@@ -152,9 +153,11 @@ const Navbar = ({
           <div className="flex items-center gap-6">
             {/* Logo */}
             <Link href={logo.url} className="flex items-center gap-2">
-              <img
+              <Image
+                width={100}
+                height={120}
                 src={logo.src}
-                className="max-h-8 dark:invert"
+                className="max-h-10 dark:invert"
                 alt={logo.alt}
               />
               <span className="text-lg font-semibold tracking-tighter">
@@ -185,9 +188,11 @@ const Navbar = ({
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link href={logo.url} className="flex items-center gap-2">
-              <img
+              <Image
+                width={100}
+                height={120}
                 src={logo.src}
-                className="max-h-8 dark:invert"
+                className="max-h-10 dark:invert"
                 alt={logo.alt}
               />
             </Link>
