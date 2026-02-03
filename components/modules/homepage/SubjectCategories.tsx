@@ -1,70 +1,15 @@
 import { Button } from "@/components/ui/button";
+import { Category } from "@/types";
+
 import { ArrowRight } from "lucide-react";
-export const categories = [
-  {
-    id: 1,
-    name: "Mathematics",
-    slug: "mathematics",
-    description: "From algebra to calculus",
-    icon: "Calculator",
-  },
-  {
-    id: 2,
-    name: "Languages",
-    slug: "languages",
-    description: "Learn a new language",
-    icon: "Languages",
-  },
-  {
-    id: 3,
-    name: "Science",
-    slug: "science",
-    description: "Physics, chemistry & biology",
-    icon: "FlaskConical",
-  },
-  {
-    id: 4,
-    name: "Programming",
-    slug: "programming",
-    description: "Code your future",
-    icon: "Code",
-  },
-  {
-    id: 5,
-    name: "Music",
-    slug: "music",
-    description: "Instruments & theory",
-    icon: "Music",
-  },
-  {
-    id: 6,
-    name: "Test Prep",
-    slug: "test-prep",
-    description: "SAT, GRE & more",
-    icon: "GraduationCap",
-  },
-  {
-    id: 7,
-    name: "Business",
-    slug: "business",
-    description: "Finance & marketing",
-    icon: "Briefcase",
-  },
-  {
-    id: 8,
-    name: "Design",
-    slug: "design",
-    description: "UI/UX & graphics",
-    icon: "Palette",
-  },
-];
-const SubjectCategories = () => {
+
+const SubjectCategories = ({ categories }: { categories: Category[] }) => {
   return (
     <section
       id="subjects"
-      className="relative w-full bg-[#F6F7F9] dark:bg-[#0F172A] py-16 lg:py-24 transition-colors duration-300"
+      className="relative w-full bg-[#F6F7F9] dark:bg-[#0F172A] py-16 lg:py-24 transition-colors duration-300 "
     >
-      <div className="wrapper">
+      <div className="wrapper ">
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-10 lg:mb-12">
           <h2 className="text-3xl lg:text-[clamp(28px,3vw,44px)] font-bold text-[#111827] dark:text-white mb-3 lg:mb-0">
@@ -81,7 +26,7 @@ const SubjectCategories = () => {
 
         {/* Grid Container */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-          {categories.map((category) => {
+          {categories.map((category: Category) => {
             return (
               <div
                 key={category.id}
@@ -91,7 +36,7 @@ const SubjectCategories = () => {
                   {category.name}
                 </h3>
                 <p className="text-sm text-[#6B7280] dark:text-gray-400">
-                  {category.description}
+                  {category?.description}
                 </p>
 
                 <div className="flex justify-end mt-4">
