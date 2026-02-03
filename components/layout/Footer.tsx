@@ -30,9 +30,9 @@ interface FooterProps {
 
 const Footer = ({
   logo = {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
+    src: "/logo.png",
     alt: "apex learning Logo",
-    title: "Apex Learning",
+    title: "",
     url: "/",
   },
   className,
@@ -95,7 +95,9 @@ const Footer = ({
                     src={logo.src}
                     alt={logo.alt}
                     title={logo.title}
-                    className="h-10 dark:invert"
+                    width={100}
+                    height={120}
+                    className="max-h-10 dark:invert"
                   />
                   <LogoText className="text-xl">{logo.title}</LogoText>
                 </Logo>

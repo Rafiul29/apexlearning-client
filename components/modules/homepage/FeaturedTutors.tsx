@@ -59,7 +59,7 @@ const FeaturedTutors = () => {
   return (
     <section
       id="featured"
-      className="relative w-full py-16 lg:py-24 bg-transparent dark:bg-[#0F172A] transition-colors duration-300"
+      className="relative w-full py-16 lg:py-24 bg-[#F6F7F9] dark:bg-[#0F172A] transition-colors duration-300"
     >
       <div className=" wrapper">
         <div className="mb-8 lg:mb-12">

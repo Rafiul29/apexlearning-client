@@ -2,17 +2,18 @@
 
 import { authClient } from "@/lib/auth-client";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 
-const VerifyEmail = () => {
+export const dynamic = "force-dynamic";
+
+const VerifyEmailContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [isVerifying, setIsVerifying] = useState(false);
 
-  // Get the token from the URL /verify-email?token=...
   const token = searchParams.get("token");
 
   const handleVerify = async () => {
@@ -25,19 +26,14 @@ const VerifyEmail = () => {
 
     try {
       const { data, error } = await authClient.verifyEmail({
-        query: {
-          token: token,
-        },
+        query: { token: token },
       });
 
       if (error) {
         toast.error("Verification failed: " + error.message, { id: toastId });
         setIsVerifying(false);
       } else {
-        toast.success("Account verified! Redirecting to login...", {
-          id: toastId,
-        });
-
+        toast.success("Account verified! Redirecting to login...", { id: toastId });
         setTimeout(() => {
           router.push("/login");
         }, 2000);
@@ -77,4 +73,16 @@ const VerifyEmail = () => {
   );
 };
 
-export default VerifyEmail;
+
+export default function VerifyEmail() {
+  return (
+    <Suspense fallback={
+      <div className="flex flex-col items-center justify-center h-screen">
+        <Spinner />
+        <p className="mt-4">Loading verification...</p>
+      </div>
+    }>
+      <VerifyEmailContent />
+    </Suspense>
+  );
+}
