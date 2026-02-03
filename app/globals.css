@@ -1,13 +1,11 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-html,body{
+html,
+body {
   overflow-x: hidden;
 }
 
-
-
 @custom-variant dark (&:is(.dark *));
-
 
 @theme inline {
   --color-background: var(--background);
@@ -128,8 +126,6 @@ html,body{
   body {
     @apply bg-background text-foreground;
   }
-
- 
 }
 
 @layer components {

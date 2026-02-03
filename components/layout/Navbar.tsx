@@ -146,7 +146,12 @@ const Navbar = ({
   className,
 }: Navbar1Props) => {
   return (
-    <section className={cn("py-4", className)}>
+    <section
+      className={cn(
+        "fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4",
+        className,
+      )}
+    >
       <div className="wrapper">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
@@ -173,7 +178,10 @@ const Navbar = ({
             </div>
           </div>
           <div className="flex gap-2">
-            <ModeToggle />
+            <div>
+              {" "}
+              <ModeToggle />
+            </div>
             <Button asChild variant="outline" size="sm">
               <Link href={auth.login.url}>{auth.login.title}</Link>
             </Button>

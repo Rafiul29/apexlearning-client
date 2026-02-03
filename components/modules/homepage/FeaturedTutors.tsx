@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Star, ChevronRight } from "lucide-react";
 export const tutors = [
   {
@@ -132,10 +133,10 @@ const FeaturedTutors = () => {
           ))}
 
           <div className="flex-shrink-0 w-full lg:w-[200px] flex items-center justify-center py-4">
-            <button className="flex items-center gap-2 text-[#FF6B6B] hover:text-[#ff5252] font-semibold group transition-colors">
+            <Button variant={"link"} className="flex items-center gap-2 text-[#FF6B6B] hover:text-[#ff5252] font-semibold group transition-colors">
               Browse all tutors
               <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </Button>
           </div>
         </div>
       </div>

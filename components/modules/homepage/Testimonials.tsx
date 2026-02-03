@@ -18,10 +18,10 @@ export const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section className="relative w-full bg-[#F6F7F9] py-16 lg:py-24">
+    <section className="relative w-full bg-[#F6F7F9] dark:bg-[#0F172A] py-16 lg:py-24 transition-colors duration-300">
       <div className="px-6 lg:px-[7vw]">
         <div className="mb-10 lg:mb-12">
-          <h2 className="text-3xl lg:text-[clamp(28px,3vw,44px)] font-bold text-[#111827] font-['Poppins']">
+          <h2 className="text-3xl lg:text-[clamp(28px,3vw,44px)] font-bold text-[#111827] dark:text-white font-['Poppins']">
             What students say
           </h2>
         </div>
@@ -30,27 +30,32 @@ const Testimonials = () => {
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.id}
-              className="flex-1 bg-white rounded-[28px] shadow-[0_22px_60px_rgba(0,0,0,0.10)] p-6 lg:p-8"
+              className="flex-1 bg-white dark:bg-[#1E293B] rounded-[28px] shadow-[0_22px_60px_rgba(0,0,0,0.05)] dark:shadow-[0_22px_60px_rgba(0,0,0,0.3)] p-6 lg:p-8 border border-transparent dark:border-slate-800 transition-all duration-300 hover:shadow-xl"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#FF6B6B]/10 flex items-center justify-center mb-6">
+              {/* Quote Icon Container */}
+              <div className="w-10 h-10 rounded-xl bg-[#FF6B6B]/10 dark:bg-[#FF6B6B]/20 flex items-center justify-center mb-6">
                 <Quote className="w-5 h-5 text-[#FF6B6B]" />
               </div>
 
-              <p className="text-lg lg:text-xl text-[#111827] leading-relaxed mb-8 font-['Poppins']">
+              {/* Quote Text */}
+              <p className="text-lg lg:text-xl text-[#111827] dark:text-gray-200 leading-relaxed mb-8 font-['Poppins']">
                 "{testimonial.quote}"
               </p>
 
+              {/* User Info */}
               <div className="flex items-center gap-4">
                 <img
                   src={testimonial.avatar}
                   alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover"
+                  className="w-12 h-12 rounded-full object-cover ring-2 ring-white dark:ring-slate-700"
                 />
                 <div>
-                  <span className="block font-semibold text-[#111827]">
+                  <span className="block font-semibold text-[#111827] dark:text-white">
                     {testimonial.name}
                   </span>
-                  <span className="text-sm text-[#6B7280]">Student</span>
+                  <span className="text-sm text-[#6B7280] dark:text-gray-400">
+                    Student
+                  </span>
                 </div>
               </div>
             </div>

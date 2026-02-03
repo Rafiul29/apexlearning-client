@@ -1,5 +1,5 @@
 import { ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button"; // Adjust path as needed
+import { Button } from "@/components/ui/button"; 
 import Image from "next/image";
 
 export default function HeroSection() {
@@ -8,7 +8,7 @@ export default function HeroSection() {
       {/* Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.06] dark:opacity-[0.03] mix-blend-multiply pointer-events-none" />
 
-      <div className="relative w-full px-6 lg:px-[7vw]  lg:pt-0 pb-8 lg:pb-0 min-h-screen flex flex-col justify-center">
+      <div className="relative w-full px-6 lg:px-[8vw]  lg:pt-0 pb-8 lg:pb-0 min-h-screen flex flex-col justify-center">
         <div className="lg:w-[40vw] z-10 mb-8 lg:mb-12">
           <span className="text-xs lg:text-sm font-medium tracking-[0.12em] uppercase text-[#6B7280] dark:text-gray-400 mb-4 block">
             Online Tutoring
