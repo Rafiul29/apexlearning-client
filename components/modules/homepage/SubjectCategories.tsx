@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Category } from "@/types";
 
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const SubjectCategories = ({ categories }: { categories: Category[] }) => {
   return (
@@ -40,10 +41,11 @@ const SubjectCategories = ({ categories }: { categories: Category[] }) => {
                 </p>
 
                 <div className="flex justify-end mt-4">
-                  {/* Circular Arrow Indicator */}
-                  <div className="w-9 h-9 rounded-full bg-[#F6F7F9] dark:bg-slate-700/50 flex items-center justify-center group-hover:bg-[#FF6B6B] transition-colors">
-                    <ArrowRight className="w-4 h-4 text-[#6B7280] dark:text-gray-300 group-hover:text-white transition-colors" />
-                  </div>
+                  <Link href={`/tutors?categoryId=${category.id}`}>
+                    <div className="w-9 h-9 rounded-full bg-[#F6F7F9] dark:bg-slate-700/50 flex items-center justify-center group-hover:bg-[#FF6B6B] transition-colors">
+                      <ArrowRight className="w-4 h-4 text-[#6B7280] dark:text-gray-300 group-hover:text-white transition-colors" />
+                    </div>
+                  </Link>
                 </div>
               </div>
             );

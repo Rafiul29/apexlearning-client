@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Tutor } from "@/types";
 import { Star, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface FeaturedTutorsProps {
   featuredTutors: Tutor[];
@@ -88,11 +89,14 @@ const FeaturedTutors = ({ featuredTutors }: FeaturedTutorsProps) => {
 
           <div className="flex-shrink-0 w-full lg:w-[200px] flex items-center justify-center py-4">
             <Button
-              variant={"link"}
-              className="flex items-center gap-2 text-[#FF6B6B] hover:text-[#ff5252] font-semibold group transition-colors"
+              asChild
+              variant="link"
+              className="flex items-center gap-2 text-[#FF6B6B] hover:text-[#ff5252] font-semibold group transition-colors p-0"
             >
-              Browse all tutors
-              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <Link href="/tutors">
+                <span>Browse all tutors</span>
+                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Button>
           </div>
         </div>
