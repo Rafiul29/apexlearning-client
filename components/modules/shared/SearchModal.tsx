@@ -1,36 +1,105 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useDebounce } from "use-debounce";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Search, X, BookOpen, ArrowRight, History } from "lucide-react";
+import {
+  Search,
+  X,
+  ArrowRight,
+  Loader2,
+  User,
+  BookOpen,
+  Layers,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import { TutorService } from "@/services/tutor.service";
+import { Tutor, Category } from "@/types";
+import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { getCategoriesAction } from "@/actions/categories";
+import { getTutorsAction } from "@/actions/tutors";
 
 export default function SearchModal() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [results, setResults] = useState<Tutor[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  const router = useRouter();
+  const [debouncedQuery] = useDebounce(query, 400);
 
   useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setOpen((open) => !open);
+    const fetchInitialData = async () => {
+      try {
+        const { data, error } = await getCategoriesAction(
+          { limit: "5" },
+          { revalidate: 3600 },
+        );
+        if (!error && data) {
+          setCategories(data);
+        }
+      } catch (err) {
+        console.error("Failed to load categories", err);
       }
     };
 
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
+    fetchInitialData();
   }, []);
+
+  const fetchResults = useCallback(async (searchTerm: string) => {
+    if (!searchTerm.trim()) {
+      setResults([]);
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const { data, error } = await getTutorsAction({
+        searchTerm,
+        limit: "5",
+      });
+      if (!error && data) setResults(data.tutors || []);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchResults(debouncedQuery);
+    setSelectedIndex(-1);
+  }, [debouncedQuery, fetchResults]);
+
+  // 3. Unified Keyboard Handler
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    const listLength = query ? results.length : categories.length;
+    if (listLength === 0) return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev < listLength - 1 ? prev + 1 : prev));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev > 0 ? prev - 1 : 0));
+    } else if (e.key === "Enter" && selectedIndex !== -1) {
+      if (query) {
+        router.push(`/tutors/${results[selectedIndex].id}`);
+      } else {
+        router.push(`/tutors?categoryId=${categories[selectedIndex].id}`);
+      }
+      setOpen(false);
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      {/* 1. The Trigger Button */}
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -46,98 +115,202 @@ export default function SearchModal() {
         </Button>
       </DialogTrigger>
 
-      {/* 2. The Popup Content - Positioned at Top [10%] */}
-      <DialogContent className="fixed left-[50%] top-[10%] z-50 w-full max-w-[600px] translate-x-[-50%] translate-y-0 gap-0 overflow-hidden border-none bg-white p-0 shadow-2xl duration-200 rounded-[24px] dark:bg-slate-900 sm:max-w-[600px]">
-        {/* --- ACCESSIBILITY SECTION --- */}
+      <DialogContent
+        onKeyDown={handleKeyDown}
+        className="fixed left-[50%] top-[10%] z-50 w-full max-w-[600px] translate-x-[-50%] translate-y-0 gap-0 overflow-hidden border-none bg-white p-0 shadow-2xl rounded-[24px] dark:bg-slate-900 [&>button]:hidden"
+      >
         <VisuallyHidden.Root>
-          <DialogTitle>Search Tutors and Subjects</DialogTitle>
+          <DialogTitle>Search</DialogTitle>
         </VisuallyHidden.Root>
-        {/* ----------------------------- */}
+
+        {/* Input Field */}
         <div className="flex items-center border-b px-4 bg-white dark:bg-slate-900">
           <Search className="mr-3 h-5 w-5 text-slate-400" />
           <input
-            className="flex h-16 w-full bg-transparent py-3 text-lg outline-none placeholder:text-slate-400 disabled:cursor-not-allowed disabled:opacity-50"
-            placeholder="What do you want to learn?"
+            className="flex h-16 w-full bg-transparent py-3 text-lg outline-none placeholder:text-slate-400"
+            placeholder="Search by name, subject, or category..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             autoFocus
           />
           {query && (
-            <X
-              className="h-5 w-5 text-slate-400 cursor-pointer hover:text-[#FF6B6B]"
+            <button
               onClick={() => setQuery("")}
-            />
+              className="p-2 hover:bg-slate-100 rounded-full"
+            >
+              <X className="h-5 w-5 text-slate-400" />
+            </button>
           )}
         </div>
 
-        {/* 3. Quick Suggestions / Results Area */}
-        <div className="p-4 max-h-[400px] overflow-y-auto bg-slate-50/50 dark:bg-slate-900/50">
-          {!query ? (
-            <div className="space-y-4 p-4">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                Popular Categories
-              </p>
-              <div className="space-y-1">
-                {[
-                  "Mathematics Masterclass",
-                  "IELTS Expert Prep",
-                  "Fullstack Web Dev",
-                ].map((item) => (
+        {/* Scrollable Area */}
+        <div className="relative min-h-[350px] max-h-[500px] overflow-y-auto bg-slate-50/50 dark:bg-slate-900/50 p-4">
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-white/60 dark:bg-slate-900/60 z-20 rounded-b-[24px]">
+              <Loader2 className="h-8 w-8 animate-spin text-[#FF6B6B]" />
+            </div>
+          )}
+
+          {/* SECTION: CATEGORIES (Initial View) */}
+          {!query && categories.length > 0 && (
+            <div className="space-y-4 animate-in fade-in duration-300">
+              <div className="flex items-center gap-2 px-2">
+                <Layers className="w-3 h-3 text-slate-400" />
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                  Explore Categories
+                </p>
+              </div>
+              <div className="grid grid-cols-1 gap-2">
+                {categories.map((cat, index) => (
                   <button
-                    key={item}
-                    className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-900 group transition-all text-left"
+                    key={cat.id}
+                    onMouseEnter={() => setSelectedIndex(index)}
+                    onClick={() => {
+                      router.push(`/tutors?categoryId=${cat.id}`);
+                      setOpen(false);
+                    }}
+                    className={cn(
+                      "flex items-center justify-between p-4 rounded-2xl transition-all border border-transparent text-left group",
+                      selectedIndex === index
+                        ? "bg-white dark:bg-slate-800 shadow-md border-slate-100 dark:border-slate-700"
+                        : "hover:bg-white/40",
+                    )}
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 flex items-center justify-center border border-slate-100 dark:border-slate-700 group-hover:border-[#FF6B6B]/30 shadow-sm">
-                        <History className="w-4 h-4 text-slate-400 group-hover:text-[#FF6B6B]" />
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={cn(
+                          "p-2.5 rounded-xl transition-colors",
+                          selectedIndex === index
+                            ? "bg-[#FF6B6B] text-white"
+                            : "bg-[#FF6B6B]/10 text-[#FF6B6B]",
+                        )}
+                      >
+                        <BookOpen className="w-4 h-4" />
                       </div>
-                      <div>
-                        <p className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-[#FF6B6B]">
-                          {item}
-                        </p>
-                        <p className="text-[11px] text-slate-400">
-                          Popular Subject
-                        </p>
-                      </div>
+                      <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                        {cat.name}
+                      </span>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-[#FF6B6B] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                    <ArrowRight
+                      className={cn(
+                        "w-4 h-4 text-[#FF6B6B] transition-all",
+                        selectedIndex === index
+                          ? "opacity-100 translate-x-1"
+                          : "opacity-0",
+                      )}
+                    />
                   </button>
                 ))}
               </div>
             </div>
-          ) : (
-            <div className="p-4 text-center text-slate-500">
-              <p className="text-sm">
-                Searching for{" "}
-                <span className="font-bold text-[#FF6B6B]">"{query}"</span>...
+          )}
+
+          {/* SECTION: SEARCH RESULTS */}
+          {query && results.length > 0 && (
+            <div className="space-y-2 animate-in fade-in duration-200">
+              <p className="px-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">
+                Top Tutor Matches
+              </p>
+              {results.map((tutor, index) => (
+                <button
+                  key={tutor.id}
+                  onMouseEnter={() => setSelectedIndex(index)}
+                  onClick={() => {
+                    router.push(`/tutors/${tutor.id}`);
+                    setOpen(false);
+                  }}
+                  className={cn(
+                    "w-full flex items-center justify-between p-3 rounded-2xl transition-all border border-transparent text-left",
+                    selectedIndex === index
+                      ? "bg-white dark:bg-slate-800 shadow-md border-slate-100 dark:border-slate-700"
+                      : "hover:bg-white/40",
+                  )}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-xl overflow-hidden bg-slate-200 border border-slate-100">
+                      {tutor.user?.image ? (
+                        <img
+                          src={tutor.user.image}
+                          alt=""
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-slate-100">
+                          <User className="w-5 h-5 text-slate-400" />
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <p
+                        className={cn(
+                          "text-sm font-bold transition-colors",
+                          selectedIndex === index
+                            ? "text-[#FF6B6B]"
+                            : "text-slate-700 dark:text-slate-200",
+                        )}
+                      >
+                        {tutor.user?.name}
+                      </p>
+                      <p className="text-[11px] text-slate-400 line-clamp-1">
+                        {tutor.bio}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs font-bold text-slate-600 dark:text-slate-300">
+                      ${tutor.pricePerHour}/hr
+                    </p>
+                    {tutor.averageRating > 0 && (
+                      <p className="text-[10px] text-amber-500 font-medium">
+                        ★ {tutor.averageRating.toFixed(1)}
+                      </p>
+                    )}
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* No results state */}
+          {query && results.length === 0 && !isLoading && (
+            <div className="py-20 text-center">
+              <div className="inline-flex p-4 rounded-full bg-slate-100 mb-4">
+                <Search className="w-8 h-8 text-slate-300" />
+              </div>
+              <p className="text-sm text-slate-500">
+                No matches found for{" "}
+                <span className="font-bold">"{query}"</span>
               </p>
             </div>
           )}
         </div>
 
-        {/* Footer */}
+        {/* Footer with Hotkeys */}
         <div className="px-6 py-4 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
           <div className="flex gap-4">
-            <div className="flex items-center gap-1.5">
-              <kbd className="px-1.5 py-0.5 rounded border bg-white dark:bg-slate-800 text-[10px] text-slate-500 shadow-sm font-sans">
+            <span className="flex items-center gap-1.5 text-[10px] text-slate-400 font-medium">
+              <kbd className="px-1.5 py-0.5 rounded border bg-white dark:bg-slate-800 shadow-sm font-sans">
                 ↑↓
-              </kbd>
-              <span className="text-[10px] text-slate-400 font-medium">
-                navigate
-              </span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <kbd className="px-1.5 py-0.5 rounded border bg-white dark:bg-slate-800 text-[10px] text-slate-500 shadow-sm font-sans">
+              </kbd>{" "}
+              navigate
+            </span>
+            <span className="flex items-center gap-1.5 text-[10px] text-slate-400 font-medium">
+              <kbd className="px-1.5 py-0.5 rounded border bg-white dark:bg-slate-800 shadow-sm font-sans">
                 enter
-              </kbd>
-              <span className="text-[10px] text-slate-400 font-medium">
-                select
-              </span>
-            </div>
+              </kbd>{" "}
+              select
+            </span>
           </div>
-          <button className="text-[11px] font-bold text-[#FF6B6B] hover:opacity-80 transition-opacity">
-            Advanced Search
-          </button>
+          <Button
+            variant={"link"}
+            onClick={() => {
+              router.push("/tutors");
+              setOpen(false);
+            }}
+            className="text-[11px] font-extrabold text-[#FF6B6B] uppercase tracking-tighter hover:opacity-70 transition-opacity"
+          >
+            Advanced Filter
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/card";
 import {
   Field,
-  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
@@ -24,18 +23,16 @@ import { toast } from "sonner";
 import { useForm } from "@tanstack/react-form";
 import { Spinner } from "@/components/ui/spinner";
 import { authClient } from "@/lib/auth-client";
+import { UserRole } from "@/types";
 
+// Added role to schema
 const formSchema = z.object({
   name: z.string().min(1, "Name is required!").max(40),
-  email: z
-    .string()
-    .trim()
-    .min(1, "Email is required!")
-    .max(254)
-    .refine((value) => value === value.toLowerCase(), {
-      message: "Email must be in lowercase!",
-    }),
+  email: z.string().trim().email().toLowerCase(),
   password: z.string().min(8, "Minimum length is 8").max(20),
+  role: z.enum([UserRole.STUDENT, UserRole.TUTOR], {
+    required_error: "Please select a role",
+  }),
 });
 
 export function RegisterForm({
@@ -47,22 +44,28 @@ export function RegisterForm({
       name: "",
       email: "",
       password: "",
+      role: UserRole.STUDENT as UserRole,
     },
     validators: {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      const toastId = toast.loading("Creating user");
+      const toastId = toast.loading("Creating account...");
       try {
-        const { data, error } = await authClient.signUp.email(value);
+        const { data, error } = await authClient.signUp.email({
+          email: value.email,
+          password: value.password,
+          name: value.name,
+          role: value.role,
+        } as any);
 
         if (error) {
           toast.error(error.message, { id: toastId });
           return;
         }
-        toast.success("User Created Successfully", { id: toastId });
+        toast.success("Account Created Successfully!", { id: toastId });
       } catch (err) {
-        toast.error("Something went wrong, please try again.", { id: toastId });
+        toast.error("Something went wrong.", { id: toastId });
       }
     },
   });
@@ -73,7 +76,7 @@ export function RegisterForm({
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Create your account</CardTitle>
           <CardDescription>
-            Enter your email below to create your account
+            Select your role and enter your details
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -85,18 +88,61 @@ export function RegisterForm({
             }}
           >
             <FieldGroup>
+              <form.Field
+                name="role"
+                children={(field) => (
+                  <Field className="flex flex-col gap-2">
+                    <FieldLabel>I want to join as a...</FieldLabel>
+                    <div className="grid grid-cols-2 gap-4">
+                      <Button
+                        type="button"
+                        variant={
+                          field.state.value === UserRole.STUDENT
+                            ? "default"
+                            : "outline"
+                        }
+                        className={cn(
+                          "border-2",
+                          field.state.value === UserRole.STUDENT &&
+                            "border-primary",
+                        )}
+                        onClick={() => field.handleChange(UserRole.STUDENT)}
+                      >
+                        Student
+                      </Button>
+                      <Button
+                        type="button"
+                        variant={
+                          field.state.value === UserRole.TUTOR
+                            ? "default"
+                            : "outline"
+                        }
+                        className={cn(
+                          " border-2",
+                          field.state.value === UserRole.TUTOR &&
+                            "border-primary",
+                        )}
+                        onClick={() => field.handleChange(UserRole.TUTOR)}
+                      >
+                        Tutor
+                      </Button>
+                    </div>
+                    <FieldError errors={field.state.meta.errors} />
+                  </Field>
+                )}
+              />
+
               {/* Name Field */}
               <form.Field
                 name="name"
                 children={(field) => (
                   <Field>
-                    <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+                    <FieldLabel htmlFor={field.name}>Full Name</FieldLabel>
                     <Input
                       id={field.name}
                       value={field.state.value}
                       placeholder="John Doe"
                       onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
                     />
                     <FieldError errors={field.state.meta.errors} />
                   </Field>
@@ -115,7 +161,6 @@ export function RegisterForm({
                       value={field.state.value}
                       placeholder="m@example.com"
                       onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
                     />
                     <FieldError errors={field.state.meta.errors} />
                   </Field>
@@ -126,46 +171,54 @@ export function RegisterForm({
               <form.Field
                 name="password"
                 children={(field) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                    <Input
-                      id={field.name}
-                      type="password"
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
-                    />
-                    <FieldError errors={field.state.meta.errors} />
-                  </Field>
+                  field.state.value,
+                  (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                      <Input
+                        id={field.name}
+                        type="password"
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                      />
+                      <FieldError errors={field.state.meta.errors} />
+                    </Field>
+                  )
                 )}
               />
 
-              <Field>
-                <form.Subscribe
-                  selector={(state) => [state.canSubmit, state.isSubmitting]}
-                  children={([canSubmit, isSubmitting]) => (
-                    <Button type="submit" disabled={!canSubmit || isSubmitting}>
-                      {isSubmitting && <Spinner />}
-                      {isSubmitting ? "Creating..." : "Create Account"}
-                    </Button>
-                  )}
-                />
-                <SocialGoogle title="Sign Up with Google" />
-                <FieldDescription className="text-center">
-                  Already have an account?{" "}
-                  <Link href="/login" className="underline">
-                    Login
-                  </Link>
-                </FieldDescription>
-              </Field>
+              <form.Subscribe
+                selector={(state) => [state.canSubmit, state.isSubmitting]}
+                children={([canSubmit, isSubmitting]) => (
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    disabled={!canSubmit || isSubmitting}
+                  >
+                    {isSubmitting ? <Spinner className="mr-2" /> : null}
+                    {isSubmitting ? "Creating..." : "Create Account"}
+                  </Button>
+                )}
+              />
+
+              {/* <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+                <span className="relative z-10 bg-background px-2 text-muted-foreground">
+                  Or continue with
+                </span>
+              </div> */}
+
+              {/* <SocialGoogle title="Sign Up with Google" /> */}
+
+              <p className="text-center text-sm text-muted-foreground">
+                Already have an account?{" "}
+                <Link href="/login" className="underline underline-offset-4">
+                  Login
+                </Link>
+              </p>
             </FieldGroup>
           </form>
         </CardContent>
       </Card>
-      <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
-      </FieldDescription>
     </div>
   );
 }

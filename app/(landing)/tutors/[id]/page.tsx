@@ -31,7 +31,6 @@ const DAYS = [
   "Saturday",
 ];
 
-// Mock Data (In production, this comes from tutor.availabilities)
 const availableSlots = [
   {
     id: "slot-001",

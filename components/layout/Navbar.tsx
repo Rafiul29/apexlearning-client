@@ -205,6 +205,7 @@ const Navbar = ({
               />
             </Link>
             <div className="space-x-2">
+              <SearchModal />
               <ModeToggle />
               <Sheet>
                 <SheetTrigger asChild>

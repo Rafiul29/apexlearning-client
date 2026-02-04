@@ -13,11 +13,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { TutorService } from "@/services/tutor.service";
 import { Tutor, Category } from "@/types";
 import Image from "next/image";
 import TutorCard from "../shared/tutor/TutorCard";
 import TutorHeader from "../shared/tutor/TutorHeader";
+import { getTutorsAction } from "@/actions/tutors";
 
 const FindTutor = ({ searchCategories }: { searchCategories: Category[] }) => {
   const [tutors, setTutors] = useState<Tutor[]>([]);
@@ -41,7 +41,7 @@ const FindTutor = ({ searchCategories }: { searchCategories: Category[] }) => {
       maxPrice = parts[1] === "plus" ? undefined : parts[1];
     }
 
-    const { data, error } = await TutorService.getTutors({
+    const { data, error } = await getTutorsAction({
       searchTerm: debouncedSearch || undefined,
       sortBy,
       sortOrder: "desc",

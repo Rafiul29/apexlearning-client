@@ -2,6 +2,7 @@ import { GalleryVerticalEnd } from "lucide-react";
 
 import { RegisterForm } from "@/components/modules/authentication/register-form";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function SignupPage() {
   return (
@@ -12,7 +13,8 @@ export default function SignupPage() {
           className="flex items-center gap-2 self-center font-medium"
         >
           <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
-            <GalleryVerticalEnd className="size-4" />
+            {/* <GalleryVerticalEnd className="size-4" /> */}
+            <Image src={"/logo.png"} height={1020} width={1920} alt="logo" />
           </div>
           Appex Learning
         </Link>

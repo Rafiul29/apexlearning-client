@@ -1,6 +1,8 @@
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import VideoButton from "./VideoButton";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -23,16 +25,13 @@ export default function HeroSection() {
           </p>
 
           <div className="flex flex-wrap items-center gap-4">
-            <Button className="bg-[#FF6B6B] hover:bg-[#ff5252] text-white rounded-xl px-6 lg:px-8 py-5 lg:py-6 text-base font-medium shadow-lg shadow-[#FF6B6B]/20">
-              Find a tutor
-            </Button>
             <Button
-              variant={"link"}
-              className="flex items-center gap-2 text-[#6B7280] dark:text-gray-400 hover:text-[#111827] dark:hover:text-white transition-colors text-sm lg:text-base font-medium group"
+              asChild
+              className="bg-[#FF6B6B] hover:bg-[#ff5252] text-white rounded-xl px-6 lg:px-8 py-5 lg:py-6 text-base font-medium shadow-lg shadow-[#FF6B6B]/20"
             >
-              See how it works
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <Link href="/tutors">Find a tutor</Link>
             </Button>
+            <VideoButton />
           </div>
         </div>
 
