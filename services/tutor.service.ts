@@ -1,4 +1,5 @@
 import { env } from "@/env";
+import { cookies } from "next/headers";
 
 const API_URL = env.API_URL
 
@@ -67,6 +68,36 @@ export const TutorService = {
             return { data: result.data, error: null };
         } catch (err) {
             return { data: null, error: err };
+        }
+    },
+    getTutorByUserId: async function (id: string) {
+        try {
+            const cookieStore = await cookies();
+            const res = await fetch(`${API_URL}/tutors/user/${id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Cookie: cookieStore.toString(),
+                },
+                next: {
+                    revalidate: 60,
+                    tags: [`tutor-${id}`]
+                }
+            });
+
+            if (!res.ok) {
+                return { data: null, error: `Error: ${res.statusText}` };
+            }
+            const result = await res.json();
+            return {
+                data: result.data || result,
+                error: null
+            };
+        } catch (err) {
+            console.error("Fetch error in getTutorByUserId:", err);
+            return {
+                data: null,
+                error: "Something went wrong while fetching the tutor profile."
+            };
         }
     }
 }

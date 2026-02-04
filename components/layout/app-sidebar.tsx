@@ -40,6 +40,7 @@ import { studentRoutes } from "@/routes/studentRoutes";
 import Link from "next/link";
 import { Route, UserRole } from "@/types";
 import { tutorRoutes } from "@/routes/tutorRoutes";
+import Image from "next/image";
 
 const data = {
   user: {
@@ -189,10 +190,16 @@ export function AppSidebar({
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
+              <div className="relative w-48 h-20">
+                {/* Added 'relative' so 'fill' works, and used standard Tailwind spacing (w-48) */}
+                <Image
+                  src="/logo.png"
+                  alt="Platform Logo"
+                  fill
+                  priority
+                  className="object-contain"
+                />
+              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -202,8 +209,8 @@ export function AppSidebar({
         <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent> */}
-      {routes.map((item) => (
-        <SidebarGroup key={item.title}>
+      {routes.map((item,i) => (
+        <SidebarGroup key={i}>
           <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
