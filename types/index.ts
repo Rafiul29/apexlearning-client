@@ -1,3 +1,4 @@
+export type * from "./routes.type";
 
 export enum UserRole {
   STUDENT = "STUDENT",
