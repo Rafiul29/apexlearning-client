@@ -14,9 +14,10 @@ const SocialGoogle = ({ title }: { title: string }) => {
     try {
       const data = await authClient.signIn.social({
         provider: "google",
-        callbackURL: window.location.origin,
+        callbackURL: `${window.location.origin}/auth-callback`,
       });
-      
+
+      console.log(data)
     } catch (error: any) {
       toast.error(error.message || "Failed to connect to Google");
       setIsLoading(false);

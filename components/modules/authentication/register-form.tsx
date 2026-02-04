@@ -30,9 +30,7 @@ const formSchema = z.object({
   name: z.string().min(1, "Name is required!").max(40),
   email: z.string().trim().email().toLowerCase(),
   password: z.string().min(8, "Minimum length is 8").max(20),
-  role: z.enum([UserRole.STUDENT, UserRole.TUTOR], {
-    required_error: "Please select a role",
-  }),
+  role: z.enum([UserRole.STUDENT, UserRole.TUTOR]),
 });
 
 export function RegisterForm({

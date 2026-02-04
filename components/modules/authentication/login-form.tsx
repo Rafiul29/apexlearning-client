@@ -23,6 +23,10 @@ import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { Spinner } from "@/components/ui/spinner";
+import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { UserStatus } from "@/types";
 
 const formSchema = z.object({
   email: z
@@ -40,6 +44,8 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const form = useForm({
     defaultValues: {
       email: "",
@@ -52,17 +58,72 @@ export function LoginForm({
       const toastId = toast.loading("Logging in...");
       try {
         const { data, error } = await authClient.signIn.email(value);
-        console.log(error,"errr")
+        console.log(data);
+        console.log(error, "errr");
         if (error) {
           toast.error(error.message, { id: toastId });
           return;
         }
         toast.success("User Logged in Successfully", { id: toastId });
+
+        const user = data?.user as any;
+        const userRole = user?.role;
+
+        if (userRole === "admin") {
+          router.push("/admin");
+        } else if (userRole === "tutor") {
+          router.push("/tutor/dashboard");
+        } else {
+          router.push("/dashboard");
+        }
+        router.refresh();
       } catch (err) {
         toast.error("Something went wrong, please try again.", { id: toastId });
       }
     },
   });
+
+  useEffect(() => {
+    const status = searchParams.get("status") as UserStatus | null;
+    if (!status) return;
+
+    const statusMessages: Record<
+      string,
+      { title: string; description: string }
+    > = {
+      [UserStatus.INACTIVE]: {
+        title: "Account Inactive",
+        description:
+          "Your account is not yet active. Please check your email or contact support.",
+      },
+      [UserStatus.SUSPENDED]: {
+        title: "Account Suspended",
+        description:
+          "Your account is temporarily suspended for a policy violation.",
+      },
+      [UserStatus.BAN]: {
+        title: "Banned",
+        description:
+          "This account has been permanently banned from the platform.",
+      },
+    };
+
+    const message = statusMessages[status];
+
+    if (message) {
+      const timer = setTimeout(() => {
+        toast.error(message.title, {
+          description: message.description,
+          duration: 6000,
+        });
+      }, 100);
+
+      const newUrl = window.location.pathname;
+      window.history.replaceState({}, "", newUrl);
+
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams]);
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
