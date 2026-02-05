@@ -30,6 +30,9 @@ import Link from "next/link";
 import { ModeToggle } from "./MobileToogle";
 import Image from "next/image";
 import SearchModal from "../modules/shared/SearchModal";
+import { useEffect, useState } from "react";
+import { useSession } from "@/hooks/use-session";
+import { UserNav } from "./nav-user";
 
 interface MenuItem {
   title: string;
@@ -146,6 +149,8 @@ const Navbar = ({
   },
   className,
 }: Navbar1Props) => {
+  const { session, user, loading } = useSession();
+
   return (
     <section
       className={cn(
@@ -182,12 +187,14 @@ const Navbar = ({
             <SearchModal />
             <ModeToggle />
 
-            <Button asChild variant="outline" size="sm">
-              <Link href={auth.login.url}>{auth.login.title}</Link>
-            </Button>
-            <Button asChild size="sm">
-              <Link href={auth.signup.url}>{auth.signup.title}</Link>
-            </Button>
+            {session ? (<UserNav user={user || {}} />) : (<>
+              <Button asChild variant="outline" size="sm">
+                <Link href={auth.login.url}>{auth.login.title}</Link>
+              </Button>
+              <Button asChild size="sm">
+                <Link href={auth.signup.url}>{auth.signup.title}</Link>
+              </Button></>)}
+
           </div>
         </nav>
 
@@ -204,9 +211,11 @@ const Navbar = ({
                 alt={logo.alt}
               />
             </Link>
-            <div className="space-x-2">
+            <div className="space-x-2 flex items-center">
               <SearchModal />
               <ModeToggle />
+
+              {session && (<UserNav user={user || {}} />)}
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="outline" size="icon">
@@ -234,14 +243,15 @@ const Navbar = ({
                       {menu.map((item) => renderMobileMenuItem(item))}
                     </Accordion>
 
-                    <div className="flex flex-col gap-3">
+                    {!session && (<div className="flex flex-col gap-3">
                       <Button asChild variant="outline">
                         <Link href={auth.login.url}>{auth.login.title}</Link>
                       </Button>
                       <Button asChild>
                         <Link href={auth.signup.url}>{auth.signup.title}</Link>
                       </Button>
-                    </div>
+                    </div>)}
+
                   </div>
                 </SheetContent>
               </Sheet>

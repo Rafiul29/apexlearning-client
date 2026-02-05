@@ -110,7 +110,7 @@ export const TutorService = {
     getTutorById: async function (id: string) {
         try {
             const res = await fetch(`${API_URL}/tutors/${id}`, {
-                next: { revalidate: 60 }
+                next: { revalidate: 1 }
             });
             if (!res.ok) return { data: null, error: "Tutor not found" };
             const result = await res.json();

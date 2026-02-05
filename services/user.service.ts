@@ -70,8 +70,10 @@ export const userService = {
 
     deleteUser: async function (id: string) {
         try {
+            const cookieStore = await cookies();
             const res = await fetch(`${API_URL}/admin/users/${id}`, {
                 method: "DELETE",
+                headers: { "Content-Type": "application/json", Cookie: cookieStore.toString(), },
             });
             const result = await res.json();
 
@@ -81,6 +83,5 @@ export const userService = {
             return { data: null, error: err.message };
         }
     }
-
 
 }

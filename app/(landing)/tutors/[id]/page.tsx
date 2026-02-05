@@ -31,49 +31,6 @@ const DAYS = [
   "Saturday",
 ];
 
-const availableSlots = [
-  {
-    id: "slot-001",
-    tutorProfileId: "tutor-123",
-    categoryId: "cat-math",
-    category: { name: "Advanced Mathematics" },
-    dayOfWeek: 1,
-    startTime: "09:00 AM",
-    endTime: "10:30 AM",
-    isBooked: false,
-  },
-  {
-    id: "slot-002",
-    tutorProfileId: "tutor-123",
-    categoryId: "cat-math",
-    category: { name: "Advanced Mathematics" },
-    dayOfWeek: 1,
-    startTime: "02:00 PM",
-    endTime: "03:30 PM",
-    isBooked: false,
-  },
-  {
-    id: "slot-003",
-    tutorProfileId: "tutor-123",
-    categoryId: "cat-physics",
-    category: { name: "Quantum Physics" },
-    dayOfWeek: 2,
-    startTime: "11:00 AM",
-    endTime: "12:30 PM",
-    isBooked: false,
-  },
-  {
-    id: "slot-004",
-    tutorProfileId: "tutor-123",
-    categoryId: "cat-programming",
-    category: { name: "Web Development" },
-    dayOfWeek: 3,
-    startTime: "04:00 PM",
-    endTime: "05:00 PM",
-    isBooked: false,
-  },
-];
-
 export default async function TutorDetailPage({
   params,
 }: {
@@ -81,6 +38,17 @@ export default async function TutorDetailPage({
 }) {
   const { id } = await params;
   const { data: tutor, error } = await TutorService.getTutorById(id);
+
+  const availableSlots = tutor?.availability?.map((aviabile: any) => ({
+    id: aviabile.id,
+    tutorProfileId: aviabile?.tutorProfileId,
+    categoryId: aviabile.categoryId,
+    category: { name: aviabile.category.name },
+    dayOfWeek: aviabile.dayOfWeek,
+    startTime: aviabile.startTime,
+    endTime: aviabile.endTime,
+    isBooked: aviabile.isBooked,
+  }));
 
   if (error || !tutor) return notFound();
 
@@ -172,7 +140,7 @@ export default async function TutorDetailPage({
             {/* --- RIGHT CONTENT --- */}
             <div className="flex-1 space-y-8 w-full">
               <SlotGrid
-                availableSlots={availableSlots}
+                availableSlots={availableSlots || []}
                 tutor={tutor}
                 DAYS={DAYS}
               />

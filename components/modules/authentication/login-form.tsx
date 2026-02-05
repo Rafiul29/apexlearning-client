@@ -46,6 +46,9 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const redirectUrl = searchParams.get("redirectUrl") as string | null;
+  console.log(redirectUrl);
   const form = useForm({
     defaultValues: {
       email: "",
@@ -58,8 +61,6 @@ export function LoginForm({
       const toastId = toast.loading("Logging in...");
       try {
         const { data, error } = await authClient.signIn.email(value);
-        console.log(data);
-        console.log(error, "errr");
         if (error) {
           toast.error(error.message, { id: toastId });
           return;
@@ -69,13 +70,18 @@ export function LoginForm({
         const user = data?.user as any;
         const userRole = user?.role;
 
-        if (userRole === "admin") {
-          router.push("/admin");
-        } else if (userRole === "tutor") {
-          router.push("/tutor/dashboard");
+        if (redirectUrl) {
+          router.push(redirectUrl);
         } else {
-          router.push("/dashboard");
+          if (userRole === "admin") {
+            router.push("/admin");
+          } else if (userRole === "tutor") {
+            router.push("/tutor/dashboard");
+          } else {
+            router.push("/dashboard");
+          }
         }
+
         router.refresh();
       } catch (err) {
         toast.error("Something went wrong, please try again.", { id: toastId });

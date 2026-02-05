@@ -30,7 +30,7 @@ export default function SlotGrid({ availableSlots, tutor, DAYS }: any) {
               setSelectedSlot(slot);
               setIsOpen(true);
             }}
-            className="group relative p-5 rounded-2xl border border-slate-100 dark:border-slate-800 hover:border-[#FF6B6B] transition-all cursor-pointer"
+            className="group relative p-5 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-[#FF6B6B] transition-all cursor-pointer"
           >
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#FF6B6B] bg-rose-50 px-2 py-0.5 rounded">
               {DAYS[slot.dayOfWeek]}
