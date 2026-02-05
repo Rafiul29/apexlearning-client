@@ -1,7 +1,7 @@
 
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { bookingService } from "@/services/booking.service";
 
 
@@ -39,3 +39,15 @@ export async function updateBookingAction(id: string, data: any) {
 }
 
 
+export async function updateBookingStatusAction(id: string, newStatus: string, meetLink?: string) {
+
+    const result = await bookingService.updateBookingStatus(id, newStatus, meetLink);
+
+    if (result.error) {
+        return { success: false, message: result.error };
+    }
+
+    updateTag("Bookings")
+
+    return { success: true, message: `Booking ${newStatus.toLowerCase()} successfully!` };
+}

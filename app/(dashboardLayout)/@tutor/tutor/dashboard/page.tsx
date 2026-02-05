@@ -1,8 +1,8 @@
-export const dynamic = "force-dynamic";
+
 import TutorStatsOverview from "./_components/tutor-stats-overview";
 import UpcomingSession from "./_components/upcoming-seesion";
 import TutorDashboardHeader from "./_components/tutor-dashboard-header";
-
+export const dynamic = "force-dynamic";
 export default function TutorDashboard() {
   return (
     <div className="p-6 space-y-8  bg-slate-50 dark:bg-slate-950 min-h-screen">

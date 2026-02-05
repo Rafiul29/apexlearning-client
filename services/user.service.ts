@@ -82,6 +82,21 @@ export const userService = {
         } catch (err: any) {
             return { data: null, error: err.message };
         }
-    }
-
+    },
+    updateUserProfile: async function (data: { name: string; phone: string }) {
+        try {
+            const cookieStore = await cookies();
+            const res = await fetch(`${API_URL}/users/profile`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json", Cookie: cookieStore.toString(), },
+                body: JSON.stringify(data),
+            });
+            const result = await res.json();
+            
+            if (!res.ok) throw new Error(result.message || "Failed to update user");
+            return { data: result.data, error: null };
+        } catch (err: any) {
+            return { data: null, error: err.message };
+        }
+    },
 }

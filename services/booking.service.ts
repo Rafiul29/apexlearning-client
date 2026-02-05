@@ -5,11 +5,22 @@ const API_URL = env.API_URL
 
 export const bookingService = {
     getbookings: async function () {
+        const cookieStore = await cookies();
         try {
-
-            // return { data: data.data, error: null };
-        } catch (err) {
-            return { data: null, error: { message: "Something Went Wrong" } };
+            const res = await fetch(`${API_URL}/bookings`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Cookie: cookieStore.toString(),
+                },
+                next: {
+                    tags: ["Bookings"]
+                }
+            });
+            const result = await res.json();
+            if (!res.ok) throw new Error(result.message || "Failed to create");
+            return { data: result.data, error: null };
+        } catch (err: any) {
+            return { data: null, error: err.message };
         }
     },
     createBooking: async function (payload: { tutorProfileId: string; availabilityId: string, slotDate: string }) {
@@ -24,7 +35,6 @@ export const bookingService = {
                 body: JSON.stringify(payload),
             });
             const result = await res.json();
-            console.log(result)
 
             if (!res.ok) throw new Error(result.message || "Failed to create");
             return { data: result.data, error: null };
@@ -48,17 +58,23 @@ export const bookingService = {
             return { data: null, error: err.message };
         }
     },
-    deleteBooking: async function (id: string) {
+    updateBookingStatus: async function (id: string, status: string, meetLink?: string) {
         try {
+            const cookieStore = await cookies();
             const res = await fetch(`${API_URL}/bookings/${id}`, {
-                method: "DELETE",
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Cookie: cookieStore.toString(),
+                },
+                body: JSON.stringify({ status, meetLink }),
             });
             const result = await res.json();
 
-            if (!res.ok) throw new Error(result.message || "Failed to delete");
+            if (!res.ok) throw new Error(result.message || "Failed to update status");
             return { data: result.data, error: null };
         } catch (err: any) {
             return { data: null, error: err.message };
         }
-    }
+    },
 }
