@@ -22,6 +22,54 @@ interface GetTutorParams {
 }
 
 export const TutorService = {
+
+    createTutorProfile: async function (payload: any) {
+        try {
+            console.log(payload)
+            const cookieStore = await cookies();
+            const res = await fetch(`${API_URL}/tutors`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Cookie: cookieStore.toString(),
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const result = await res.json();
+            if (!res.ok) throw new Error(result.message || "Failed to create profile");
+
+            return { data: result.data, error: null };
+        } catch (err: any) {
+            return { data: null, error: err.message };
+        }
+    },
+
+    updateTutorProfile: async function (id: string, payload: any) {
+        try {
+            const cookieStore = await cookies();
+
+            const isFormData = payload instanceof FormData;
+
+            const res = await fetch(`${API_URL}/tutors/profile`, {
+                method: "PUT",
+                headers: {
+                    ...(isFormData ? {} : { "Content-Type": "application/json" }),
+                    Cookie: cookieStore.toString(),
+                },
+                body: isFormData ? payload : JSON.stringify(payload),
+            });
+
+            const result = await res.json();
+            console.log(result)
+            if (!res.ok) throw new Error(result.message || "Failed to update profile");
+
+            return { data: result.data, error: null };
+        } catch (err: any) {
+            return { data: null, error: err.message };
+        }
+    },
+
     getTutors: async function (params?: GetTutorParams, options?: ServiceOptions) {
         try {
 
@@ -58,6 +106,7 @@ export const TutorService = {
         }
 
     },
+
     getTutorById: async function (id: string) {
         try {
             const res = await fetch(`${API_URL}/tutors/${id}`, {
@@ -70,13 +119,15 @@ export const TutorService = {
             return { data: null, error: err };
         }
     },
+
     getTutorByUserId: async function (id: string) {
         try {
             const cookieStore = await cookies();
+            const cookieString = cookieStore.toString();
             const res = await fetch(`${API_URL}/tutors/user/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
-                    Cookie: cookieStore.toString(),
+                    ...(cookieString && { Cookie: cookieString }),
                 },
                 next: {
                     revalidate: 60,

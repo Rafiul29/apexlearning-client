@@ -1,9 +1,33 @@
+import { TutorService } from "@/services/tutor.service";
+import { userService } from "@/services/user.service";
+
+import AvailabilityManager from "./_components/availability-manager";
+import { categoryService } from "@/services/category.service";
 export const dynamic = "force-dynamic";
 
-export default async function BookingsPage() {
-  // Your code using cookies/session/headers...
+export default async function AvailabilityPage() {
+  const { data: session } = await userService.getSession();
+  const userInfo = session?.user;
+
+  const [tutorData, categoriesData] = await Promise.all([
+    TutorService.getTutorByUserId(userInfo.id),
+    categoryService.getCategories(),
+  ]);
+
+  const tutorProfile = tutorData?.data;
+  const categories = categoriesData?.data || [];
+
+  return (
+    <div className="container mx-auto py-8">
+      <AvailabilityManager
+        tutorProfileId={tutorProfile.id}
+        categories={categories}
+      />
+    </div>
+  );
 }
 
+// export const dynamic = "force-dynamic";
 
 // "use client";
 
@@ -11,9 +35,9 @@ export default async function BookingsPage() {
 // import { useForm } from "react-hook-form";
 // import { zodResolver } from "@hookform/resolvers/zod";
 // import * as z from "zod";
-// import { 
-//   Plus, Edit2, Trash2, Clock, CalendarClock, 
-//   Loader2, AlertCircle, CheckCircle2 
+// import {
+//   Plus, Edit2, Trash2, Clock, CalendarClock,
+//   Loader2, AlertCircle, CheckCircle2
 // } from "lucide-react";
 
 // import { Button } from "@/components/ui/button";
@@ -73,7 +97,7 @@ export default async function BookingsPage() {
 //     try {
 //       const endpoint = editingId ? `/api/slots/${editingId}` : `/api/slots/create`;
 //       const method = editingId ? "PATCH" : "POST";
-      
+
 //       const res = await fetch(endpoint, {
 //         method,
 //         headers: { "Content-Type": "application/json" },
@@ -123,7 +147,7 @@ export default async function BookingsPage() {
 
 //   return (
 //     <div className="max-w-6xl mx-auto p-6 space-y-8 min-h-screen bg-slate-50/50 dark:bg-slate-950">
-      
+
 //       {/* Header */}
 //       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b pb-6">
 //         <div>
@@ -135,7 +159,7 @@ export default async function BookingsPage() {
 //       </div>
 
 //       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        
+
 //         {/* LEFT: CREATE / EDIT FORM */}
 //         <div className="lg:col-span-4 space-y-6">
 //           <Card className="sticky top-6 border-slate-200 dark:border-slate-800 shadow-md">
@@ -153,7 +177,7 @@ export default async function BookingsPage() {
 //                 {/* Category Selection */}
 //                 <div className="space-y-2">
 //                   <label className="text-sm font-semibold">Subject Category</label>
-//                   <select 
+//                   <select
 //                     {...register("categoryId")}
 //                     className="w-full h-10 px-3 rounded-md border bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-rose-500 transition-all outline-none"
 //                   >
@@ -171,11 +195,11 @@ export default async function BookingsPage() {
 //                   <div className="grid grid-cols-4 gap-2">
 //                     {DAYS.map((day, i) => (
 //                       <label key={day} className="cursor-pointer">
-//                         <input 
-//                           type="radio" 
-//                           value={i} 
-//                           {...register("dayOfWeek")} 
-//                           className="peer sr-only" 
+//                         <input
+//                           type="radio"
+//                           value={i}
+//                           {...register("dayOfWeek")}
+//                           className="peer sr-only"
 //                         />
 //                         <div className="text-[10px] py-2 text-center rounded border bg-white dark:bg-slate-900 peer-checked:bg-rose-600 peer-checked:text-white peer-checked:border-rose-600 hover:bg-slate-50 transition-all">
 //                           {day.substring(0, 3)}
@@ -203,10 +227,10 @@ export default async function BookingsPage() {
 //                     {isLoading ? <Loader2 className="animate-spin mr-2" /> : editingId ? "Update Schedule" : "Add to Schedule"}
 //                   </Button>
 //                   {editingId && (
-//                     <Button 
-//                       type="button" 
-//                       variant="ghost" 
-//                       onClick={() => { setEditingId(null); reset(); }} 
+//                     <Button
+//                       type="button"
+//                       variant="ghost"
+//                       onClick={() => { setEditingId(null); reset(); }}
 //                       className="w-full text-slate-500"
 //                     >
 //                       Cancel Editing
@@ -266,18 +290,18 @@ export default async function BookingsPage() {
 //                         </TableCell>
 //                         <TableCell className="pr-6 text-right">
 //                           <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-//                             <Button 
-//                               variant="ghost" 
-//                               size="icon" 
-//                               className="h-8 w-8 text-blue-600 hover:bg-blue-50" 
+//                             <Button
+//                               variant="ghost"
+//                               size="icon"
+//                               className="h-8 w-8 text-blue-600 hover:bg-blue-50"
 //                               onClick={() => handleEdit(slot)}
 //                             >
 //                               <Edit2 size={14} />
 //                             </Button>
-//                             <Button 
-//                               variant="ghost" 
-//                               size="icon" 
-//                               className="h-8 w-8 text-red-600 hover:bg-red-50" 
+//                             <Button
+//                               variant="ghost"
+//                               size="icon"
+//                               className="h-8 w-8 text-red-600 hover:bg-red-50"
 //                               onClick={() => deleteSlot(slot.id)}
 //                             >
 //                               <Trash2 size={14} />

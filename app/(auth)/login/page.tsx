@@ -1,5 +1,5 @@
 import { LoginForm } from "@/components/modules/authentication/login-form";
-import { Suspense } from "react"; // এটি ইম্পোর্ট করুন
+import { Suspense } from "react";
 
 export default function Page() {
   return (

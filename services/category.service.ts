@@ -18,7 +18,6 @@ export const categoryService = {
 
             const url = new URL(`${API_URL}/categories`);
 
-            // 2. Append params only if they exist
             if (params) {
                 Object.entries(params).forEach(([key, value]) => {
                     if (value !== undefined && value !== null && value !== "") {
@@ -46,6 +45,49 @@ export const categoryService = {
         } catch (err) {
             return { data: null, error: { message: "Something Went Wrong" } };
         }
+    },
+    createCategory: async function (data: { name: string; description?: string }) {
+        try {
+            const res = await fetch(`${API_URL}/categories`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+            const result = await res.json();
 
+            if (!res.ok) throw new Error(result.message || "Failed to create");
+            return { data: result.data, error: null };
+        } catch (err: any) {
+            return { data: null, error: err.message };
+        }
+    },
+
+    updateCategory: async function (id: string, data: { name: string; description?: string }) {
+        try {
+            const res = await fetch(`${API_URL}/categories/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+            const result = await res.json();
+
+            if (!res.ok) throw new Error(result.message || "Failed to update");
+            return { data: result.data, error: null };
+        } catch (err: any) {
+            return { data: null, error: err.message };
+        }
+    },
+    deleteCategory: async function (id: string) {
+        try {
+            const res = await fetch(`${API_URL}/categories/${id}`, {
+                method: "DELETE",
+            });
+            const result = await res.json();
+
+            if (!res.ok) throw new Error(result.message || "Failed to delete");
+            return { data: result.data, error: null };
+        } catch (err: any) {
+            return { data: null, error: err.message };
+        }
     }
 }
