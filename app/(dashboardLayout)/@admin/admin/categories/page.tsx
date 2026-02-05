@@ -1,6 +1,7 @@
 import { categoryService } from "@/services/category.service";
 import { CategoryActions } from "../_components/category/CategoryActions";
 import { CategoryTable } from "../_components/category/CategoryTable";
+export const dynamic = "force-dynamic";
 
 export default async function CategoriesPage() {
   const { data, error } = await categoryService.getCategories();

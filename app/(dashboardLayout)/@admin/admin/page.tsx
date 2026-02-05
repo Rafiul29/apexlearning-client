@@ -1,5 +1,4 @@
-// app/admin/page.tsx
-"use client";
+
 import { DollarSign, GraduationCap, Users, CalendarCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatCard } from "./_components/StatCard";

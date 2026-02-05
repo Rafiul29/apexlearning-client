@@ -25,7 +25,7 @@ export const TutorService = {
 
     createTutorProfile: async function (payload: any) {
         try {
-            console.log(payload)
+         
             const cookieStore = await cookies();
             const res = await fetch(`${API_URL}/tutors`, {
                 method: "POST",
