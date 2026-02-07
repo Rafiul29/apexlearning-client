@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -14,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, LogOut, User, Settings } from "lucide-react";
+import { LayoutDashboard, LogOut } from "lucide-react";
 import { UserRole } from "@/types";
 
 export function UserNav({ user }: { user: any }) {
@@ -31,69 +30,72 @@ export function UserNav({ user }: { user: any }) {
     });
   };
 
-  const getDashboardPath = (role: string) => {
-    switch (role) {
-      case UserRole.ADMIN:
-        return "/admin";
-      case UserRole.TUTOR:
-        return "/tutor/dashboard";
-      case UserRole.STUDENT:
-      default:
-        return "/dashboard";
-    }
-  };
-
-  const dashboardPath = getDashboardPath(user?.role);
+  const dashboardPath =
+    user?.role === UserRole.ADMIN
+      ? "/admin"
+      : user?.role === UserRole.TUTOR
+        ? "/tutor/dashboard"
+        : "/dashboard";
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-10 w-10 rounded-full focus-visible:ring-0">
-          <Avatar className="h-8 w-8 border border-slate-200">
-            <AvatarImage src={user?.image} alt={user?.name} />
-            <AvatarFallback className="bg-slate-100 text-slate-900">
-              {user?.name?.charAt(0).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-        </Button>
-      </DropdownMenuTrigger>
+    <div className="flex items-center">
+      <DropdownMenu modal={false}>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            className="relative h-9 w-9 rounded-full ring-offset-background transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-0"
+          >
+            <Avatar className="h-8 w-8 border border-slate-200 dark:border-slate-700">
+              <AvatarImage
+                src={user?.image}
+                alt={user?.name || "User profile"}
+              />
+              <AvatarFallback className="bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400 font-bold">
+                {user?.name?.charAt(0).toUpperCase() || "U"}
+              </AvatarFallback>
+            </Avatar>
+          </Button>
+        </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel className="font-normal">
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user?.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">
-              {user?.email}
-            </p>
-          </div>
-        </DropdownMenuLabel>
-
-        <DropdownMenuSeparator />
-
-        <DropdownMenuItem asChild className="cursor-pointer">
-          <Link href={dashboardPath}>
-            <LayoutDashboard className="mr-2 h-4 w-4" />
-            <span>Dashboard</span>
-          </Link>
-        </DropdownMenuItem>
-
-        {/* <DropdownMenuItem asChild className="cursor-pointer">
-          <Link href="/profile">
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile Settings</span>
-          </Link>
-        </DropdownMenuItem> */}
-
-        <DropdownMenuSeparator />
-
-        <DropdownMenuItem
-          onClick={handleLogout}
-          className="text-red-600 focus:text-red-600 cursor-pointer"
+        <DropdownMenuContent
+          className="w-60 mt-2 p-2 shadow-xl border-slate-100 dark:border-slate-800 bg-white dark:bg-[#1E293B] rounded-xl"
+          align="end"
+          onCloseAutoFocus={(e) => e.preventDefault()}
         >
-          <LogOut className="mr-2 h-4 w-4" />
-          <span>Log out</span>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuLabel className="font-normal p-3">
+            <div className="flex flex-col space-y-1">
+              <p className="text-sm font-semibold leading-none text-slate-900 dark:text-slate-100">
+                {user?.name}
+              </p>
+              <p className="text-xs leading-none text-slate-500 dark:text-slate-400 truncate">
+                {user?.email}
+              </p>
+            </div>
+          </DropdownMenuLabel>
+
+          <DropdownMenuSeparator className="bg-slate-100 dark:bg-slate-800" />
+
+          <DropdownMenuItem
+            asChild
+            className="cursor-pointer rounded-lg py-2.5 focus:bg-slate-50 dark:focus:bg-slate-800 text-slate-700 dark:text-slate-300"
+          >
+            <Link href={dashboardPath} className="flex items-center w-full">
+              <LayoutDashboard className="mr-3 h-4 w-4 text-slate-500 dark:text-slate-400" />
+              <span className="font-medium">Dashboard</span>
+            </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuSeparator className="bg-slate-100 dark:bg-slate-800" />
+
+          <DropdownMenuItem
+            onClick={handleLogout}
+            className="text-rose-600 dark:text-rose-400 focus:text-rose-600 dark:focus:text-rose-400 focus:bg-rose-50 dark:focus:bg-rose-950/30 cursor-pointer rounded-lg py-2.5 mt-1"
+          >
+            <LogOut className="mr-3 h-4 w-4" />
+            <span className="font-semibold">Log out</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }

@@ -66,11 +66,12 @@ const TutorsPage = async ({
       <div className="wrapper pb-20">
         <TutorHeader />
         <SearchFilterTutor searchCategories={categories.data || []} />
-        {tutors.data.tutors && tutors.data.tutors.length > 0 ? (
+        {tutors?.data?.tutors && tutors?.data?.tutors.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {tutors.data.tutors.map((tutor: Tutor) => (
               <TutorCard key={tutor.id} tutor={tutor} />
             ))}
+            
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-20 px-4 text-center bg-white dark:bg-slate-900 border-2 border-dashed border-border rounded-[28px]">

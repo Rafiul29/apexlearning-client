@@ -51,6 +51,12 @@ export default function SlotGrid({ availableSlots, tutor, DAYS }: any) {
         ))}
       </div>
 
+      {availableSlots?.length === 0 && (
+        <div className="text-center text-slate-400 py-4">No available slot at this time</div>
+      )}
+
+
+
       <BookingModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

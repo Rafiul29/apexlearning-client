@@ -20,6 +20,7 @@ import { notFound } from "next/navigation";
 import { Category } from "@/types";
 import SlotGrid from "@/components/modules/tutorspage/SlotGrid";
 import ContactButton from "@/components/modules/tutorspage/ContactButton";
+import { cn } from "@/lib/utils";
 
 const DAYS = [
   "Sunday",
@@ -50,8 +51,10 @@ export default async function TutorDetailPage({
     isBooked: aviabile.isBooked,
   }));
 
-  if (error || !tutor) return notFound();
+  if (error || !tutor) return
 
+
+  console.log("tutor", tutor)
   return (
     <main className="min-h-screen pt-20 lg:pt-28 bg-white dark:bg-slate-950">
       <section className="relative w-full bg-[#F6F7F9] dark:bg-slate-950/50 py-12 lg:py-20">
@@ -120,7 +123,7 @@ export default async function TutorDetailPage({
                   <div className="text-center">
                     <div className="font-bold flex items-center gap-1">
                       <Users className="w-4 h-4 text-slate-400" />
-                      140+
+                      {tutor?.totalStudents}+
                     </div>
                     <span className="text-[10px] uppercase text-slate-400 font-bold">
                       Students
@@ -159,16 +162,108 @@ export default async function TutorDetailPage({
                   <Briefcase className="w-5 h-5 text-[#FF6B6B] mb-4" />
                   <h3 className="font-bold mb-2">Experience</h3>
                   <p className="text-slate-500 text-sm">
-                    8+ years of professional teaching.
+                    {tutor?.experience}
                   </p>
                 </div>
                 <div className="p-6 bg-white dark:bg-slate-900 rounded-[28px] border border-slate-100 shadow-sm">
                   <GraduationCap className="w-5 h-5 text-[#FF6B6B] mb-4" />
                   <h3 className="font-bold mb-2">Education</h3>
                   <p className="text-slate-500 text-sm">
-                    Master of Science in Education.
+                    {tutor?.education}
                   </p>
                 </div>
+              </div>
+
+              <div className="p-8 bg-white dark:bg-slate-900 rounded-[32px] shadow-sm border border-slate-100 dark:border-slate-800">
+                {/* Header Section */}
+                <div className="flex items-center justify-between mb-8">
+                  <h3 className="text-xl font-bold flex items-center gap-2 font-['Poppins']">
+                    <MessageSquare className="w-6 h-6 text-[#FF6B6B]" />
+                    Student Reviews ({tutor?._count?.reviews})
+                  </h3>
+                  <div className="flex items-center gap-2 px-4 py-2 bg-[#FF6B6B]/5 rounded-full">
+                    <Star className="w-5 h-5 fill-[#FF6B6B] text-[#FF6B6B]" />
+                    <span className="font-bold text-lg text-slate-900 dark:text-white">
+                      {tutor.averageRating}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Reviews List */}
+                <div className="space-y-6">
+                  {tutor?.reviews?.length > 0 ? (
+                    tutor.reviews.map((review: any) => (
+                      <div
+                        key={review.id}
+                        className="p-6 bg-[#F6F7F9] dark:bg-slate-800/50 rounded-2xl transition-all hover:shadow-md border border-transparent hover:border-[#FF6B6B]/10"
+                      >
+                        {/* Individual Star Rating */}
+                        <div className="flex gap-0.5 mb-3">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              size={14}
+                              className={cn(
+                                i < review.rating ? "fill-amber-400 text-amber-400" : "text-slate-200"
+                              )}
+                            />
+                          ))}
+                        </div>
+
+                        <p className="italic text-slate-600 dark:text-slate-300 mb-4 leading-relaxed line-clamp-3">
+                          "{review.content}"
+                        </p>
+
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            {/* User Avatar / Initials */}
+                            {review.student.image ? (
+                              <img
+                                src={review.student.image}
+                                alt={review.student.name}
+                                className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm"
+                              />
+                            ) : (
+                              <div className="w-10 h-10 bg-[#FF6B6B]/10 rounded-full flex items-center justify-center font-bold text-[#FF6B6B] uppercase">
+                                {review.student.name.substring(0, 2)}
+                              </div>
+                            )}
+
+                            <div>
+                              <p className="text-sm font-bold text-slate-900 dark:text-white">
+                                {review.student.name}
+                              </p>
+                              <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                                Verified Student • {new Date(review.createdAt).toLocaleDateString()}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Optional Badge for 5-star reviews */}
+                          {review.rating === 5 && (
+                            <Badge variant="outline" className="text-[9px] border-emerald-200 text-emerald-600 bg-emerald-50 hidden sm:flex">
+                              Top Rated
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-center py-10">
+                      <p className="text-slate-400 italic">No reviews yet for this tutor.</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* View More Logic */}
+                {tutor?._count?.reviews > 5 && (
+                  <Button
+                    variant="link"
+                    className="w-full mt-6 text-[#FF6B6B] font-bold hover:no-underline"
+                  >
+                    View All {tutor?._count?.reviews} Reviews
+                  </Button>
+                )}
               </div>
             </div>
           </div>

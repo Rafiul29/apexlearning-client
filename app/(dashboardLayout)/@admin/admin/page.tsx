@@ -4,17 +4,46 @@ import { Button } from "@/components/ui/button";
 import { StatCard } from "./_components/StatCard";
 import { ApprovalQueue } from "./_components/ApprovalQueue";
 import { PlatformVitals } from "./_components/PlatformVitals";
+import { dashboardStatisticsService } from "@/services/dashboard-statistics.service";
+import { formatCurrency } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
-const STATS = [
-  { label: "Total Revenue", value: "$128,430", icon: DollarSign, color: "text-emerald-600", bg: "bg-emerald-50" },
-  { label: "Active Tutors", value: "842", icon: GraduationCap, color: "text-blue-600", bg: "bg-blue-50" },
-  { label: "Total Students", value: "12,104", icon: Users, color: "text-purple-600", bg: "bg-purple-50" },
-  { label: "Booked Sessions", value: "3,240", icon: CalendarCheck, color: "text-rose-600", bg: "bg-rose-50" },
-];
+export default async function AdminDashboardPage() {
 
-export default function AdminDashboardPage() {
+  const { data: stats, error } = await dashboardStatisticsService.getDashboardStatistics();
+
+  const STATS = [
+    {
+      label: "Total Revenue",
+      value: formatCurrency(stats.totalRevenue),
+      icon: DollarSign,
+      color: "text-emerald-600",
+      bg: "bg-emerald-50"
+    },
+    {
+      label: "Active Tutors",
+      value: stats.activeTutors.toString(),
+      icon: GraduationCap,
+      color: "text-blue-600",
+      bg: "bg-blue-50"
+    },
+    {
+      label: "Total Students",
+      value: stats.totalStudents.toString(),
+      icon: Users,
+      color: "text-purple-600",
+      bg: "bg-purple-50"
+    },
+    {
+      label: "Booked Sessions",
+      value: stats.bookedSessions.toString(),
+      icon: CalendarCheck,
+      color: "text-rose-600",
+      bg: "bg-rose-50"
+    },
+  ];
+
   return (
     <div className="p-6 lg:p-10 space-y-8 bg-slate-50/50 min-h-screen">
       {/* Header */}
@@ -37,12 +66,12 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Main Content Layout */}
-      <div className="grid gap-8 lg:grid-cols-3">
+      {/* <div className="grid gap-8 lg:grid-cols-3">
         <ApprovalQueue />
         <div className="space-y-6">
           <PlatformVitals />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

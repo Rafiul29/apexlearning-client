@@ -38,9 +38,9 @@ const DashboardLayout = async ({
               </div>
               <DataTable data={data} /> */}
               <div className="px-4 lg:px-6">
-                {userInfo.role === UserRole.ADMIN && admin}
-                {userInfo.role === UserRole.TUTOR && tutor}
-                {userInfo.role === UserRole.STUDENT && student}
+                {userInfo?.role === UserRole.ADMIN && admin}
+                {userInfo?.role === UserRole.TUTOR && tutor}
+                {userInfo?.role === UserRole.STUDENT && student}
               </div>
             </div>
           </div>

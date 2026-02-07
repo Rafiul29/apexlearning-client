@@ -8,7 +8,7 @@ const Community = () => {
       id="community"
       className="relative w-full bg-[#F6F7F9] dark:bg-[#0F172A] py-16 lg:py-24 transition-colors duration-300"
     >
-      <div className="px-6 lg:px-[7vw]">
+      <div className="wrapper">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
           <div className="flex-1 w-full">
             <h2 className="text-3xl lg:text-[clamp(28px,3vw,44px)] font-bold text-[#111827] dark:text-white font-['Poppins'] mb-4">

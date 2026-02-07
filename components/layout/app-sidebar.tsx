@@ -189,14 +189,14 @@ export function AppSidebar({
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <div className="relative w-48 h-20">
-                {/* Added 'relative' so 'fill' works, and used standard Tailwind spacing (w-48) */}
+              <div className="relative h-10 w-32 md:h-12 md:w-40">
                 <Image
                   src="/logo.png"
                   alt="Platform Logo"
                   fill
                   priority
-                  className="object-contain"
+                  sizes="(max-width: 768px) 128px, 160px"
+                  className="object-contain object-left"
                 />
               </div>
             </SidebarMenuButton>
@@ -208,7 +208,7 @@ export function AppSidebar({
         <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent> */}
-      {routes.map((item,i) => (
+      {routes.map((item, i) => (
         <SidebarGroup key={i}>
           <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
           <SidebarGroupContent>

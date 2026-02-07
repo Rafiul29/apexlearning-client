@@ -92,7 +92,7 @@ export const userService = {
                 body: JSON.stringify(data),
             });
             const result = await res.json();
-            
+
             if (!res.ok) throw new Error(result.message || "Failed to update user");
             return { data: result.data, error: null };
         } catch (err: any) {
