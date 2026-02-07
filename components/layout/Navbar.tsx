@@ -41,7 +41,7 @@ const Navbar = () => {
 
   return (
     <section className="fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-3">
-      <div className="container mx-auto px-4">
+      <div className="wrapper">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
           <div className="flex items-center gap-8">
@@ -81,7 +81,7 @@ const Navbar = () => {
               <UserNav user={user || {}} />
             ) : (
               <div className="flex items-center gap-2">
-                <Button asChild variant="ghost" size="sm">
+                <Button asChild size="sm">
                   <Link href="/login">Login</Link>
                 </Button>
                 <Button asChild size="sm" className="rounded-full px-5">

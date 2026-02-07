@@ -138,7 +138,7 @@ const FindTutor = ({ searchCategories }: { searchCategories: Category[] }) => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Categories</SelectItem>
-                  {searchCategories.map((cat) => (
+                  {searchCategories?.map((cat) => (
                     <SelectItem key={cat.id} value={cat.id}>
                       {cat.name}
                     </SelectItem>
@@ -165,7 +165,7 @@ const FindTutor = ({ searchCategories }: { searchCategories: Category[] }) => {
             </div>
           ) : tutors.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {tutors.map((tutor) => (
+              {tutors?.map((tutor) => (
                 <TutorCard key={tutor.id} tutor={tutor} />
               ))}
             </div>
