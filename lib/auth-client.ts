@@ -1,14 +1,14 @@
 import { env } from "@/env";
 import { createAuthClient } from "better-auth/react";
 export const authClient = createAuthClient({
-  baseURL: env.NEXT_PUBLIC_BACKEND_URL,
+  baseURL: typeof window !== "undefined" ? window.location.origin : "",
   fetchOptions: {
-    credentials: "include", 
+    credentials: "include",
   },
   trustedOrigins: [
-        "http://localhost:3000",
-        "https://apexlearning-edu.vercel.app"
-    ],
+    "http://localhost:3000",
+    "https://apexlearning-edu.vercel.app",
+  ],
   additionalFields: {
     user: {
       role: {
