@@ -15,7 +15,7 @@ const SocialGoogle = ({ title }: { title: string }) => {
     try {
       const data = await authClient.signIn.social({
         provider: "google",
-        callbackURL: `${env.NEXT_PUBLIC_API_URL}/auth-callback`,
+        callbackURL: "http://localhost:3000/auth-callback",
       });
 
       console.log(data);

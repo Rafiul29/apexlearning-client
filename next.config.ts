@@ -17,6 +17,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+    async rewrites() {
+    return [
+      {
+        source: "/api/auth/:path*",
+        destination: "https://apexlearning-server.vercel.app*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

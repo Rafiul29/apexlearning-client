@@ -51,7 +51,7 @@ const Navbar = () => {
             >
               <Image
                 width={80}
-                height={40}
+                height={80}
                 src="/logo.png"
                 className="dark:invert"
                 alt="Apex Logo"

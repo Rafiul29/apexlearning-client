@@ -216,7 +216,7 @@ export function LoginForm({
                     </Button>
                   )}
                 />
-                <SocialGoogle title="Sigin In with Google" />
+                {/* <SocialGoogle title="Sigin In with Google" /> */}
                 <FieldDescription className="text-center">
                   Don&apos;t have an account?{" "}
                   <Link href="/register">Register</Link>
