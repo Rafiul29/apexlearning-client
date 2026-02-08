@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
+import { env } from "@/env";
 
 const SocialGoogle = ({ title }: { title: string }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,10 +15,10 @@ const SocialGoogle = ({ title }: { title: string }) => {
     try {
       const data = await authClient.signIn.social({
         provider: "google",
-        callbackURL: `${window.location.origin}/auth-callback`,
+        callbackURL: `${env.NEXT_PUBLIC_API_URL}/auth-callback`,
       });
 
-      console.log(data)
+      console.log(data);
     } catch (error: any) {
       toast.error(error.message || "Failed to connect to Google");
       setIsLoading(false);

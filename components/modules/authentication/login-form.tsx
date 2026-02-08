@@ -70,15 +70,18 @@ export function LoginForm({
         const user = data?.user as any;
         const userRole = user?.role;
 
+        router.refresh();
+
         if (redirectUrl) {
-          router.push(redirectUrl);
+          router.replace(redirectUrl);
         } else {
-          if (userRole === "admin") {
-            router.push("/admin");
-          } else if (userRole === "tutor") {
-            router.push("/tutor/dashboard");
+          if (userRole === "ADMIN") {
+            router.replace("/admin");
+          } else if (userRole === "TUTOR") {
+            console.log("first");
+            router.replace("/tutor/dashboard");
           } else {
-            router.push("/dashboard");
+            router.replace("/dashboard");
           }
         }
 
