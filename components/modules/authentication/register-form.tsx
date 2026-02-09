@@ -61,7 +61,12 @@ export function RegisterForm({
           toast.error(error.message, { id: toastId });
           return;
         }
-        toast.success("Account Created Successfully!", { id: toastId });
+         toast.success(`Verification email sent to ${data?.user.email}`, {
+          id: toastId,
+          description:
+            "Please check your inbox (and spam folder) to activate your account.",
+        });
+       
       } catch (err) {
         toast.error("Something went wrong.", { id: toastId });
       }

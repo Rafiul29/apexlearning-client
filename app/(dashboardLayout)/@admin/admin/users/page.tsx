@@ -1,6 +1,6 @@
 import { userService } from "@/services/user.service";
 import { UserTable } from "./_components/UserTable";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Example using Shadcn UI tabs
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; 
 import { User } from "@/types";
 
 export const dynamic = "force-dynamic";
