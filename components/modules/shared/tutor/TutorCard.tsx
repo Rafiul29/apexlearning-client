@@ -16,7 +16,7 @@ const TutorCard = ({ tutor }: { tutor: Tutor }) => {
           <Image
             width={480}
             height={320}
-            src={tutor?.user?.image || "/images/default-avatar.png"}
+            src={tutor?.user?.image || "/images/default-avatar.jpg"}
             className="w-16 h-16 rounded-full object-cover border-2 border-slate-100"
             alt={tutor?.user?.name || "Tutor"}
           />
@@ -78,7 +78,6 @@ const TutorCard = ({ tutor }: { tutor: Tutor }) => {
           className="bg-[#FF6B6B] hover:bg-[#ff5252] text-white rounded-xl px-5 shadow-lg shadow-[#FF6B6B]/20"
         >
           <Link href={`/tutors/${tutor.id}`}>View Profile </Link>
-          
         </Button>
       </div>
     </div>

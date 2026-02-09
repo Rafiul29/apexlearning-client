@@ -9,7 +9,7 @@ export const getSessionStatus = (slotDate: string, startTime: string, endTime: s
   const [eHours, eMinutes] = endTime.split(':').map(Number);
   const end = new Date(sessionDate).setHours(eHours, eMinutes, 0, 0);
 
-  const FIVE_MINUTES = 5 * 60 * 1000;
+  const FIVE_MINUTES = 1 * 60 * 1000;
   
   const isReady = now.getTime() >= (start - FIVE_MINUTES);
   const isPast = now.getTime() > end;

@@ -45,7 +45,7 @@ export function BookingCard({
   const [now, setNow] = useState(new Date());
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
-  console.log(booking);
+
 
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
@@ -65,7 +65,6 @@ export function BookingCard({
     // "23:22",
     // "23:40",
   );
-  console.log(isReady, isPast);
 
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 60000);
@@ -256,7 +255,7 @@ export function BookingCard({
                       </>
                     ) : (
                       <>
-                        <Clock size={16} className="mr-2" /> Unlocks in 5m
+                        <Clock size={16} className="mr-2" /> Unlocks in 1m
                       </>
                     )}
                   </Button>
@@ -288,7 +287,7 @@ export function BookingCard({
               )}
 
               {/* Cancel */}
-              {!isPast && booking.status === "CONFIRMED" && (
+              {!isReady && !isPast && booking.status === "CONFIRMED" && (
                 <Button
                   size="sm"
                   variant="ghost"

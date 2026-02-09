@@ -17,8 +17,6 @@ const SocialGoogle = ({ title }: { title: string }) => {
         provider: "google",
         callbackURL: "http://localhost:3000/auth-callback",
       });
-
-      console.log(data);
     } catch (error: any) {
       toast.error(error.message || "Failed to connect to Google");
       setIsLoading(false);

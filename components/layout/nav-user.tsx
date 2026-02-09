@@ -16,13 +16,22 @@ import { Button } from "@/components/ui/button";
 import { LayoutDashboard, LogOut } from "lucide-react";
 import { UserRole } from "@/types";
 
-export function UserNav({ user }: { user: any }) {
+export function UserNav({
+  user,
+  refetch,
+}: {
+  user: any;
+  refetch?: () => Promise<void> | void;
+}) {
   const router = useRouter();
 
   const handleLogout = async () => {
     await authClient.signOut({
       fetchOptions: {
-        onSuccess: () => {
+        onSuccess: async () => {
+          if (refetch) {
+            await refetch();
+          }
           router.push("/");
           router.refresh();
         },

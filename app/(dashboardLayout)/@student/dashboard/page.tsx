@@ -12,7 +12,6 @@ export default async function StudentDashboardPage() {
     return <div className="p-10 text-center">Failed to load data.</div>;
   }
 
-  console.log(stats)
 
   return (
     <div className="p-6 lg:p-8 space-y-8 bg-white min-h-screen">
