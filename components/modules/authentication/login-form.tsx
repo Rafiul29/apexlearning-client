@@ -64,11 +64,7 @@ export function LoginForm({
           toast.error(error.message, { id: toastId });
           return;
         }
-        toast.success(`Verification email sent to ${data?.user.email}`, {
-          id: toastId,
-          description:
-            "Please check your inbox (and spam folder) to activate your account.",
-        });
+       
         const user = data?.user as any;
         const userRole = user?.role;
 
@@ -85,7 +81,7 @@ export function LoginForm({
             router.replace("/dashboard");
           }
         }
-
+        toast.success("Account Login Successfully!", { id: toastId });
         router.refresh();
       } catch (err) {
         toast.error("Something went wrong, please try again.", { id: toastId });

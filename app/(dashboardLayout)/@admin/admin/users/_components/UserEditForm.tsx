@@ -16,7 +16,6 @@ import {
 import { toast } from "sonner";
 import { updateUserAction } from "@/actions/user";
 
-// Aligning Schema with your provided Enums
 const userSchema = z.object({
   role: z.enum(["STUDENT", "TUTOR", "ADMIN"]),
   status: z.enum(["ACTIVE", "INACTIVE", "BLOCKED", "SUSPENDED", "BAN"]),
