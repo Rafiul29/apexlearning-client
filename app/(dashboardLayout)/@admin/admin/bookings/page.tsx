@@ -20,9 +20,9 @@ export default async function BookingsPage() {
 
   const userRole = sessionData?.user?.role || "STUDENT";
 
-  console.log(bookings)
   return (
     <MyBookingsClient
+      title="All Bookings"
       initialBookings={bookings || []}
       userRole={userRole}
     />

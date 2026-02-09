@@ -31,7 +31,7 @@ import { UserNav } from "./nav-user";
 import { ModeToggle } from "./MobileToogle";
 
 const Navbar = () => {
-  const { session, user } = useSession();
+  const { session, user, refetch } = useSession();
 
   const menu = [
     { title: "Home", url: "/" },
@@ -78,7 +78,7 @@ const Navbar = () => {
           <div className="flex items-center gap-3">
             <ModeToggle />
             {session ? (
-              <UserNav user={user || {}} />
+              <UserNav user={user || {}} refetch={refetch} />
             ) : (
               <div className="flex items-center gap-2">
                 <Button asChild size="sm">

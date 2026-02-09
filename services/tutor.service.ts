@@ -61,7 +61,7 @@ export const TutorService = {
             });
 
             const result = await res.json();
-            console.log(result)
+           
             if (!res.ok) throw new Error(result.message || "Failed to update profile");
 
             return { data: result.data, error: null };

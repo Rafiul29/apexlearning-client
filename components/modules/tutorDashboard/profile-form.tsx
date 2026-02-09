@@ -78,7 +78,6 @@ export function TutorProfileForm({
     },
   });
 
-  console.log(initialData?.user?.phone);
 
   const selectedCategories = watch("categoryIds");
 

@@ -20,7 +20,6 @@ export default function AuthCallback() {
           setTimeout(() => router.push("/login"), 2000);
           return;
         }
-        console.log("session", session);
         const user = session.user as any;
         const role = user.role;
 

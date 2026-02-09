@@ -29,16 +29,8 @@ import {
 import { cn } from "@/lib/utils";
 import { UserRole } from "@/types";
 import { createBookingAction } from "@/actions/booking";
-
-const DAYS = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+import { DAYS } from "@/constrains/weekdays";
+import Link from "next/link";
 
 export default function BookingModal({ isOpen, onClose, slot, tutor }: any) {
   const router = useRouter();
@@ -51,8 +43,30 @@ export default function BookingModal({ isOpen, onClose, slot, tutor }: any) {
 
   const validUpcomingDate = useMemo(() => {
     if (!slot || !isOpen) return null;
+
+    const now = new Date();
     const today = new Date();
-    return nextDay(today, slot.dayOfWeek);
+    const targetDay = slot.dayOfWeek;
+
+    let targetDate =
+      today.getDay() === targetDay ? today : nextDay(today, targetDay);
+
+    if (isSameDay(targetDate, today)) {
+      const [time, modifier] = slot.startTime.split(" ");
+      let [hours, minutes] = time.split(":").map(Number);
+
+      if (modifier === "PM" && hours < 12) hours += 12;
+      if (modifier === "AM" && hours === 12) hours = 0;
+
+      const slotToday = new Date();
+      slotToday.setHours(hours, minutes, 0, 0);
+
+      if (now >= slotToday) {
+        targetDate = nextDay(today, targetDay);
+      }
+    }
+
+    return targetDate;
   }, [slot, isOpen]);
 
   useEffect(() => {
@@ -255,10 +269,11 @@ export default function BookingModal({ isOpen, onClose, slot, tutor }: any) {
                 </p>
               </div>
               <Button
+                asChild
                 className="w-full py-7 rounded-2xl bg-slate-900 text-white font-bold"
                 onClick={resetAndClose}
               >
-                Return to Profile
+                <Link href={"/dashboard/bookings"}>Return to Profile</Link>
               </Button>
             </div>
           )}

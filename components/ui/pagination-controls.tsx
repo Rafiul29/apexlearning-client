@@ -25,7 +25,6 @@ export default function PaginationControls({
 }: PaginationControlsProps) {
   const { limit: pageSize, page: currentPage, total, totalPages } = meta;
 
-  console.log({ totalPages, currentPage });
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -33,7 +32,7 @@ export default function PaginationControls({
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", page.toString());
     router.push(`?${params.toString()}`);
-    console.log(params);
+   
   };
 
   const start = (currentPage - 1) * pageSize + 1;

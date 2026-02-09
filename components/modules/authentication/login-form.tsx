@@ -48,7 +48,6 @@ export function LoginForm({
   const searchParams = useSearchParams();
 
   const redirectUrl = searchParams.get("redirectUrl") as string | null;
-  console.log(redirectUrl);
   const form = useForm({
     defaultValues: {
       email: "",
@@ -65,8 +64,11 @@ export function LoginForm({
           toast.error(error.message, { id: toastId });
           return;
         }
-        toast.success("User Logged in Successfully", { id: toastId });
-
+        toast.success(`Verification email sent to ${data?.user.email}`, {
+          id: toastId,
+          description:
+            "Please check your inbox (and spam folder) to activate your account.",
+        });
         const user = data?.user as any;
         const userRole = user?.role;
 
@@ -78,7 +80,6 @@ export function LoginForm({
           if (userRole === "ADMIN") {
             router.replace("/admin");
           } else if (userRole === "TUTOR") {
-            console.log("first");
             router.replace("/tutor/dashboard");
           } else {
             router.replace("/dashboard");
