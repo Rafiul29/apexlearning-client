@@ -8,28 +8,28 @@ export default function TutorStatsOverview({ stats }: { stats: any }) {
   const StatsCards = [
     {
       label: "Total Earnings",
-      value: formatCurrency(stats.totalEarnings),
+      value: formatCurrency(stats?.totalEarnings),
       icon: DollarSign,
       color: "text-green-600",
       bg: "bg-green-50"
     },
     {
       label: "Sessions Taught",
-      value: stats.sessionsTaught.toString(),
+      value: stats?.sessionsTaught.toString(),
       icon: GraduationCap,
       color: "text-blue-600",
       bg: "bg-blue-50"
     },
     {
       label: "Active Students",
-      value: stats.activeStudents.toString(),
+      value: stats?.activeStudents.toString(),
       icon: Users,
       color: "text-purple-600",
       bg: "bg-purple-50"
     },
     {
       label: "Avg. Rating",
-      value: stats.avgRating,
+      value: stats?.avgRating,
       icon: Star,
       color: "text-amber-500",
       bg: "bg-amber-50"

@@ -78,7 +78,6 @@ export function TutorProfileForm({
     },
   });
 
-
   const selectedCategories = watch("categoryIds");
 
   const toggleCategory = (id: string) => {

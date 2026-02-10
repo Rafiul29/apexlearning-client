@@ -9,6 +9,7 @@ export async function proxy(request: NextRequest) {
     const isAuthenticated = !!data && !error;
     const role = data?.user?.role;
 
+
     // 1. If not authenticated, allow Login and Register, redirect others to Login
     if (!isAuthenticated) {
         if (pathname === '/login' || pathname === '/register') return NextResponse.next();
