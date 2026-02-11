@@ -66,7 +66,7 @@ export default function SlotTable({
             ) : slots.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={4}
+                  colSpan={5}
                   className="h-40 text-center text-slate-400"
                 >
                   <AlertCircle className="mx-auto mb-2 opacity-20" />

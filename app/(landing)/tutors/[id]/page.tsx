@@ -56,7 +56,7 @@ export default async function TutorDetailPage({
                 <div className="flex justify-center mb-6">
                   <div className="relative">
                     <Image
-                      src={tutor.user?.image || "/images/default-avatar.png"}
+                      src={tutor.user?.image || "/images/default-avatar.jpg"}
                       alt={tutor.user?.name || "Tutor"}
                       width={128}
                       height={128}

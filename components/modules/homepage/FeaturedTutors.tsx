@@ -36,7 +36,7 @@ const FeaturedTutors = ({ featuredTutors }: FeaturedTutorsProps) => {
                   <Image
                     width={480}
                     height={320}
-                    src={tutor.user?.image || "/default-avatar.png"}
+                    src={tutor.user?.image || "/images/default-avatar.jpg"}
                     alt={tutor.user?.name || "Tutor"}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
