@@ -29,6 +29,7 @@ import Image from "next/image";
 import { useSession } from "@/hooks/use-session";
 import { UserNav } from "./nav-user";
 import { ModeToggle } from "./MobileToogle";
+import SearchModal from "../modules/shared/SearchModal";
 
 const Navbar = () => {
   const { session, user, refetch } = useSession();
@@ -76,6 +77,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-3">
+            <SearchModal/>
             <ModeToggle />
             {session ? (
               <UserNav user={user || {}} refetch={refetch} />
@@ -104,6 +106,7 @@ const Navbar = () => {
             />
           </Link>
           <div className="flex items-center gap-2">
+             <SearchModal/>
             <ModeToggle />
             {session && <UserNav user={user || {}} />}
             <Sheet>

@@ -21,7 +21,7 @@ export function CategoryActions() {
       <CategoryModal 
         isOpen={isAddModalOpen} 
         onClose={() => setIsAddModalOpen(false)} 
-        category={null} // Null ensures the form stays in "Create" mode
+        category={null} 
       />
     </>
   );

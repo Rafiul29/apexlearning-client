@@ -1,48 +1,52 @@
-import { Activity, ArrowUpRight } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+"use client";
 
-function HealthIndicator({ label, value, color }: { label: string; value: number; color: string }) {
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+} from "recharts";
+
+export const PlatformVitals = ({ data }: { data: any[] }) => {
   return (
-    <div className="space-y-2">
-      <div className="flex justify-between text-xs font-bold uppercase tracking-tight">
-        <span className="text-slate-400">{label}</span>
-        <span className="text-slate-900">{value}%</span>
-      </div>
-      <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden shadow-inner">
-        <div 
-            className={`h-full rounded-full transition-all duration-700 ease-out ${color}`} 
-            style={{ width: `${value}%` }} 
-        />
-      </div>
+    <div className="h-[300px] w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart data={data}>
+          <defs>
+            <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.1} />
+              <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid
+            strokeDasharray="3 3"
+            vertical={false}
+            stroke="#f1f5f9"
+          />
+          <XAxis
+            dataKey="name"
+            axisLine={false}
+            tickLine={false}
+            tick={{ fontSize: 12, fill: "#64748b" }}
+          />
+          <YAxis hide />
+          <Tooltip />
+          <Area
+            type="monotone"
+            dataKey="users"
+            stroke="#3b82f6"
+            strokeWidth={2}
+            fillOpacity={1}
+            fill="url(#colorUsers)"
+            name="Bookings"
+          />
+        </AreaChart>
+      </ResponsiveContainer>
     </div>
   );
-}
-
-export function PlatformVitals() {
-  return (
-    <Card className="border-slate-200 shadow-sm">
-      <CardHeader className="bg-slate-900 text-white rounded-t-lg">
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <Activity className="h-5 w-5 text-rose-400" /> Platform Vitals
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6 pt-6">
-        <HealthIndicator label="Booking Success Rate" value={98} color="bg-emerald-500" />
-        <HealthIndicator label="API Availability" value={99.9} color="bg-blue-500" />
-        <HealthIndicator label="Avg. Support Ticket" value={82} color="bg-amber-500" />
-        
-        <div className="pt-4 border-t border-slate-100">
-          <div className="flex items-center justify-between p-4 bg-emerald-50 border border-emerald-100 rounded-xl">
-            <div>
-              <p className="text-[10px] font-bold text-emerald-600 uppercase">Current Liquidity</p>
-              <p className="text-xl font-black text-emerald-900">$12,400.00</p>
-            </div>
-            <div className="p-2 bg-white rounded-full shadow-sm">
-              <ArrowUpRight className="text-emerald-600" size={24} />
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
+};
