@@ -10,31 +10,32 @@ import Link from "next/link";
 
 export function RecentBookings({ bookings }: { bookings: any[] }) {
     return (
-        <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
-            <CardHeader className="flex flex-row items-center justify-between">
+        <Card className="border-slate-200 dark:border-white/5 bg-white dark:bg-white/[0.02] shadow-sm rounded-[32px] overflow-hidden">
+            <CardHeader className="flex flex-row items-center justify-between border-b dark:border-white/5 p-8">
                 <div className="space-y-1">
-                    <CardTitle className="text-xl font-bold text-slate-900 dark:text-slate-100">
+                    <CardTitle className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter">
                         Recent Bookings
                     </CardTitle>
-                    <CardDescription className="dark:text-slate-400">
+                    <CardDescription className="text-slate-500 dark:text-slate-400 font-medium">
                         A history of your past and pending sessions.
                     </CardDescription>
                 </div>
-                <Button variant="link">
-                    <Link href={'/dashboard/bookings'} className="flex">   <span> View All</span> <ChevronRight size={16} className="ml-1" /></Link>
+                <Button variant="ghost" asChild className="text-emerald-600 dark:text-emerald-400 font-black hover:bg-emerald-50 dark:hover:bg-emerald-500/10 rounded-full px-6 text-[10px] uppercase tracking-widest border border-emerald-100 dark:border-emerald-500/20">
+                    <Link href={'/student/bookings'} className="flex items-center">
+                        View All <ChevronRight size={14} className="ml-1" />
+                    </Link>
                 </Button>
             </CardHeader>
 
             <CardContent className="p-0">
                 <div className="overflow-x-auto">
                     <Table>
-                        <TableHeader className="bg-slate-50 dark:bg-slate-900/50">
-                            <TableRow className="border-slate-200 dark:border-slate-800">
-                                <TableHead className="pl-6 text-slate-700 dark:text-slate-300">Tutor</TableHead>
-                                <TableHead className="text-slate-700 dark:text-slate-300">Date</TableHead>
-                                <TableHead className="text-slate-700 dark:text-slate-300">Amount</TableHead>
-                                <TableHead className="text-slate-700 dark:text-slate-300">Status</TableHead>
-                                <TableHead className="text-right pr-6" />
+                        <TableHeader className="bg-slate-50 dark:bg-white/5">
+                            <TableRow className="hover:bg-transparent dark:border-white/5">
+                                <TableHead className="pl-8 text-[10px] font-black uppercase tracking-widest">Tutor</TableHead>
+                                <TableHead className="text-[10px] font-black uppercase tracking-widest">Date</TableHead>
+                                <TableHead className="text-[10px] font-black uppercase tracking-widest">Amount</TableHead>
+                                <TableHead className="text-[10px] font-black uppercase tracking-widest">Status</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -42,49 +43,37 @@ export function RecentBookings({ bookings }: { bookings: any[] }) {
                                 bookings.map((booking) => (
                                     <TableRow
                                         key={booking.id}
-                                        className="hover:bg-slate-50/50 dark:hover:bg-slate-900/40 border-slate-200 dark:border-slate-800 transition-colors"
+                                        className="hover:bg-slate-50/50 dark:hover:bg-white/[0.02] dark:border-white/5 transition-colors group"
                                     >
-                                        <TableCell className="pl-6 font-semibold text-slate-900 dark:text-slate-200">
+                                        <TableCell className="pl-8 font-black text-slate-900 dark:text-white tracking-tight py-4">
                                             {booking.tutorProfile?.user?.name}
                                         </TableCell>
-                                        <TableCell className="text-slate-500 dark:text-slate-400 text-sm font-medium">
+                                        <TableCell className="text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest">
                                             {formatDate(booking.slotDate)}
                                         </TableCell>
-                                        <TableCell className="font-bold text-slate-900 dark:text-slate-100">
+                                        <TableCell className="font-black text-slate-900 dark:text-white tracking-tighter text-lg">
                                             {formatCurrency(booking.totalPrice)}
                                         </TableCell>
                                         <TableCell>
                                             <Badge
-                                                variant="secondary"
                                                 className={cn(
-                                                    "font-bold px-2.5 py-0.5 rounded-full border-none",
+                                                    "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border-none",
                                                     booking.status === "COMPLETED"
-                                                        ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
-                                                        : "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
+                                                        ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20"
+                                                        : "bg-slate-100 dark:bg-white/10 text-slate-500"
                                                 )}
                                             >
                                                 {booking.status}
                                             </Badge>
                                         </TableCell>
-                                        {/* <TableCell className="text-right pr-6">
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger asChild>
-                                                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500 dark:text-slate-400">
-                                                        <MoreHorizontal size={16} />
-                                                    </Button>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent align="end" className="dark:bg-slate-900 dark:border-slate-800">
-                                                    <DropdownMenuItem className="dark:focus:bg-slate-800">Receipt</DropdownMenuItem>
-                                                    <DropdownMenuItem className="text-rose-600 dark:text-rose-400 dark:focus:bg-rose-950/20">Rebook</DropdownMenuItem>
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
-                                        </TableCell> */}
                                     </TableRow>
                                 ))
                             ) : (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="h-32 text-center text-slate-400">
-                                        No recent bookings found.
+                                    <TableCell colSpan={4} className="h-48 text-center text-slate-400">
+                                         <div className="flex flex-col items-center gap-2 opacity-40">
+                                            <p className="font-bold tracking-tight">No recent bookings found.</p>
+                                         </div>
                                     </TableCell>
                                 </TableRow>
                             )}

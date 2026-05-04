@@ -131,19 +131,19 @@ export function TutorProfileForm({
   };
 
   return (
-    <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-md">
-      <CardHeader className="border-b border-slate-100 dark:border-slate-900 pb-4">
-        <CardTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+    <Card className="border-slate-200 dark:border-white/5 bg-white dark:bg-white/[0.02] shadow-sm rounded-[32px] overflow-hidden">
+      <CardHeader className="pb-8 border-b border-slate-100 dark:border-white/5">
+        <CardTitle className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter flex items-center gap-2">
           {isEditMode ? "Update Your Profile" : "Setup Your Tutor Profile"}
         </CardTitle>
       </CardHeader>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <CardContent className="space-y-8 pt-6">
+        <CardContent className="space-y-10 pt-10">
           {/* Section 0: Personal Information (User Model Fields) */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold flex items-center gap-2 text-rose-600 dark:text-rose-500">
-              <UserIcon size={20} /> Personal Information
+          <div className="space-y-6">
+            <h3 className="text-xs font-black uppercase tracking-[0.2em] flex items-center gap-2 text-emerald-600 dark:text-emerald-500">
+              <UserIcon size={16} /> Personal Information
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
@@ -182,63 +182,65 @@ export function TutorProfileForm({
             </div>
           </div>
 
-          <hr className="border-slate-100 dark:border-slate-900" />
+          <hr className="border-slate-100 dark:border-white/5" />
 
           {/* Section 1: Education & Experience */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold flex items-center gap-2 text-rose-600 dark:text-rose-500">
-              <GraduationCap size={20} /> Professional Background
+          <div className="space-y-6">
+            <h3 className="text-xs font-black uppercase tracking-[0.2em] flex items-center gap-2 text-emerald-600 dark:text-emerald-500">
+              <GraduationCap size={16} /> Professional Background
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">
                   Education
                 </label>
                 <Input
                   {...register("education")}
                   placeholder="e.g. BSc in Computer Science"
                   className={cn(
-                    "bg-slate-50 dark:bg-slate-900 border-slate-200",
-                    errors.education && "border-red-500",
+                    "h-12 rounded-2xl bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 font-medium outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500/50 transition-all",
+                    errors.education && "border-rose-500",
                   )}
                 />
                 <ErrorMsg message={errors.education?.message} />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">
                   Years of Experience
                 </label>
                 <Input
                   type="number"
                   {...register("experience_years")}
                   className={cn(
-                    "bg-slate-50 dark:bg-slate-900 border-slate-200",
-                    errors.experience_years && "border-red-500",
+                    "h-12 rounded-2xl bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 font-medium outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500/50 transition-all",
+                    errors.experience_years && "border-rose-500",
                   )}
                 />
                 <ErrorMsg message={errors.experience_years?.message} />
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
+              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">
                 Experience Summary
               </label>
               <Textarea
                 {...register("experience")}
                 placeholder="Briefly describe your teaching experience..."
                 className={cn(
-                  "bg-slate-50 dark:bg-slate-900 border-slate-200",
-                  errors.experience && "border-red-500",
+                  "rounded-2xl bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 font-medium outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500/50 transition-all",
+                  errors.experience && "border-rose-500",
                 )}
               />
               <ErrorMsg message={errors.experience?.message} />
             </div>
           </div>
 
+          <hr className="border-slate-100 dark:border-white/5" />
+
           {/* Section 2: Bio & Pricing */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold flex items-center gap-2 text-rose-600 dark:text-rose-500">
-              <Briefcase size={20} /> About Your Services
+          <div className="space-y-6">
+            <h3 className="text-xs font-black uppercase tracking-[0.2em] flex items-center gap-2 text-emerald-600 dark:text-emerald-500">
+              <Briefcase size={16} /> About Your Services
             </h3>
             <div className="space-y-2">
               <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
@@ -258,34 +260,34 @@ export function TutorProfileForm({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">
                   Hourly Rate ($)
                 </label>
                 <div className="relative">
-                  <DollarSign className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                  <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                   <Input
                     type="number"
                     {...register("pricePerHour")}
                     className={cn(
-                      "pl-10 bg-slate-50 dark:bg-slate-900 border-slate-200",
-                      errors.pricePerHour && "border-red-500",
+                      "h-12 pl-10 rounded-2xl bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 font-medium outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500/50 transition-all",
+                      errors.pricePerHour && "border-rose-500",
                     )}
                   />
                 </div>
                 <ErrorMsg message={errors.pricePerHour?.message} />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">
                   Subjects (comma separated)
                 </label>
                 <div className="relative">
-                  <BookOpen className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                  <BookOpen className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                   <Input
                     {...register("subjects")}
                     placeholder="Math, Physics, React"
                     className={cn(
-                      "pl-10 bg-slate-50 dark:bg-slate-900 border-slate-200",
-                      errors.subjects && "border-red-500",
+                      "h-12 pl-10 rounded-2xl bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 font-medium outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500/50 transition-all",
+                      errors.subjects && "border-rose-500",
                     )}
                   />
                 </div>
@@ -294,9 +296,11 @@ export function TutorProfileForm({
             </div>
           </div>
 
+          <hr className="border-slate-100 dark:border-white/5" />
+
           {/* Section 3: Categories Selection */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+            <h3 className="text-xs font-black uppercase tracking-[0.2em] text-slate-800 dark:text-slate-200 flex items-center gap-2">
               Teachable Categories
             </h3>
             <div className="flex flex-wrap gap-3">
@@ -308,10 +312,10 @@ export function TutorProfileForm({
                     type="button"
                     onClick={() => toggleCategory(cat.id)}
                     className={cn(
-                      "px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200",
+                      "px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border transition-all duration-200",
                       isActive
-                        ? "bg-rose-600 text-white border-rose-600 shadow-sm"
-                        : "bg-transparent text-slate-600 border-slate-200 hover:border-rose-400",
+                        ? "bg-emerald-600 text-white border-emerald-600 shadow-md shadow-emerald-500/20"
+                        : "bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-white/10 hover:border-emerald-500/50 hover:bg-emerald-50 dark:hover:bg-emerald-500/10",
                     )}
                   >
                     {cat.name}
@@ -323,11 +327,11 @@ export function TutorProfileForm({
           </div>
         </CardContent>
 
-        <CardFooter className="flex justify-end border-t border-slate-100 dark:border-slate-900 bg-slate-50/50 dark:bg-slate-900/50 py-4 px-6 gap-4">
+        <CardFooter className="flex justify-end border-t border-slate-100 dark:border-white/5 pt-6 pb-8 px-8 gap-4">
           <Button
             type="submit"
             disabled={isLoading}
-            className="bg-rose-600 hover:bg-rose-700 text-white min-w-[140px]"
+            className="bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-full px-10 h-14 shadow-xl shadow-emerald-500/20 active:scale-95 transition-all uppercase tracking-widest text-[10px]"
           >
             {isLoading ? (
               <>

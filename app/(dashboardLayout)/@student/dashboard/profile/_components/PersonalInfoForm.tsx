@@ -47,30 +47,34 @@ export function PersonalInfoForm({ initialData }: { initialData: any }) {
     }
 
     return (
-        <Card className="border-slate-200 shadow-sm">
-            <CardHeader>
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <Card className="border-slate-200 dark:border-white/5 bg-white dark:bg-white/[0.02] shadow-sm rounded-[32px] overflow-hidden">
+            <CardHeader className="pb-8 border-b border-slate-100 dark:border-white/5">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div>
-                        <CardTitle className="text-lg">Personal Information</CardTitle>
-                        <CardDescription>Update your basic contact details.</CardDescription>
+                        <CardTitle className="text-xs font-black uppercase tracking-[0.3em] text-emerald-600 mb-2">Personal Information</CardTitle>
+                        <CardDescription className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
+                            Update your basic contact details
+                        </CardDescription>
                     </div>
 
                     {/* Status & Role Badges */}
                     <div className="flex gap-2">
-                        <Badge variant="outline" className="flex items-center gap-1.5 py-1 px-3 border-slate-200">
-                            <ShieldCheck className="w-3.5 h-3.5 text-blue-500" />
-                            <span className="text-[11px] font-bold uppercase tracking-wider">
+                        <Badge variant="outline" className="flex items-center gap-2 py-2 px-4 border-slate-200 dark:border-white/10 rounded-full bg-slate-50 dark:bg-white/5">
+                            <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.1em] text-slate-600 dark:text-slate-300">
                                 {initialData?.role || "STUDENT"}
                             </span>
                         </Badge>
                         <Badge
                             className={cn(
-                                "flex items-center gap-1.5 py-1 px-3 border-none",
-                                initialData?.status === "ACTIVE" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
+                                "flex items-center gap-2 py-2 px-4 border-none rounded-full shadow-lg transition-transform hover:scale-105",
+                                initialData?.status === "ACTIVE" 
+                                    ? "bg-emerald-500 text-white shadow-emerald-500/20" 
+                                    : "bg-amber-500 text-white shadow-amber-500/20"
                             )}
                         >
-                            <Activity className="w-3.5 h-3.5" />
-                            <span className="text-[11px] font-bold uppercase tracking-wider">
+                            <Activity className="w-4 h-4" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.1em]">
                                 {initialData?.status || "ACTIVE"}
                             </span>
                         </Badge>
@@ -78,54 +82,68 @@ export function PersonalInfoForm({ initialData }: { initialData: any }) {
                 </div>
             </CardHeader>
 
-            <CardContent>
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
+            <CardContent className="pt-10">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+                    <div className="grid md:grid-cols-2 gap-8">
                         {/* Name Field */}
-                        <div className="space-y-2">
-                            <Label htmlFor="name">Full Name</Label>
-                            <div className="relative">
-                                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-                                <Input id="name" className="pl-10" {...register("name")} />
+                        <div className="space-y-3">
+                            <Label htmlFor="name" className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">Full Name</Label>
+                            <div className="relative group">
+                                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors" size={18} />
+                                <Input 
+                                    id="name" 
+                                    className="h-12 pl-12 rounded-2xl border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500/50 transition-all font-medium" 
+                                    {...register("name")} 
+                                />
                             </div>
-                            {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
+                            {errors.name && <p className="text-[10px] font-bold text-rose-500 uppercase tracking-widest px-1">{errors.name.message}</p>}
                         </div>
 
                         {/* Email Field - Disabled */}
-                        <div className="space-y-2">
-                            <Label htmlFor="email">Email Address</Label>
-                            <div className="relative">
-                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-                                <Input id="email" className="pl-10 bg-slate-50" defaultValue={initialData?.email} disabled />
+                        <div className="space-y-3">
+                            <Label htmlFor="email" className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">Email Address</Label>
+                            <div className="relative opacity-60">
+                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                                <Input 
+                                    id="email" 
+                                    className="h-12 pl-12 rounded-2xl border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/10 font-medium" 
+                                    defaultValue={initialData?.email} 
+                                    disabled 
+                                />
                             </div>
                         </div>
                     </div>
 
                     {/* Phone Field */}
-                    <div className="space-y-2">
-                        <Label htmlFor="phone">Phone Number</Label>
-                        <div className="relative">
-                            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-                            <Input id="phone" className="pl-10" placeholder="+1..." {...register("phone")} />
+                    <div className="space-y-3">
+                        <Label htmlFor="phone" className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">Phone Number</Label>
+                        <div className="relative group">
+                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors" size={18} />
+                            <Input 
+                                id="phone" 
+                                className="h-12 pl-12 rounded-2xl border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500/50 transition-all font-medium" 
+                                placeholder="+1 (555) 000-0000" 
+                                {...register("phone")} 
+                            />
                         </div>
-                        {errors.phone && <p className="text-xs text-red-500">{errors.phone.message}</p>}
+                        {errors.phone && <p className="text-[10px] font-bold text-rose-500 uppercase tracking-widest px-1">{errors.phone.message}</p>}
                     </div>
 
-                    <div className="pt-4 flex justify-between items-center border-t border-slate-100">
-                        <p className="text-[11px] text-slate-400">
-                            Account created on {new Date(initialData?.createdAt).toLocaleDateString()}
+                    <div className="pt-10 flex flex-col sm:flex-row justify-between items-center gap-6 border-t border-slate-100 dark:border-white/5">
+                        <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em]">
+                            Member since {new Date(initialData?.createdAt).toLocaleDateString()}
                         </p>
                         <Button
                             type="submit"
                             disabled={isSubmitting || !isDirty}
-                            className="bg-rose-600 hover:bg-rose-700 min-w-[140px]"
+                            className="bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-full px-10 h-14 shadow-xl shadow-emerald-500/20 active:scale-95 transition-all uppercase tracking-widest text-[10px] w-full sm:w-auto"
                         >
                             {isSubmitting ? (
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                             ) : (
-                                <Save className="mr-2 h-4 w-4" />
+                                <Save className="mr-2 h-5 w-5" />
                             )}
-                            Save Changes
+                            Update Account
                         </Button>
                     </div>
                 </form>

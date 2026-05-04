@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { BookingCard } from "./BookingCard";
+import { cn } from "@/lib/utils";
+import { Calendar } from "lucide-react";
 
 interface Props {
   initialBookings: any[];
@@ -50,27 +52,27 @@ export default function MyBookingsClient({
   console.log(sortedBookings);
 
   return (
-    <div className="p-6 lg:p-8 max-w-5xl mx-auto space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+    <div className="space-y-8 animate-in fade-in duration-500">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">
-            {" "}
+          <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-slate-900 dark:text-white leading-tight">
             {title ? title : "My Bookings"}
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-slate-500 dark:text-slate-400 font-medium">
             Manage your sessions and learning history.
           </p>
         </div>
-        <div className="flex gap-2 bg-slate-100 p-1 rounded-lg">
+        <div className="flex gap-2 bg-slate-100 dark:bg-white/5 p-1.5 rounded-2xl border dark:border-white/5">
           <Button
             variant={tab === "upcoming" ? "default" : "ghost"}
             size="sm"
             onClick={() => setTab("upcoming")}
-            className={
+            className={cn(
+              "rounded-xl px-6 font-bold transition-all text-xs uppercase tracking-widest",
               tab === "upcoming"
-                ? "bg-white shadow-sm hover:bg-white text-black"
-                : ""
-            }
+                ? "bg-white dark:bg-emerald-500 shadow-sm hover:bg-white dark:text-white text-black"
+                : "text-slate-500 hover:bg-slate-200 dark:hover:bg-white/5"
+            )}
           >
             Upcoming
           </Button>
@@ -78,18 +80,19 @@ export default function MyBookingsClient({
             variant={tab === "past" ? "default" : "ghost"}
             size="sm"
             onClick={() => setTab("past")}
-            className={
+            className={cn(
+              "rounded-xl px-6 font-bold transition-all text-xs uppercase tracking-widest",
               tab === "past"
-                ? "bg-white shadow-sm hover:bg-white text-black"
-                : ""
-            }
+                ? "bg-white dark:bg-emerald-500 shadow-sm hover:bg-white dark:text-white text-black"
+                : "text-slate-500 hover:bg-slate-200 dark:hover:bg-white/5"
+            )}
           >
             Past
           </Button>
         </div>
       </div>
 
-      <div className="grid gap-4">
+      <div className="grid gap-6">
         {sortedBookings.length > 0 ? (
           sortedBookings.map((booking) => (
             <BookingCard
@@ -99,8 +102,11 @@ export default function MyBookingsClient({
             />
           ))
         ) : (
-          <div className="py-20 text-center border-2 border-dashed rounded-2xl text-slate-400">
-            No {tab} bookings found.
+          <div className="py-24 text-center border-2 border-dashed rounded-[32px] border-slate-200 dark:border-white/10 text-slate-400 bg-white dark:bg-white/[0.01]">
+            <div className="flex flex-col items-center gap-4">
+               <Calendar className="w-12 h-12 text-slate-200 dark:text-slate-800" />
+               <p className="font-bold tracking-tight">No {tab} bookings found.</p>
+            </div>
           </div>
         )}
       </div>

@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { saveSlotAction } from "@/actions/avilabilities";
+import { Label } from "@/components/ui/label";
 
 const DAYS = [
   "Sunday",
@@ -107,55 +108,57 @@ export default function SlotForm({
   };
 
   return (
-    <Card className="shadow-md border-slate-200 dark:border-slate-800">
-      <CardHeader>
-        <CardTitle className="text-lg flex items-center gap-2">
+    <Card className="shadow-sm border-slate-200 dark:border-white/5 bg-white dark:bg-white/[0.02] rounded-[32px] overflow-hidden">
+      <CardHeader className="pb-6 border-b dark:border-white/5">
+        <CardTitle className="text-xs font-black uppercase tracking-[0.2em] flex items-center gap-3 text-slate-400">
           {editingSlot ? (
-            <Edit2 className="text-amber-500" size={18} />
+            <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
+              <Edit2 className="text-amber-500" size={16} />
+            </div>
           ) : (
-            <Plus className="text-green-500" size={18} />
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+              <Plus className="text-emerald-500" size={16} />
+            </div>
           )}
-          {editingSlot ? "Edit Slot" : "Add New Slot"}
+          {editingSlot ? "Modify Existing Slot" : "Create New Time Slot"}
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {/* Category selection */}
-          <div className="space-y-1">
-            <label className="text-xs font-bold uppercase text-slate-500">
-              Subject
-            </label>
+      <CardContent className="pt-8">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <div className="space-y-2">
+            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">
+              Teaching Subject
+            </Label>
             <select
               {...register("categoryId")}
               className={cn(
-                "w-full h-10 px-3 rounded-md border bg-transparent outline-none transition-all",
+                "w-full h-12 px-4 rounded-2xl border bg-slate-50 dark:bg-white/5 outline-none transition-all font-medium text-sm",
                 errors.categoryId
-                  ? "border-red-500 focus:ring-red-500"
-                  : "border-slate-200 focus:ring-rose-500",
+                  ? "border-rose-500 focus:ring-rose-500/10"
+                  : "border-slate-200 dark:border-white/10 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500/50",
               )}
             >
-              <option value="">Select Category</option>
+              <option value="" className="dark:bg-slate-900">Select Subject</option>
               {categories?.map((c: any) => (
-                <option key={c.id} value={c.id}>
+                <option key={c.id} value={c.id} className="dark:bg-slate-900">
                   {c.name}
                 </option>
               ))}
             </select>
             {errors.categoryId && (
-              <p className="text-[11px] text-red-500 font-medium flex items-center gap-1">
+              <p className="text-[10px] text-rose-500 font-bold uppercase tracking-widest px-1 flex items-center gap-1">
                 <AlertCircle size={12} /> {errors.categoryId.message as string}
               </p>
             )}
           </div>
 
-          {/* Day Selection */}
-          <div className="space-y-1">
-            <label className="text-xs font-bold uppercase text-slate-500">
-              Day
-            </label>
-            <div className="grid grid-cols-4 gap-1">
+          <div className="space-y-2">
+            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">
+              Preferred Day
+            </Label>
+            <div className="grid grid-cols-4 gap-2">
               {DAYS.map((day, i) => (
-                <label key={day} className="cursor-pointer">
+                <label key={day} className="cursor-pointer group">
                   <input
                     type="radio"
                     value={i}
@@ -164,11 +167,11 @@ export default function SlotForm({
                   />
                   <div
                     className={cn(
-                      "py-2 text-center rounded border text-[10px] transition-all",
-                      "peer-checked:bg-rose-600 peer-checked:text-white peer-checked:border-rose-600",
+                      "py-2.5 text-center rounded-xl border text-[10px] font-black uppercase tracking-widest transition-all",
+                      "peer-checked:bg-emerald-600 peer-checked:text-white peer-checked:border-emerald-600 peer-checked:shadow-lg peer-checked:shadow-emerald-500/20",
                       errors.dayOfWeek
-                        ? "border-red-500 bg-red-50/50"
-                        : "border-slate-200 hover:bg-slate-50",
+                        ? "border-rose-500 bg-rose-500/5"
+                        : "border-slate-200 dark:border-white/10 dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10",
                     )}
                   >
                     {day.substring(0, 3)}
@@ -177,39 +180,44 @@ export default function SlotForm({
               ))}
             </div>
             {errors.dayOfWeek && (
-              <p className="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-1">
+              <p className="text-[10px] text-rose-500 font-bold uppercase tracking-widest px-1 flex items-center gap-1 mt-1">
                 <AlertCircle size={12} /> {errors.dayOfWeek.message as string}
               </p>
             )}
           </div>
 
-          {/* Time Range */}
-          <div className="space-y-1">
-            <label className="text-xs font-bold uppercase text-slate-500">
+          <div className="space-y-2">
+            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">
               Time Range
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              <div className="space-y-1">
+            </Label>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
                 <Input
                   type="time"
                   {...register("startTime")}
-                  className={cn(errors.startTime && "border-red-500")}
+                  className={cn(
+                    "h-12 rounded-2xl border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 font-bold",
+                    errors.startTime && "border-rose-500"
+                  )}
                 />
-                <p className="text-[9px] text-slate-400 font-bold">
+                <p className="text-[9px] text-slate-400 font-black uppercase tracking-widest px-1">
                   START TIME
                 </p>
               </div>
-              <div className="space-y-1">
+              <div className="space-y-2">
                 <Input
                   type="time"
                   {...register("endTime")}
-                  className={cn(errors.endTime && "border-red-500")}
+                  className={cn(
+                    "h-12 rounded-2xl border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 font-bold",
+                    errors.endTime && "border-rose-500"
+                  )}
                 />
-                <p className="text-[9px] text-slate-400 font-bold">END TIME</p>
+                <p className="text-[9px] text-slate-400 font-black uppercase tracking-widest px-1">END TIME</p>
               </div>
             </div>
             {(errors.startTime || errors.endTime) && (
-              <p className="text-[11px] text-red-500 font-medium flex items-center gap-1">
+              <p className="text-[10px] text-rose-500 font-bold uppercase tracking-widest px-1 flex items-center gap-1">
                 <AlertCircle size={12} />{" "}
                 {
                   (errors.startTime?.message ||
@@ -219,30 +227,32 @@ export default function SlotForm({
             )}
           </div>
 
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-rose-600 hover:bg-rose-700"
-          >
-            {isLoading ? (
-              <Loader2 className="animate-spin mr-2" size={16} />
-            ) : editingSlot ? (
-              "Save Changes"
-            ) : (
-              "Add Slot"
-            )}
-          </Button>
-
-          {editingSlot && (
+          <div className="pt-4 space-y-3">
             <Button
-              variant="ghost"
-              type="button"
-              onClick={onCancel}
-              className="w-full text-slate-500"
+              type="submit"
+              disabled={isLoading}
+              className="w-full h-14 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-full uppercase tracking-widest text-[10px] shadow-xl shadow-emerald-500/20 active:scale-95 transition-all"
             >
-              Cancel
+              {isLoading ? (
+                <Loader2 className="animate-spin mr-2" size={18} />
+              ) : editingSlot ? (
+                "Save Changes"
+              ) : (
+                "Create Time Slot"
+              )}
             </Button>
-          )}
+
+            {editingSlot && (
+              <Button
+                variant="ghost"
+                type="button"
+                onClick={onCancel}
+                className="w-full h-12 text-slate-400 hover:text-slate-600 dark:hover:text-white font-bold rounded-full text-[10px] uppercase tracking-widest"
+              >
+                Discard Changes
+              </Button>
+            )}
+          </div>
         </form>
       </CardContent>
     </Card>

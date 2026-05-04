@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils";
 
 export function StudentStats({ stats }: { stats: any }) {
     const items = [
-        { label: "Total Lessons", value: stats.totalLessons, icon: BookOpen, color: "text-blue-500", bg: "bg-blue-500/10" },
-        { label: "Hours Learned", value: stats.hoursLearned, icon: Clock, color: "text-emerald-500", bg: "bg-emerald-500/10" },
+        { label: "Total Lessons", value: stats.totalLessons, icon: BookOpen, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-500/10" },
+        { label: "Hours Learned", value: stats.hoursLearned, icon: Clock, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-500/10" },
         { label: "Avg. Rating", value: stats.avgRatingGiven, icon: Star, color: "text-amber-500", bg: "bg-amber-500/10" }
     ];
 

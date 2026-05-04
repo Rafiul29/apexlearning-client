@@ -59,68 +59,68 @@ export function UserEditForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-4">
       {/* Read-Only Information Section */}
-      <div className="grid grid-cols-1 gap-4 bg-slate-50 p-3 rounded-lg border border-slate-100">
+      <div className="grid grid-cols-1 gap-4 bg-slate-50 dark:bg-white/5 p-4 rounded-2xl border border-slate-100 dark:border-white/5">
         <div className="space-y-1">
-          <Label className="text-slate-500 text-[11px] uppercase tracking-wider">
+          <Label className="text-emerald-600 dark:text-emerald-500 text-[10px] uppercase tracking-widest font-black">
             Full Name
           </Label>
-          <p className="text-sm font-semibold text-slate-700">{user.name}</p>
+          <p className="text-sm font-black text-slate-900 dark:text-white">{user.name}</p>
         </div>
         <div className="space-y-1">
-          <Label className="text-slate-500 text-[11px] uppercase tracking-wider">
+          <Label className="text-emerald-600 dark:text-emerald-500 text-[10px] uppercase tracking-widest font-black">
             Email Address
           </Label>
-          <p className="text-sm font-medium text-slate-600">{user.email}</p>
+          <p className="text-sm font-bold text-slate-600 dark:text-slate-300">{user.email}</p>
         </div>
         <div className="space-y-1">
-          <Label className="text-slate-500 text-[11px] uppercase tracking-wider">
+          <Label className="text-emerald-600 dark:text-emerald-500 text-[10px] uppercase tracking-widest font-black">
             Contact Phone
           </Label>
-          <p className="text-sm font-medium text-slate-600">{user.phone}</p>
+          <p className="text-sm font-bold text-slate-600 dark:text-slate-300">{user.phone}</p>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4 pt-2">
         {/* Role Selection */}
         <div className="space-y-2">
-          <Label className="text-sm font-bold">Role</Label>
+          <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Role</Label>
           <Select
             value={currentRole}
             onValueChange={(v) => setValue("role", v as any)}
           >
-            <SelectTrigger className="bg-white w-full">
+            <SelectTrigger className="bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 w-full rounded-xl font-bold h-12">
               <SelectValue placeholder="Select Role" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="STUDENT">Student</SelectItem>
-              <SelectItem value="TUTOR">Tutor</SelectItem>
-              <SelectItem value="ADMIN">Admin</SelectItem>
+            <SelectContent className="rounded-2xl border-slate-200 dark:border-white/10 shadow-2xl dark:bg-[#0a0a0a]">
+              <SelectItem value="STUDENT" className="font-bold py-2.5">Student</SelectItem>
+              <SelectItem value="TUTOR" className="font-bold py-2.5">Tutor</SelectItem>
+              <SelectItem value="ADMIN" className="font-bold py-2.5">Admin</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         {/* Status Selection */}
         <div className="space-y-2">
-          <Label className="text-sm font-bold">Status</Label>
+          <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Status</Label>
           <Select
             value={currentStatus}
             onValueChange={(v) => setValue("status", v as any)}
           >
-            <SelectTrigger className="bg-white w-full">
+            <SelectTrigger className="bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 w-full rounded-xl font-bold h-12">
               <SelectValue placeholder="Select Status" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="ACTIVE" className="text-emerald-600">
+            <SelectContent className="rounded-2xl border-slate-200 dark:border-white/10 shadow-2xl dark:bg-[#0a0a0a]">
+              <SelectItem value="ACTIVE" className="text-emerald-600 font-bold py-2.5 focus:bg-emerald-50 dark:focus:bg-emerald-500/10">
                 Active
               </SelectItem>
-              <SelectItem value="INACTIVE">Inactive</SelectItem>
-              <SelectItem value="BLOCKED" className="text-amber-600">
+              <SelectItem value="INACTIVE" className="font-bold py-2.5">Inactive</SelectItem>
+              <SelectItem value="BLOCKED" className="text-amber-600 font-bold py-2.5">
                 Blocked
               </SelectItem>
-              <SelectItem value="SUSPENDED" className="text-orange-600">
+              <SelectItem value="SUSPENDED" className="text-orange-600 font-bold py-2.5">
                 Suspended
               </SelectItem>
-              <SelectItem value="BAN" className="text-rose-600">
+              <SelectItem value="BAN" className="text-rose-600 font-bold py-2.5 focus:bg-rose-50 dark:focus:bg-rose-500/10">
                 Ban
               </SelectItem>
             </SelectContent>
@@ -131,11 +131,11 @@ export function UserEditForm({
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-slate-900 text-white hover:bg-slate-800 transition-all font-bold mt-4"
+        className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl h-14 shadow-xl shadow-emerald-500/20 active:scale-95 transition-all uppercase tracking-widest text-[10px] mt-6"
       >
         {isSubmitting ? (
           <div className="flex items-center gap-2">
-            <span className="h-3 w-3 animate-spin rounded-full border-2 border-white border-t-transparent" />
+            <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
             Saving Changes...
           </div>
         ) : (

@@ -18,9 +18,9 @@ interface CategoryModalProps {
 export function CategoryModal({ isOpen, onClose, category }: CategoryModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[400px]">
+      <DialogContent className="sm:max-w-[400px] bg-white dark:bg-[#0a0a0a] border-slate-200 dark:border-white/10 rounded-3xl p-6 shadow-2xl">
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
             {category ? "Edit Category" : "Add New Category"}
           </DialogTitle>
         </DialogHeader>
