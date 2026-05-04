@@ -9,7 +9,7 @@ const TutorCard = ({ tutor }: { tutor: Tutor }) => {
   return (
     <div
       key={tutor.id}
-      className="bg-card dark:bg-slate-900 border border-border rounded-[28px] p-6 hover:shadow-xl transition-all group flex flex-col justify-between"
+      className="bg-white dark:bg-white/5 backdrop-blur-md border border-gray-100 dark:border-white/10 rounded-[24px] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.15)] hover:-translate-y-1 transition-transform duration-300 group flex flex-col justify-between font-sans"
     >
       <div>
         <div className="flex items-center gap-4 mb-4">
@@ -17,16 +17,16 @@ const TutorCard = ({ tutor }: { tutor: Tutor }) => {
             width={480}
             height={320}
             src={tutor?.user?.image || "/images/default-avatar.jpg"}
-            className="w-16 h-16 rounded-full object-cover border-2 border-slate-100"
+            className="w-16 h-16 rounded-full object-cover border-2 border-white dark:border-white/10 shadow-sm"
             alt={tutor?.user?.name || "Tutor"}
           />
           <div>
-            <h3 className="font-bold text-lg group-hover:text-rose-500 transition-colors">
+            <h3 className="font-extrabold text-[#111827] dark:text-white text-lg group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
               {tutor?.user?.name}
             </h3>
-            <div className="flex items-center gap-1">
-              <Star className="w-3 h-3 fill-rose-500 text-rose-500" />
-              <span className="text-sm font-semibold">
+            <div className="flex items-center gap-1 mt-0.5">
+              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              <span className="text-sm font-bold text-[#4B5563] dark:text-slate-300">
                 {tutor.averageRating}
               </span>
             </div>
@@ -35,17 +35,17 @@ const TutorCard = ({ tutor }: { tutor: Tutor }) => {
 
         <div className="flex flex-wrap gap-1.5 mb-3">
           {tutor.categories && tutor.categories.length > 0 ? (
-            tutor.categories.map((catItem) => (
+            tutor.categories.slice(0, 3).map((catItem) => (
               <Badge
                 key={catItem.category.id}
                 variant="outline"
-                className="rounded-full text-[10px] font-semibold px-2 py-0 border-rose-200 text-rose-600 dark:border-rose-900 dark:text-rose-400 bg-rose-50/50 dark:bg-rose-950/30"
+                className="rounded-full text-[10px] font-extrabold px-3 py-0.5 border-emerald-200 text-emerald-700 dark:border-emerald-500/30 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 tracking-wide uppercase"
               >
                 {catItem.category.name}
               </Badge>
             ))
           ) : (
-            <span className="text-[10px] text-muted-foreground">
+            <span className="text-[10px] text-[#4B5563] dark:text-slate-400 font-medium">
               No categories
             </span>
           )}
@@ -56,28 +56,28 @@ const TutorCard = ({ tutor }: { tutor: Tutor }) => {
             <Badge
               key={sub}
               variant="secondary"
-              className="rounded-full text-[10px] font-medium px-2 py-0"
+              className="rounded-full text-[10px] font-bold px-3 py-0.5 bg-gray-100 dark:bg-white/10 text-[#4B5563] dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors border-transparent"
             >
               {sub}
             </Badge>
           ))}
         </div>
-        <p className="text-sm text-muted-foreground line-clamp-3 mb-6">
+        <p className="text-[14px] text-[#4B5563] dark:text-slate-400 font-medium leading-[1.6] line-clamp-3 mb-6">
           {tutor.bio}
         </p>
       </div>
 
-      <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
-        <span className="text-xl font-bold">
+      <div className="flex items-center justify-between pt-5 border-t border-gray-100 dark:border-white/10">
+        <span className="text-xl font-extrabold text-[#111827] dark:text-white">
           ${tutor.pricePerHour}
-          <span className="text-xs font-normal">/hr</span>
+          <span className="text-[13px] font-medium text-[#4B5563] dark:text-slate-400">/hr</span>
         </span>
         <Button
           variant={"link"}
           size="sm"
-          className="bg-[#FF6B6B] hover:bg-[#ff5252] text-white rounded-xl px-5 shadow-lg shadow-[#FF6B6B]/20"
+          className="bg-emerald-800 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white rounded-full px-5 h-9 font-bold shadow-sm transition-all no-underline hover:no-underline"
         >
-          <Link href={`/tutors/${tutor.id}`}>View Profile </Link>
+          <Link href={`/tutors/${tutor.id}`}>View Profile</Link>
         </Button>
       </div>
     </div>

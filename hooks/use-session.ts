@@ -12,7 +12,7 @@ export function useSession() {
         setLoading(true);
         try {
             const { data, error } = await authClient.getSession();
-            console.log(data)
+            console.log("session data", data)
             setSession(data);
             setError(error);
         } catch (err) {

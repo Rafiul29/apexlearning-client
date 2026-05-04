@@ -17,7 +17,9 @@ export const userService = {
       });
 
       const session = await res.json();
-      if (!session == null) {
+      console.log({ session })
+      console.log("cookieStore.toString()", cookieStore.toString())
+      if (!session || !session.user) {
         return { data: null, error: { message: "no active session" } };
       }
       return { data: session, error: null };
@@ -93,6 +95,7 @@ export const userService = {
       return { data: null, error: err.message };
     }
   },
+
   updateUserProfile: async function (data: { name: string; phone: string }) {
     try {
       const cookieStore = await cookies();

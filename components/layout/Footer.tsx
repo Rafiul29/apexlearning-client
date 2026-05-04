@@ -81,7 +81,7 @@ const Footer = ({
   ],
 }: FooterProps) => {
   return (
-    <section className={cn("py-12 border-t bg-background", className)}>
+    <section className={cn("py-20 border-t border-gray-200/60 dark:border-white/10 bg-[#f9fafb] dark:bg-[#0a0a0a] font-sans", className)}>
       <div className="wrapper">
         <footer className="container mx-auto">
           <div className="grid grid-cols-2 gap-10 lg:grid-cols-6">
@@ -96,12 +96,12 @@ const Footer = ({
                     height={120}
                     className="object-contain dark:invert h-12 w-full"
                   />
-                  <LogoText className="text-xl font-bold tracking-tight">
+                  <LogoText className="text-2xl font-extrabold tracking-tight text-[#111827] dark:text-white">
                     {logo?.title}
                   </LogoText>
                 </Logo>
               </div>
-              <p className="mt-6 text-sm text-muted-foreground leading-relaxed max-w-xs">
+              <p className="mt-6 text-[15px] text-[#4B5563] dark:text-slate-400 leading-[1.6] max-w-xs font-medium">
                 {tagline}
               </p>
             </div>
@@ -109,7 +109,7 @@ const Footer = ({
             {/* Link Columns */}
             {menuItems.map((section, sectionIdx) => (
               <div key={sectionIdx} className="col-span-1">
-                <h3 className="mb-6 text-sm font-bold uppercase tracking-wider">
+                <h3 className="mb-6 text-sm font-extrabold uppercase tracking-wider text-[#111827] dark:text-white">
                   {section.title}
                 </h3>
                 <ul className="space-y-4">
@@ -117,7 +117,7 @@ const Footer = ({
                     <li key={linkIdx}>
                       <Link
                         href={link.url}
-                        className="text-sm text-muted-foreground transition-colors hover:text-primary font-medium"
+                        className="text-[15px] text-[#4B5563] dark:text-slate-400 transition-colors hover:text-emerald-800 dark:hover:text-emerald-400 font-medium"
                       >
                         {link.text}
                       </Link>
@@ -129,14 +129,14 @@ const Footer = ({
           </div>
 
           {/* Footer Bottom Bar */}
-          <div className="mt-20 flex flex-col justify-between gap-6 border-t pt-8 text-xs font-medium text-muted-foreground md:flex-row md:items-center">
+          <div className="mt-20 flex flex-col justify-between gap-6 border-t border-gray-200/60 dark:border-white/10 pt-8 text-sm font-medium text-[#4B5563] dark:text-slate-500 md:flex-row md:items-center">
             <p className="order-2 md:order-1">{copyright}</p>
             <ul className="order-1 flex flex-wrap gap-6 md:order-2">
               {bottomLinks.map((link, linkIdx) => (
                 <li key={linkIdx}>
                   <Link
                     href={link.url}
-                    className="underline-offset-4 hover:underline hover:text-primary transition-all"
+                    className="underline-offset-4 hover:underline hover:text-emerald-800 dark:hover:text-emerald-400 transition-all"
                   >
                     {link.text}
                   </Link>

@@ -64,7 +64,10 @@ export function LoginForm({
           toast.error(error.message, { id: toastId });
           return;
         }
-       
+
+        console.log("data from loging form", data);
+
+
         const user = data?.user as any;
         const userRole = user?.role;
 
@@ -133,10 +136,10 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
-          <CardDescription>
+      <Card className="rounded-[24px] border border-slate-200/60 dark:border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] bg-white dark:bg-white/[0.02] backdrop-blur-xl">
+        <CardHeader className="text-center pb-4">
+          <CardTitle className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Welcome Back</CardTitle>
+          <CardDescription className="text-slate-500 dark:text-slate-400">
             Enter your email below to login to your account
           </CardDescription>
         </CardHeader>
@@ -148,7 +151,7 @@ export function LoginForm({
               form.handleSubmit();
             }}
           >
-            <FieldGroup>
+            <FieldGroup className="gap-5">
               <form.Field
                 name="email"
                 children={(field) => {
@@ -156,7 +159,7 @@ export function LoginForm({
                     field.state.meta.isTouched && !field.state.meta.isValid;
                   return (
                     <Field>
-                      <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                      <FieldLabel htmlFor={field.name} className="text-slate-700 dark:text-slate-300 font-medium">Email</FieldLabel>
                       <Input
                         type="email"
                         id={field.name}
@@ -164,6 +167,7 @@ export function LoginForm({
                         value={field.state.value}
                         placeholder="m@example.com"
                         onChange={(e) => field.handleChange(e.target.value)}
+                        className="rounded-xl h-12 bg-slate-50 dark:bg-white/[0.03] border-slate-200 dark:border-white/10 focus-visible:ring-emerald-500/20 shadow-sm"
                       />
                       {isInvalid && (
                         <FieldError errors={field.state.meta.errors} />
@@ -181,20 +185,22 @@ export function LoginForm({
                   return (
                     <Field>
                       <div className="flex items-center">
-                        <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                        <Link
+                        <FieldLabel htmlFor={field.name} className="text-slate-700 dark:text-slate-300 font-medium">Password</FieldLabel>
+                        {/* <Link
                           href="forget-password"
-                          className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                          className="ml-auto inline-block text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
                         >
                           Forgot your password?
-                        </Link>
+                        </Link> */}
                       </div>
                       <Input
                         type="password"
                         id={field.name}
                         name={field.name}
                         value={field.state.value}
+                        placeholder="********"
                         onChange={(e) => field.handleChange(e.target.value)}
+                        className="rounded-xl h-12 bg-slate-50 dark:bg-white/[0.03] border-slate-200 dark:border-white/10 focus-visible:ring-emerald-500/20 shadow-sm"
                       />
                       {isInvalid && (
                         <FieldError errors={field.state.meta.errors} />
@@ -203,20 +209,24 @@ export function LoginForm({
                   );
                 }}
               />
-              <Field>
+              <Field className="pt-2">
                 <form.Subscribe
                   selector={(state) => [state.canSubmit, state.isSubmitting]}
                   children={([canSubmit, isSubmitting]) => (
-                    <Button type="submit" disabled={!canSubmit || isSubmitting}>
-                      {isSubmitting && <Spinner />}
-                      {isSubmitting ? "Login..." : "Login"}
+                    <Button
+                      type="submit"
+                      disabled={!canSubmit || isSubmitting}
+                      className="w-full rounded-full h-12 bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-emerald-500 dark:hover:bg-emerald-600 font-bold shadow-sm transition-all"
+                    >
+                      {isSubmitting && <Spinner className="mr-2" />}
+                      {isSubmitting ? "Logging in..." : "Login"}
                     </Button>
                   )}
                 />
                 {/* <SocialGoogle title="Sigin In with Google" /> */}
-                <FieldDescription className="text-center">
+                <FieldDescription className="text-center mt-4 text-sm text-slate-500 dark:text-slate-400">
                   Don&apos;t have an account?{" "}
-                  <Link href="/register">Register</Link>
+                  <Link href="/register" className="font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">Register</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

@@ -5,7 +5,8 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/auth/:path*",
-        destination: "https://apexlearning-server.vercel.app/api/auth/:path*",
+        // destination: "https://apexlearning-server.vercel.app/api/auth/:path*",
+        destination: "http://localhost:5000/api/auth/:path*",
       },
     ];
   },
@@ -20,6 +21,12 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "lh3.googleusercontent.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.pravatar.cc",
         port: "",
         pathname: "/**",
       },

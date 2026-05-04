@@ -103,7 +103,7 @@ export default function SearchModal() {
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="relative h-10 w-10 lg:w-64 lg:justify-start rounded-full bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-500 hover:text-[#FF6B6B] transition-all"
+          className="relative h-10 w-10 lg:w-64 lg:justify-start rounded-full bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-500 transition-all cursor-pointer"
         >
           <Search className="h-4 w-4 lg:mr-2" />
           <span className="hidden lg:inline-flex text-xs font-medium">
@@ -124,10 +124,10 @@ export default function SearchModal() {
         </VisuallyHidden.Root>
 
         {/* Input Field */}
-        <div className="flex items-center border-b px-4 bg-white dark:bg-slate-900">
-          <Search className="mr-3 h-5 w-5 text-slate-400" />
+        <div className="flex items-center border-b border-slate-100 dark:border-slate-800 px-4 sm:px-6 bg-white dark:bg-slate-900">
+          <Search className="mr-3 h-5 w-5 text-slate-400 dark:text-slate-500" />
           <input
-            className="flex h-16 w-full bg-transparent py-3 text-lg outline-none placeholder:text-slate-400"
+            className="flex h-14 sm:h-16 w-full bg-transparent py-3 text-base sm:text-lg outline-none text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
             placeholder="Search by name, subject, or category..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -136,9 +136,9 @@ export default function SearchModal() {
           {query && (
             <button
               onClick={() => setQuery("")}
-              className="p-2 hover:bg-slate-100 rounded-full"
+              className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"
             >
-              <X className="h-5 w-5 text-slate-400" />
+              <X className="h-5 w-5 text-slate-400 dark:text-slate-500" />
             </button>
           )}
         </div>
@@ -147,7 +147,7 @@ export default function SearchModal() {
         <div className="relative min-h-[350px] max-h-[500px] overflow-y-auto bg-slate-50/50 dark:bg-slate-900/50 p-4">
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-white/60 dark:bg-slate-900/60 z-20 rounded-b-[24px]">
-              <Loader2 className="h-8 w-8 animate-spin text-[#FF6B6B]" />
+              <Loader2 className="h-8 w-8 animate-spin" />
             </div>
           )}
 
@@ -181,8 +181,8 @@ export default function SearchModal() {
                         className={cn(
                           "p-2.5 rounded-xl transition-colors",
                           selectedIndex === index
-                            ? "bg-[#FF6B6B] text-white"
-                            : "bg-[#FF6B6B]/10 text-[#FF6B6B]",
+                            ? "text-white"
+                            : "bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400",
                         )}
                       >
                         <BookOpen className="w-4 h-4" />
@@ -193,7 +193,7 @@ export default function SearchModal() {
                     </div>
                     <ArrowRight
                       className={cn(
-                        "w-4 h-4 text-[#FF6B6B] transition-all",
+                        "w-4 h-4 text-emerald-500 dark:text-emerald-400 transition-all",
                         selectedIndex === index
                           ? "opacity-100 translate-x-1"
                           : "opacity-0",
@@ -245,7 +245,7 @@ export default function SearchModal() {
                         className={cn(
                           "text-sm font-bold transition-colors",
                           selectedIndex === index
-                            ? "text-[#FF6B6B]"
+                            ? "text-emerald-600 dark:text-emerald-400"
                             : "text-slate-700 dark:text-slate-200",
                         )}
                       >
@@ -307,7 +307,7 @@ export default function SearchModal() {
               router.push("/tutors");
               setOpen(false);
             }}
-            className="text-[11px] font-extrabold text-[#FF6B6B] uppercase tracking-tighter hover:opacity-70 transition-opacity"
+            className="text-[11px] font-extrabold text-emerald-600 dark:text-emerald-400 uppercase tracking-tighter hover:opacity-70 transition-opacity"
           >
             Advanced Filter
           </Button>

@@ -46,13 +46,13 @@ export default async function TutorDetailPage({
   if (error || !tutor) return
 
   return (
-    <main className="min-h-screen pt-20 lg:pt-28 bg-white dark:bg-slate-950">
-      <section className="relative w-full bg-[#F6F7F9] dark:bg-slate-950/50 py-12 lg:py-20">
+    <main className="min-h-screen pt-20 lg:pt-28 bg-white dark:bg-[#0a0a0a] font-sans">
+      <section className="relative w-full bg-[#fafafa] dark:bg-[#050505] py-20">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-12 items-start">
             {/* --- LEFT SIDEBAR --- */}
             <aside className="w-full lg:w-[400px] space-y-6 lg:sticky lg:top-32">
-              <div className="bg-white dark:bg-slate-900 rounded-[32px] shadow-sm p-8 border border-slate-100 dark:border-slate-800">
+              <div className="bg-white dark:bg-white/5 backdrop-blur-md rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.15)] p-8 border border-gray-100 dark:border-white/10">
                 <div className="flex justify-center mb-6">
                   <div className="relative">
                     <Image
@@ -69,7 +69,7 @@ export default async function TutorDetailPage({
                 </div>
 
                 <div className="text-center mb-6">
-                  <h1 className="text-2xl font-bold mb-2 font-['Poppins']">
+                  <h1 className="text-2xl font-extrabold mb-2 text-[#111827] dark:text-white">
                     {tutor?.user?.name}
                   </h1>
                   <div className="flex flex-wrap justify-center gap-2">
@@ -138,37 +138,37 @@ export default async function TutorDetailPage({
                 DAYS={DAYS}
               />
 
-              <div className="bg-white dark:bg-slate-900 p-8 rounded-[32px] shadow-sm border border-slate-100 dark:border-slate-800">
-                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 font-['Poppins']">
-                  <Quote className="w-6 h-6 text-[#FF6B6B]" /> About Me
+              <div className="bg-white dark:bg-white/5 backdrop-blur-md p-8 rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.15)] border border-gray-100 dark:border-white/10">
+                <h2 className="text-2xl font-extrabold mb-4 flex items-center gap-2 text-[#111827] dark:text-white">
+                  <Quote className="w-6 h-6 text-[#FF6B6B]" strokeWidth={1.5} /> About Me
                 </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-lg italic">
+                <p className="text-[#4B5563] dark:text-slate-400 leading-[1.6] text-[15px] italic font-medium">
                   &ldquo;{tutor.bio}&rdquo;
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 bg-white dark:bg-slate-900 rounded-[28px] border border-slate-100 shadow-sm">
-                  <Briefcase className="w-5 h-5 text-[#FF6B6B] mb-4" />
-                  <h3 className="font-bold mb-2">Experience</h3>
-                  <p className="text-slate-500 text-sm">
+                <div className="p-6 bg-white dark:bg-white/5 backdrop-blur-md rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.15)] border border-gray-100 dark:border-white/10">
+                  <Briefcase className="w-6 h-6 text-[#FF6B6B] mb-4" strokeWidth={1.5} />
+                  <h3 className="font-extrabold text-[#111827] dark:text-white mb-2">Experience</h3>
+                  <p className="text-[#4B5563] dark:text-slate-400 text-sm leading-[1.6] font-medium">
                     {tutor?.experience}
                   </p>
                 </div>
-                <div className="p-6 bg-white dark:bg-slate-900 rounded-[28px] border border-slate-100 shadow-sm">
-                  <GraduationCap className="w-5 h-5 text-[#FF6B6B] mb-4" />
-                  <h3 className="font-bold mb-2">Education</h3>
-                  <p className="text-slate-500 text-sm">
+                <div className="p-6 bg-white dark:bg-white/5 backdrop-blur-md rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.15)] border border-gray-100 dark:border-white/10">
+                  <GraduationCap className="w-6 h-6 text-[#FF6B6B] mb-4" strokeWidth={1.5} />
+                  <h3 className="font-extrabold text-[#111827] dark:text-white mb-2">Education</h3>
+                  <p className="text-[#4B5563] dark:text-slate-400 text-sm leading-[1.6] font-medium">
                     {tutor?.education}
                   </p>
                 </div>
               </div>
 
-              <div className="p-8 bg-white dark:bg-slate-900 rounded-[32px] shadow-sm border border-slate-100 dark:border-slate-800">
+              <div className="p-8 bg-white dark:bg-white/5 backdrop-blur-md rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.15)] border border-gray-100 dark:border-white/10">
                 {/* Header Section */}
                 <div className="flex items-center justify-between mb-8">
-                  <h3 className="text-xl font-bold flex items-center gap-2 font-['Poppins']">
-                    <MessageSquare className="w-6 h-6 text-[#FF6B6B]" />
+                  <h3 className="text-xl font-extrabold text-[#111827] dark:text-white flex items-center gap-2">
+                    <MessageSquare className="w-6 h-6 text-[#FF6B6B]" strokeWidth={1.5} />
                     Student Reviews ({tutor?._count?.reviews})
                   </h3>
                   <div className="flex items-center gap-2 px-4 py-2 bg-[#FF6B6B]/5 rounded-full">

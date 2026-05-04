@@ -6,6 +6,9 @@ export async function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     const { data, error } = await userService.getSession();
+
+    console.log({ data });
+
     const isAuthenticated = !!data && !error;
     const role = data?.user?.role;
 

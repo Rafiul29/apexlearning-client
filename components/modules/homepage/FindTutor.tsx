@@ -73,73 +73,73 @@ const FindTutor = ({ searchCategories }: { searchCategories: Category[] }) => {
   };
 
   return (
-    <section className="relative w-full bg-slate-50 dark:bg-slate-950 py-16 lg:py-24">
+    <section className="relative w-full bg-[#fafafa] dark:bg-[#050505] py-20 font-sans">
       <div className="wrapper container mx-auto px-4">
         {/* Header */}
         <TutorHeader />
 
         {/* Search & Filters */}
-        <div className="bg-card dark:bg-slate-900 rounded-[22px] border border-border shadow-lg p-4 lg:p-6 mb-8">
-          <div className="flex flex-col xl:flex-row gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <div className="bg-white dark:bg-white/[0.02] backdrop-blur-xl rounded-[24px] sm:rounded-[32px] shadow-sm dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] border border-slate-200/60 dark:border-white/10 p-5 sm:p-6 lg:p-8 mb-8 sm:mb-12 transition-all">
+          <div className="flex flex-col lg:flex-row gap-4 sm:gap-5">
+            <div className="flex-1 relative group">
+              <Search className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-slate-400 dark:text-slate-500 group-hover:text-emerald-500 transition-colors" />
               <Input
                 placeholder="Search subject or tutor name..."
-                className="h-12 pl-11 rounded-xl bg-background"
+                className="h-12 sm:h-14 pl-11 sm:pl-14 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 focus-visible:ring-2 focus-visible:ring-emerald-500/20 focus-visible:border-emerald-500/30 text-slate-900 dark:text-slate-100 text-sm sm:text-base placeholder:text-slate-400 dark:placeholder:text-slate-500 shadow-sm transition-all w-full"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:flex gap-3">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap lg:flex-nowrap gap-3 sm:gap-4">
               {/* Sort By */}
               <Select onValueChange={setSortBy} value={sortBy}>
-                <SelectTrigger className="h-12 py-6 rounded-xl bg-background lg:w-[150px]">
+                <SelectTrigger className="h-12 sm:h-14 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 sm:min-w-[140px] font-medium text-slate-700 dark:text-slate-200 text-xs sm:text-sm md:text-base shadow-sm hover:border-emerald-500/30 hover:bg-white dark:hover:bg-white/5 transition-all">
                   <SelectValue placeholder="Sort" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="createdAt">Newest</SelectItem>
-                  <SelectItem value="pricePerHour">Price</SelectItem>
-                  <SelectItem value="averageRating">Rating</SelectItem>
+                <SelectContent className="rounded-2xl border-slate-200 dark:border-white/10 shadow-lg">
+                  <SelectItem value="createdAt" className="rounded-xl cursor-pointer">Newest</SelectItem>
+                  <SelectItem value="pricePerHour" className="rounded-xl cursor-pointer">Price</SelectItem>
+                  <SelectItem value="averageRating" className="rounded-xl cursor-pointer">Rating</SelectItem>
                 </SelectContent>
               </Select>
 
               {/* Price Filter */}
               <Select onValueChange={setPriceRange} value={priceRange}>
-                <SelectTrigger className="h-12 py-6 rounded-xl bg-background lg:w-[130px]">
+                <SelectTrigger className="h-12 sm:h-14 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 sm:min-w-[130px] font-medium text-slate-700 dark:text-slate-200 text-xs sm:text-sm md:text-base shadow-sm hover:border-emerald-500/30 hover:bg-white dark:hover:bg-white/5 transition-all">
                   <SelectValue placeholder="Price" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Any Price</SelectItem>
-                  <SelectItem value="0-30">$0 - $30</SelectItem>
-                  <SelectItem value="30-50">$30 - $50</SelectItem>
-                  <SelectItem value="50-plus">$50+</SelectItem>
+                <SelectContent className="rounded-2xl border-slate-200 dark:border-white/10 shadow-lg">
+                  <SelectItem value="all" className="rounded-xl cursor-pointer">Any Price</SelectItem>
+                  <SelectItem value="0-30" className="rounded-xl cursor-pointer">$0 - $30</SelectItem>
+                  <SelectItem value="30-50" className="rounded-xl cursor-pointer">$30 - $50</SelectItem>
+                  <SelectItem value="50-plus" className="rounded-xl cursor-pointer">$50+</SelectItem>
                 </SelectContent>
               </Select>
 
               {/* Rating Filter */}
               <Select onValueChange={setRating} value={rating}>
-                <SelectTrigger className="h-12 py-6 rounded-xl bg-background lg:w-[120px]">
+                <SelectTrigger className="h-12 sm:h-14 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 sm:min-w-[130px] font-medium text-slate-700 dark:text-slate-200 text-xs sm:text-sm md:text-base shadow-sm hover:border-emerald-500/30 hover:bg-white dark:hover:bg-white/5 transition-all">
                   <SelectValue placeholder="Rating" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Any Rating</SelectItem>
-                  <SelectItem value="3">3+ Stars</SelectItem>
-                  <SelectItem value="4">4+ Stars</SelectItem>
-                  <SelectItem value="4.5">4.5+ Stars</SelectItem>
-                  <SelectItem value="5">5 Stars</SelectItem>
+                <SelectContent className="rounded-2xl border-slate-200 dark:border-white/10 shadow-lg">
+                  <SelectItem value="all" className="rounded-xl cursor-pointer">Any Rating</SelectItem>
+                  <SelectItem value="3" className="rounded-xl cursor-pointer">3+ Stars</SelectItem>
+                  <SelectItem value="4" className="rounded-xl cursor-pointer">4+ Stars</SelectItem>
+                  <SelectItem value="4.5" className="rounded-xl cursor-pointer">4.5+ Stars</SelectItem>
+                  <SelectItem value="5" className="rounded-xl cursor-pointer">5 Stars</SelectItem>
                 </SelectContent>
               </Select>
 
               {/* Category Filter */}
               <Select onValueChange={setCategoryId} value={categoryId}>
-                <SelectTrigger className="h-12 py-6 rounded-xl bg-background lg:w-[180px]">
+                <SelectTrigger className="h-12 sm:h-14 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 sm:min-w-[160px] font-medium text-slate-700 dark:text-slate-200 text-xs sm:text-sm md:text-base shadow-sm hover:border-emerald-500/30 hover:bg-white dark:hover:bg-white/5 transition-all">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Categories</SelectItem>
+                <SelectContent className="rounded-2xl border-slate-200 dark:border-white/10 shadow-lg">
+                  <SelectItem value="all" className="rounded-xl cursor-pointer">All Categories</SelectItem>
                   {searchCategories?.map((cat) => (
-                    <SelectItem key={cat.id} value={cat.id}>
+                    <SelectItem key={cat.id} value={cat.id} className="rounded-xl cursor-pointer">
                       {cat.name}
                     </SelectItem>
                   ))}
@@ -147,9 +147,10 @@ const FindTutor = ({ searchCategories }: { searchCategories: Category[] }) => {
               </Select>
 
               <Button
-                className="h-12 bg-[#FF6B6B] hover:bg-[#ff5252] text-white rounded-xl px-6 shadow-lg shadow-[#FF6B6B]/20"
+                className="h-12 sm:h-14 col-span-2 sm:col-span-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-transparent hover:border-rose-500/30 hover:bg-rose-50 dark:hover:bg-rose-500/10 hover:text-rose-600 dark:hover:text-rose-400 rounded-full px-6 font-medium shadow-sm transition-all text-xs sm:text-sm md:text-base w-full sm:w-auto"
                 onClick={resetFilters}
               >
+                <Filter className="w-4 h-4 mr-2 hidden sm:inline-block" />
                 Clear
               </Button>
             </div>
@@ -164,20 +165,20 @@ const FindTutor = ({ searchCategories }: { searchCategories: Category[] }) => {
               <p className="text-muted-foreground">Finding best tutors...</p>
             </div>
           ) : tutors.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {tutors?.map((tutor) => (
                 <TutorCard key={tutor.id} tutor={tutor} />
               ))}
             </div>
           ) : (
-            <div className="bg-white dark:bg-slate-900 rounded-[28px] p-20 text-center border-2 border-dashed border-border">
-              <p className="text-muted-foreground mb-4">
+            <div className="bg-white dark:bg-white/5 backdrop-blur-md rounded-[24px] p-20 text-center border border-gray-200 border-dashed dark:border-white/20">
+              <p className="text-[#4B5563] dark:text-slate-400 font-medium mb-6">
                 No tutors found for these criteria.
               </p>
               <Button
                 variant="outline"
                 onClick={resetFilters}
-                className="rounded-xl"
+                className="rounded-full border-gray-200 dark:border-white/20 font-bold hover:bg-gray-50 dark:hover:bg-white/5"
               >
                 Reset Search
               </Button>

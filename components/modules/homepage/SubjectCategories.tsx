@@ -1,55 +1,49 @@
 import { Button } from "@/components/ui/button";
 import { Category } from "@/types";
-
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BookOpen } from "lucide-react";
 import Link from "next/link";
 
 const SubjectCategories = ({ categories }: { categories: Category[] }) => {
   return (
-    <section
-      id="subjects"
-      className="relative w-full bg-[#F6F7F9] dark:bg-[#0F172A] py-16 lg:py-24 transition-colors duration-300 "
-    >
-      <div className="wrapper ">
-        {/* Header Section */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-10 lg:mb-12">
-          <h2 className="text-3xl lg:text-[clamp(28px,3vw,44px)] font-bold text-[#111827] dark:text-white mb-3 lg:mb-0">
-            Browse by subject
-          </h2>
-          <Button
-            variant={"link"}
-            className="flex items-center gap-2 text-[#FF6B6B] hover:text-[#ff5252] font-semibold group transition-colors"
-          >
-            View all
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+    <section id="subjects" className="py-20 bg-white dark:bg-[#0a0a0a] font-sans">
+      <div className="wrapper">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+          <div className="max-w-2xl">
+            <h2 className="text-xs font-semibold tracking-wider uppercase bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 px-3 py-1.5 rounded-md inline-block mb-6">
+              Explore Subjects
+            </h2>
+            <h3 className="text-4xl md:text-5xl font-extrabold text-[#111827] dark:text-white tracking-tight leading-[1.1]">
+              Master any skill with expert-led courses
+            </h3>
+          </div>
+          <Button asChild variant="link" className="text-emerald-800 dark:text-emerald-400 font-extrabold hover:gap-3 transition-all text-[15px]">
+            <Link href="/tutors" className="flex items-center gap-2">
+              View All Subjects <ArrowRight className="w-5 h-5" strokeWidth={2} />
+            </Link>
           </Button>
         </div>
 
-        {/* Grid Container */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-          {categories?.map((category: Category) => {
-            return (
-              <div
-                key={category.id}
-                className="bg-white dark:bg-[#1E293B] rounded-[22px] p-6 shadow-sm hover:shadow-[0_22px_60px_rgba(0,0,0,0.10)] dark:hover:shadow-[0_22px_60px_rgba(0,0,0,0.4)] cursor-pointer transition-all duration-300 hover:-translate-y-1.5 group border border-transparent dark:border-slate-800"
-              >
-                <h3 className="text-lg font-semibold text-[#111827] dark:text-white font-['Poppins'] mb-1">
-                  {category.name}
-                </h3>
-                <p className="text-sm text-[#6B7280] dark:text-gray-400">
-                  {category?.description}
-                </p>
-
-                <div className="flex justify-end mt-4">
-                  <Link href={`/tutors?categoryId=${category.id}`}>
-                    <div className="w-9 h-9 rounded-full bg-[#F6F7F9] dark:bg-slate-700/50 flex items-center justify-center group-hover:bg-[#FF6B6B] transition-colors">
-                      <ArrowRight className="w-4 h-4 text-[#6B7280] dark:text-gray-300 group-hover:text-white transition-colors" />
-                    </div>
-                  </Link>
-                </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {categories?.map((category: Category) => (
+            <Link
+              key={category.id}
+              href={`/tutors?categoryId=${category.id}`}
+              className="group p-8 bg-white dark:bg-white/5 backdrop-blur-md rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.15)] border border-gray-100 dark:border-white/10 hover:-translate-y-1 transition-transform"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-500/20 flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
+                <BookOpen className="w-6 h-6" strokeWidth={1.5} />
               </div>
-            );
-          })}
+              <h4 className="text-xl font-extrabold mb-3 text-[#111827] dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
+                {category.name}
+              </h4>
+              <p className="text-[#4B5563] dark:text-slate-400 text-[15px] font-medium leading-[1.6] line-clamp-2 mb-6">
+                {category?.description || "Explore our wide range of expert-led courses in this subject category."}
+              </p>
+              <div className="inline-flex items-center gap-2 text-[13px] font-extrabold uppercase tracking-widest text-emerald-700 dark:text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                Explore <ArrowRight className="w-4 h-4" strokeWidth={2} />
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
