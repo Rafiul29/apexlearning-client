@@ -5,7 +5,6 @@ import { dashboardStatisticsService } from "@/services/dashboard-statistics.serv
 import { userService } from "@/services/user.service";
 import { TutorService } from "@/services/tutor.service";
 import SetupProfileModal from "./_components/setup-profile-modal";
-export const dynamic = "force-dynamic";
 
 export default async function TutorDashboard() {
   const { data: session } = await userService.getSession();
@@ -22,7 +21,7 @@ export default async function TutorDashboard() {
   const hasNoProfile = !tutorData || Object.keys(tutorData).length === 0;
 
   return (
-    <div className="p-6 space-y-8 bg-slate-50 dark:bg-slate-950 min-h-screen">
+    <div className="space-y-10 animate-in fade-in duration-500">
       {hasNoProfile && <SetupProfileModal />}
 
       {!hasNoProfile ? (
@@ -33,8 +32,8 @@ export default async function TutorDashboard() {
         </>
       ) : (
         <div className="flex items-center justify-center h-[50vh]">
-          <p className="text-muted-foreground">
-            Please complete your profile setup...
+          <p className="text-muted-foreground font-bold italic">
+            Please complete your profile setup to continue...
           </p>
         </div>
       )}

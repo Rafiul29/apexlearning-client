@@ -81,10 +81,10 @@ const Footer = ({
   ],
 }: FooterProps) => {
   return (
-    <section className={cn("py-20 border-t border-gray-200/60 dark:border-white/10 bg-[#f9fafb] dark:bg-[#0a0a0a] font-sans", className)}>
+    <section className={cn("pt-20 border-t border-gray-200/60 dark:border-white/10 bg-[#f9fafb] dark:bg-[#0a0a0a] font-sans", className)}>
       <div className="wrapper">
         <footer className="container mx-auto">
-          <div className="grid grid-cols-2 gap-10 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-10 lg:grid-cols-6 pb-5">
             {/* Branding Section */}
             <div className="col-span-2 mb-8 lg:mb-0">
               <div className="flex items-center gap-2 lg:justify-start">
@@ -129,7 +129,7 @@ const Footer = ({
           </div>
 
           {/* Footer Bottom Bar */}
-          <div className="mt-20 flex flex-col justify-between gap-6 border-t border-gray-200/60 dark:border-white/10 pt-8 text-sm font-medium text-[#4B5563] dark:text-slate-500 md:flex-row md:items-center">
+          <div className="py-8 flex flex-col justify-between gap-6 border-t border-gray-200/60 dark:border-white/10 text-sm font-medium text-[#4B5563] dark:text-slate-500 md:flex-row md:items-center">
             <p className="order-2 md:order-1">{copyright}</p>
             <ul className="order-1 flex flex-wrap gap-6 md:order-2">
               {bottomLinks.map((link, linkIdx) => (

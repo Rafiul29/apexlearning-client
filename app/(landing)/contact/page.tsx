@@ -12,29 +12,30 @@ export default function ContactPage() {
           </p>
         </div>
       </section>
+      <div className="relative">
+        <ContactSection />
+      </div>
 
-      <ContactSection />
-      
       <section className="py-20 bg-[#f9fafb] dark:bg-[#050505]">
-         <div className="wrapper">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-               <div className="p-8 bg-white dark:bg-white/5 backdrop-blur-md rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.15)] border border-gray-100 dark:border-white/10 text-center hover:-translate-y-1 transition-transform">
-                  <h3 className="text-xl font-extrabold text-[#111827] dark:text-white mb-4">Support</h3>
-                  <p className="text-[#4B5563] dark:text-slate-400 font-medium mb-6 leading-[1.6]">Need help with your account or a session?</p>
-                  <p className="text-emerald-700 dark:text-emerald-400 font-extrabold">support@apexlearning.com</p>
-               </div>
-               <div className="p-8 bg-white dark:bg-white/5 backdrop-blur-md rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.15)] border border-gray-100 dark:border-white/10 text-center hover:-translate-y-1 transition-transform">
-                  <h3 className="text-xl font-extrabold text-[#111827] dark:text-white mb-4">Sales</h3>
-                  <p className="text-[#4B5563] dark:text-slate-400 font-medium mb-6 leading-[1.6]">Interested in enterprise or group learning?</p>
-                  <p className="text-emerald-700 dark:text-emerald-400 font-extrabold">sales@apexlearning.com</p>
-               </div>
-               <div className="p-8 bg-white dark:bg-white/5 backdrop-blur-md rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.15)] border border-gray-100 dark:border-white/10 text-center hover:-translate-y-1 transition-transform">
-                  <h3 className="text-xl font-extrabold text-[#111827] dark:text-white mb-4">Careers</h3>
-                  <p className="text-[#4B5563] dark:text-slate-400 font-medium mb-6 leading-[1.6]">Want to join our global team of experts?</p>
-                  <p className="text-emerald-700 dark:text-emerald-400 font-extrabold">careers@apexlearning.com</p>
-               </div>
+        <div className="wrapper">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-8 bg-white dark:bg-white/5 backdrop-blur-md rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.15)] border border-gray-100 dark:border-white/10 text-center hover:-translate-y-1 transition-transform">
+              <h3 className="text-xl font-extrabold text-[#111827] dark:text-white mb-4">Support</h3>
+              <p className="text-[#4B5563] dark:text-slate-400 font-medium mb-6 leading-[1.6]">Need help with your account or a session?</p>
+              <p className="text-emerald-700 dark:text-emerald-400 font-extrabold">support@apexlearning.com</p>
             </div>
-         </div>
+            <div className="p-8 bg-white dark:bg-white/5 backdrop-blur-md rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.15)] border border-gray-100 dark:border-white/10 text-center hover:-translate-y-1 transition-transform">
+              <h3 className="text-xl font-extrabold text-[#111827] dark:text-white mb-4">Sales</h3>
+              <p className="text-[#4B5563] dark:text-slate-400 font-medium mb-6 leading-[1.6]">Interested in enterprise or group learning?</p>
+              <p className="text-emerald-700 dark:text-emerald-400 font-extrabold">sales@apexlearning.com</p>
+            </div>
+            <div className="p-8 bg-white dark:bg-white/5 backdrop-blur-md rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.15)] border border-gray-100 dark:border-white/10 text-center hover:-translate-y-1 transition-transform">
+              <h3 className="text-xl font-extrabold text-[#111827] dark:text-white mb-4">Careers</h3>
+              <p className="text-[#4B5563] dark:text-slate-400 font-medium mb-6 leading-[1.6]">Want to join our global team of experts?</p>
+              <p className="text-emerald-700 dark:text-emerald-400 font-extrabold">careers@apexlearning.com</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <FAQ />

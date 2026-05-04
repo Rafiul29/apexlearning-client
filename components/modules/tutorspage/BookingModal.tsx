@@ -143,19 +143,19 @@ export default function BookingModal({ isOpen, onClose, slot, tutor }: any) {
 
   return (
     <Dialog open={isOpen} onOpenChange={resetAndClose}>
-      <DialogContent className="sm:max-w-[440px] p-0 overflow-hidden border-none rounded-[32px] shadow-2xl">
+      <DialogContent className="sm:max-w-[440px] p-0 overflow-hidden border-none rounded-[32px] shadow-2xl bg-white dark:bg-slate-900 transition-all duration-300">
         <div className="bg-white dark:bg-slate-900">
           {step === 1 ? (
             <div className="p-8">
               <DialogHeader className="mb-6 text-center">
-                <DialogTitle className="text-2xl font-bold font-['Poppins']">
+                <DialogTitle className="text-2xl font-black font-sans tracking-tight text-slate-900 dark:text-white">
                   Confirm Booking
                 </DialogTitle>
               </DialogHeader>
 
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
                     1. Booking Date
                   </label>
                   <Popover>
@@ -163,11 +163,11 @@ export default function BookingModal({ isOpen, onClose, slot, tutor }: any) {
                       <Button
                         variant="outline"
                         className={cn(
-                          "w-full justify-start text-left font-semibold py-7 rounded-2xl border-slate-200 bg-slate-50/50 hover:bg-slate-100",
+                          "w-full justify-start text-left font-bold py-7 rounded-2xl border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/[0.03] hover:bg-slate-100 dark:hover:bg-white/[0.05] transition-all",
                           !selectedDate && "text-muted-foreground",
                         )}
                       >
-                        <CalendarIcon className="mr-3 h-5 w-5 text-[#FF6B6B]" />
+                        <CalendarIcon className="mr-3 h-5 w-5 text-emerald-500" />
                         {selectedDate ? (
                           format(selectedDate, "eeee, MMM do, yyyy")
                         ) : (
@@ -186,42 +186,43 @@ export default function BookingModal({ isOpen, onClose, slot, tutor }: any) {
                         disabled={disabledDays}
                         defaultMonth={validUpcomingDate || new Date()}
                         initialFocus
+                        className="rounded-2xl border border-slate-100 dark:border-white/5"
                       />
                     </PopoverContent>
                   </Popover>
-                  <div className="flex items-start gap-2 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/20 text-[#FF6B6B] border border-rose-100">
+                  <div className="flex items-start gap-2 p-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-500/20 transition-colors">
                     <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
-                    <p className="text-[11px] font-medium leading-tight">
+                    <p className="text-[11px] font-bold leading-tight">
                       Available only on <strong>{DAYS[slot.dayOfWeek]}s</strong>
                       .
                     </p>
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#F6F7F9] dark:bg-slate-800/50 border border-slate-100 flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm">
-                    <Clock className="w-5 h-5 text-[#FF6B6B]" />
+                <div className="p-5 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/5 flex items-center gap-4 transition-all">
+                  <div className="w-10 h-10 rounded-xl bg-white dark:bg-white/10 flex items-center justify-center shadow-sm">
+                    <Clock className="w-5 h-5 text-emerald-500" />
                   </div>
                   <div>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                       Selected Time
                     </p>
-                    <p className="text-sm font-bold text-slate-900 dark:text-white">
+                    <p className="text-sm font-black text-slate-900 dark:text-white tracking-tight">
                       {slot.startTime} - {slot.endTime}
                     </p>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-slate-100 flex justify-between items-center">
+                <div className="pt-5 border-t border-slate-100 dark:border-white/5 flex justify-between items-center">
                   <div>
-                    <span className="block font-bold text-slate-900 dark:text-white text-lg">
+                    <span className="block font-black text-slate-900 dark:text-white text-lg tracking-tight">
                       Total Amount
                     </span>
-                    <span className="text-[10px] text-slate-400 font-medium tracking-wide tracking-wide">
+                    <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold tracking-wider">
                       Includes service fee
                     </span>
                   </div>
-                  <span className="text-3xl font-black text-[#FF6B6B]">
+                  <span className="text-3xl font-black text-emerald-600 dark:text-emerald-400 tracking-tighter">
                     ${tutor.pricePerHour}
                   </span>
                 </div>
@@ -229,7 +230,7 @@ export default function BookingModal({ isOpen, onClose, slot, tutor }: any) {
                 <Button
                   onClick={handleConfirm}
                   disabled={loading || !selectedDate}
-                  className="w-full bg-[#FF6B6B] hover:bg-[#ff5252] text-white py-7 rounded-2xl text-lg font-bold shadow-lg transition-all active:scale-[0.98] disabled:opacity-50"
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 text-white py-7 rounded-full text-lg font-black shadow-lg shadow-emerald-500/20 transition-all active:scale-[0.98] disabled:opacity-50"
                 >
                   {loading ? (
                     <div className="flex items-center gap-2">
@@ -245,35 +246,35 @@ export default function BookingModal({ isOpen, onClose, slot, tutor }: any) {
                   )}
                 </Button>
 
-                <p className="text-[10px] text-center text-slate-400 flex items-center justify-center gap-1.5 uppercase font-bold tracking-tighter">
-                  <ShieldCheck className="w-3.5 h-3.5" /> Secure SSL encrypted
+                <p className="text-[10px] text-center text-slate-400 dark:text-slate-500 flex items-center justify-center gap-1.5 uppercase font-black tracking-widest">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" /> Secure SSL encrypted
                   payment
                 </p>
               </div>
             </div>
           ) : (
-            <div className="p-12 text-center space-y-6">
-              <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto animate-in zoom-in duration-300">
+            <div className="p-12 text-center space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="w-20 h-20 bg-emerald-50 dark:bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto shadow-sm">
                 <CheckCircle2 className="w-10 h-10 text-emerald-500" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
                   Booking Confirmed!
                 </h3>
-                <p className="text-slate-500 text-sm leading-relaxed">
+                <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-medium">
                   Your lesson with <strong>{tutor.user?.name}</strong> is set
                   for <br />
-                  <span className="text-slate-900 dark:text-slate-200 font-semibold">
+                  <span className="text-slate-900 dark:text-white font-bold">
                     {selectedDate && format(selectedDate, "PPPP")}
                   </span>
                 </p>
               </div>
               <Button
                 asChild
-                className="w-full py-7 rounded-2xl bg-slate-900 text-white font-bold"
+                className="w-full py-7 rounded-full bg-slate-900 dark:bg-white dark:text-slate-900 text-white font-black shadow-lg transition-all active:scale-[0.98]"
                 onClick={resetAndClose}
               >
-                <Link href={"/dashboard/bookings"}>Return to Profile</Link>
+                <Link href={"/dashboard/bookings"}>Go to Bookings</Link>
               </Button>
             </div>
           )}

@@ -45,20 +45,24 @@ export default async function AdminDashboardPage() {
   ];
 
   return (
-    <div className="p-6 lg:p-10 space-y-8 bg-slate-50/50 min-h-screen">
+    <div className="space-y-10 animate-in fade-in duration-500">
       {/* 1. Header Section */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
-            Admin Control
+          <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-slate-900 dark:text-white leading-tight">
+            Admin <span className="text-emerald-600">Control</span>
           </h1>
-          <p className="text-slate-500 font-medium">
-            Manage marketplace supply and demand.
+          <p className="text-slate-500 dark:text-slate-400 font-medium">
+            Manage marketplace supply and demand metrics.
           </p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline">Export CSV</Button>
-          <Button>System Settings</Button>
+          <Button variant="outline" className="rounded-full px-6 font-bold border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5">
+            Export CSV
+          </Button>
+          <Button className="rounded-full px-6 font-black bg-slate-900 dark:bg-white dark:text-slate-900 text-white shadow-lg active:scale-95 transition-all">
+            System Settings
+          </Button>
         </div>
       </div>
 
@@ -72,18 +76,23 @@ export default async function AdminDashboardPage() {
       {/* 3. Main Dashboard Body */}
       <div className="grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-7 space-y-8">
-          <section className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-            <h2 className="text-lg font-semibold mb-4">Platform Growth</h2>
+          <section className="bg-white dark:bg-white/[0.02] p-8 rounded-[32px] border border-slate-200 dark:border-white/5 shadow-sm">
+            <h2 className="text-xl font-black mb-6 tracking-tight text-slate-900 dark:text-white uppercase text-[10px] tracking-widest text-slate-400">Platform Growth</h2>
             <PlatformVitals data={stats?.chartData} />
           </section>
         </div>
 
         <div className="lg:col-span-5 space-y-8">
-          <section className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-            <div className="p-6 border-b border-slate-100">
-              <h2 className="text-lg font-semibold">Recent Bookings</h2>
+          <section className="bg-white dark:bg-white/[0.02] rounded-[32px] border border-slate-200 dark:border-white/5 shadow-sm overflow-hidden flex flex-col h-full">
+            <div className="p-8 border-b border-slate-100 dark:border-white/5 flex items-center justify-between">
+              <h2 className="text-lg font-black tracking-tight text-slate-900 dark:text-white">Recent Bookings</h2>
+              <Button variant="ghost" size="sm" className="text-emerald-600 dark:text-emerald-400 font-bold hover:bg-emerald-50 dark:hover:bg-emerald-500/10 rounded-full">
+                View All
+              </Button>
             </div>
-            <BookingTable data={stats?.recentBookings} />
+            <div className="flex-1 overflow-x-auto">
+              <BookingTable data={stats?.recentBookings} />
+            </div>
           </section>
         </div>
       </div>

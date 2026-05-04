@@ -13,7 +13,7 @@ export default function ContactButton({ tutorEmail }: { tutorEmail: string }) {
   return (
     <Button
       onClick={handleContact}
-      className="w-full bg-[#FF6B6B] hover:bg-[#ff5252] rounded-2xl py-7 text-lg font-semibold shadow-lg"
+      className="w-full bg-[#1e1e1e] hover:bg-[#2a2a2a] rounded-2xl py-7 text-lg font-semibold shadow-lg"
     >
       Contact Tutor
     </Button>
