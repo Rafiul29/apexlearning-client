@@ -18,29 +18,29 @@ export default async function AdminDashboardPage() {
       label: "Total Revenue",
       value: formatCurrency(stats?.totalRevenue),
       icon: DollarSign,
-      color: "text-emerald-600",
-      bg: "bg-emerald-50",
+      color: "text-emerald-600 dark:text-emerald-400",
+      bg: "bg-emerald-50 dark:bg-emerald-500/10",
     },
     {
       label: "Active Tutors",
       value: stats?.activeTutors?.toString(),
       icon: GraduationCap,
-      color: "text-blue-600",
-      bg: "bg-blue-50",
+      color: "text-blue-600 dark:text-blue-400",
+      bg: "bg-blue-50 dark:bg-blue-500/10",
     },
     {
       label: "Total Students",
       value: stats?.totalStudents?.toString(),
       icon: Users,
-      color: "text-purple-600",
-      bg: "bg-purple-50",
+      color: "text-purple-600 dark:text-purple-400",
+      bg: "bg-purple-50 dark:bg-purple-500/10",
     },
     {
       label: "Booked Sessions",
       value: stats?.bookedSessions?.toString(),
       icon: CalendarCheck,
-      color: "text-rose-600",
-      bg: "bg-rose-50",
+      color: "text-rose-600 dark:text-rose-400",
+      bg: "bg-rose-50 dark:bg-rose-500/10",
     },
   ];
 
@@ -77,7 +77,7 @@ export default async function AdminDashboardPage() {
       <div className="grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-7 space-y-8">
           <section className="bg-white dark:bg-white/[0.02] p-8 rounded-[32px] border border-slate-200 dark:border-white/5 shadow-sm">
-            <h2 className="text-xl font-black mb-6 tracking-tight text-slate-900 dark:text-white uppercase text-[10px] tracking-widest text-slate-400">Platform Growth</h2>
+            <h2 className="text-[10px] font-black mb-6 uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Platform Growth</h2>
             <PlatformVitals data={stats?.chartData} />
           </section>
         </div>

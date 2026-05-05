@@ -17,7 +17,7 @@ const SubjectCategories = ({ categories }: { categories: Category[] }) => {
             </h3>
           </div>
           <Button asChild variant="link" className="text-emerald-800 dark:text-emerald-400 font-extrabold hover:gap-3 transition-all text-[15px]">
-            <Link href="/tutors" className="flex items-center gap-2">
+            <Link href="/categories" className="flex items-center gap-2">
               View All Subjects <ArrowRight className="w-5 h-5" strokeWidth={2} />
             </Link>
           </Button>

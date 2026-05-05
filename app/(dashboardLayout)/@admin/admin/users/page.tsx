@@ -1,6 +1,6 @@
 import { userService } from "@/services/user.service";
 import { UserTable } from "./_components/UserTable";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; 
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { User } from "@/types";
 
 export const dynamic = "force-dynamic";
@@ -30,7 +30,7 @@ export default async function UsersPage() {
           {error.message}
         </div>
       ) : (
-        <Tabs defaultValue="students" className="w-full space-y-6">
+        <Tabs defaultValue="teachers" className="w-full space-y-6">
           <TabsList className="bg-slate-100 dark:bg-white/5 p-1.5 rounded-2xl inline-flex h-auto border dark:border-white/5">
             <TabsTrigger
               value="teachers"

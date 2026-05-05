@@ -1,5 +1,5 @@
 import { Route } from "@/types";
-import { LayoutDashboard, Clock, CalendarDays, Tags, UserCircle } from "lucide-react";
+import { LayoutDashboard, Clock, CalendarDays, Tags, UserCircle, User } from "lucide-react";
 
 export const tutorRoutes: Route[] = [
   {
@@ -16,7 +16,12 @@ export const tutorRoutes: Route[] = [
         icon: Clock,
       },
       {
-        title: "Bookings",
+        title: "My Students",
+        url: "/tutor/students",
+        icon: User,
+      },
+      {
+        title: "Booking Management",
         url: "/tutor/bookings",
         icon: CalendarDays,
       },

@@ -41,43 +41,45 @@ const Footer = ({
     {
       title: "Explore",
       links: [
-        { text: "Home", url: "/" },
         { text: "Find Tutors", url: "/tutors" },
-        // { text: "Subject Categories", url: "/categories" },
-        { text: "How it Works", url: "/how-it-works" },
+        { text: "Categories", url: "/categories" },
+        // { text: "How it Works", url: "/how-it-works" },
+        // { text: "Help Center", url: "/help" },
       ],
     },
-    // {
-    //   title: "For Tutors",
-    //   links: [
-    //     { text: "Become a Tutor", url: "/become-tutor" },
-    //     { text: "Tutor Dashboard", url: "/dashboard/tutor" },
-    //     { text: "Resources", url: "/tutor-resources" },
-    //   ],
-    // },
+    {
+      title: "Account",
+      links: [
+        { text: "Join for Free", url: "/register" },
+        { text: "Login", url: "/login" },
+        // { text: "Become a Tutor", url: "/register" },
+        // { text: "Tutor Login", url: "/login" },
+      ],
+    },
     {
       title: "Company",
       links: [
         { text: "About Us", url: "/about" },
-        { text: "Our Team", url: "/team" },
         { text: "Blog", url: "/blog" },
+        // { text: "Our Team", url: "/team" },
         // { text: "Careers", url: "/careers" },
       ],
     },
     {
       title: "Support",
       links: [
-        { text: "Help Center", url: "/help" },
         { text: "Contact Us", url: "/contact" },
         { text: "FAQs", url: "/faqs" },
+        // { text: "Privacy Policy", url: "/privacy" },
+        // { text: "Terms of Service", url: "/terms" },
       ],
     },
   ],
   copyright = `© ${new Date().getFullYear()} Apex Learning. All rights reserved.`,
   bottomLinks = [
-    { text: "Terms and Conditions", url: "/terms" },
+    { text: "Terms of Service", url: "/terms" },
     { text: "Privacy Policy", url: "/privacy" },
-    { text: "Cookie Policy", url: "/cookies" },
+    { text: "Cookie Settings", url: "/cookies" },
   ],
 }: FooterProps) => {
   return (
@@ -89,13 +91,16 @@ const Footer = ({
             <div className="col-span-2 mb-8 lg:mb-0">
               <div className="flex items-center gap-2 lg:justify-start">
                 <Logo url={logo.url}>
-                  <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    width={200}
-                    height={120}
-                    className="object-contain dark:invert h-12 w-full"
-                  />
+                  <div className="relative h-10 w-auto flex items-center">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      width={140}
+                      height={40}
+                      className="object-contain dark:invert h-full w-auto"
+                      priority
+                    />
+                  </div>
                   <LogoText className="text-2xl font-extrabold tracking-tight text-[#111827] dark:text-white">
                     {logo?.title}
                   </LogoText>

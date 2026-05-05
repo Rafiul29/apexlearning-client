@@ -31,11 +31,11 @@ const DashboardLayout = async ({
         <SiteHeader />
         <div className="flex flex-1 flex-col overflow-y-auto">
           <div className="@container/main flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-             <div className="flex flex-col gap-6 max-w-[1600px] mx-auto w-full">
-                {userInfo?.role === UserRole.ADMIN && admin}
-                {userInfo?.role === UserRole.TUTOR && tutor}
-                {userInfo?.role === UserRole.STUDENT && student}
-             </div>
+            <div className="flex flex-col gap-6 max-w-[1600px] mx-auto w-full">
+              {userInfo?.role === UserRole.ADMIN && admin}
+              {userInfo?.role === UserRole.TUTOR && tutor}
+              {userInfo?.role === UserRole.STUDENT && student}
+            </div>
           </div>
         </div>
       </SidebarInset>

@@ -13,18 +13,18 @@ interface StatCardProps {
 
 export function StatCard({ label, value, icon: Icon, color, bg }: StatCardProps) {
   return (
-    <Card className="border-none shadow-sm">
+    <Card className="border border-slate-200 dark:border-white/5 bg-white dark:bg-white/5 shadow-sm rounded-3xl transition-colors">
       <CardContent className="p-6">
         <div className="flex justify-between items-start">
-          <div className={`p-3 rounded-xl ${bg}`}>
-            <Icon className={`h-6 w-6 ${color}`} />
+          <div className={cn("p-3 rounded-2xl", bg)}>
+            <Icon className={cn("h-6 w-6", color)} />
           </div>
         </div>
         <div className="mt-4">
-          <p className="text-sm font-semibold text-slate-500 uppercase tracking-wider">
+          <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
             {label}
           </p>
-          <h2 className="text-3xl font-bold text-slate-900 mt-1">{value}</h2>
+          <h2 className="text-2xl font-black text-slate-900 dark:text-white mt-1 tracking-tight">{value}</h2>
         </div>
       </CardContent>
     </Card>

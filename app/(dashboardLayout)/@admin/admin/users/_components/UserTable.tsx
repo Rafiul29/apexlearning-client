@@ -71,10 +71,10 @@ export function UserTable({ users }: { users: any[] }) {
                 <Badge
                   variant={user.role === "ADMIN" ? "default" : "secondary"}
                   className={cn(
-                     "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border-none",
-                     user.role === "ADMIN" 
-                        ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900" 
-                        : "bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300"
+                    "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border-none",
+                    user.role === "ADMIN"
+                      ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900"
+                      : "bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300"
                   )}
                 >
                   {user.role}
@@ -83,10 +83,10 @@ export function UserTable({ users }: { users: any[] }) {
               <TableCell>
                 <Badge
                   className={cn(
-                     "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border-none",
-                     user.status === "ACTIVE" 
-                        ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20" 
-                        : "bg-rose-500 text-white shadow-lg shadow-rose-500/20"
+                    "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border-none",
+                    user.status === "ACTIVE"
+                      ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20"
+                      : "bg-rose-500 text-white shadow-lg shadow-rose-500/20"
                   )}
                 >
                   {user.status}
@@ -105,6 +105,7 @@ export function UserTable({ users }: { users: any[] }) {
                   <Button
                     variant="ghost"
                     size="icon"
+                    disabled={user.role === "ADMIN"}
                     onClick={() => onDelete(user.id)}
                     className="h-9 w-9 rounded-xl text-slate-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 hover:text-rose-600 transition-all"
                   >

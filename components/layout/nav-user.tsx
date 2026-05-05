@@ -52,7 +52,7 @@ export function UserNav({
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
-            className="relative h-9 w-9 rounded-full ring-offset-background transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-0"
+            className="relative h-9 w-9 rounded-full ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0"
           >
             <Avatar className="h-8 w-8 border border-slate-200 dark:border-slate-700">
               <AvatarImage

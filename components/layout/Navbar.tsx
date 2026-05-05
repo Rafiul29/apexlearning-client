@@ -45,8 +45,7 @@ const Navbar = () => {
     if (session) {
       const dashboardUrl = user?.role === 'ADMIN' ? '/admin' : user?.role === 'TUTOR' ? '/tutor/dashboard' : '/dashboard';
       return [
-        ...baseMenu,
-        { title: "Dashboard", url: dashboardUrl },
+        ...baseMenu
       ];
     }
 
@@ -63,15 +62,18 @@ const Navbar = () => {
           <div className="flex items-center gap-8">
             <Link
               href="/"
-              className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+              className="flex items-center gap-2 group transition-all"
             >
-              <Image
-                width={100}
-                height={80}
-                src="/logo.png"
-                className="dark:invert object-contain"
-                alt="Apex Logo"
-              />
+              <div className="relative h-8 w-auto flex items-center py-2">
+                <Image
+                  width={110}
+                  height={32}
+                  src="/logo.png"
+                  className="dark:invert object-contain transition-transform group-hover:scale-105 duration-300"
+                  alt="Apex Learning Logo"
+                  priority
+                />
+              </div>
             </Link>
             <NavigationMenu>
               <NavigationMenuList className="gap-1">
@@ -80,7 +82,7 @@ const Navbar = () => {
                     <NavigationMenuLink asChild>
                       <Link
                         href={item.url}
-                        className="group inline-flex h-10 w-max items-center justify-center rounded-full px-5 py-2 text-sm font-semibold text-[#4B5563] dark:text-slate-300 transition-all hover:bg-gray-100 dark:hover:bg-white/10 hover:text-[#111827] dark:hover:text-white"
+                        className="group inline-flex w-max items-center justify-center rounded-full px-5 py-2 text-sm font-semibold text-[#4B5563] dark:text-slate-300 transition-all hover:bg-gray-100 dark:hover:bg-white/10 hover:text-[#111827] dark:hover:text-white"
                       >
                         {item.title}
                       </Link>
@@ -115,23 +117,26 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         <div className="flex items-center justify-between lg:hidden ">
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              width={32}
-              height={32}
-              src="/logo.png"
-              className="dark:invert"
-              alt="Logo"
-            />
+          <Link href="/" className="flex items-center gap-2 group transition-all">
+            <div className="relative h-8 w-auto flex items-center">
+              <Image
+                width={110}
+                height={32}
+                src="/logo.png"
+                className="dark:invert object-contain"
+                alt="Apex Learning Logo"
+                priority
+              />
+            </div>
           </Link>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <SearchModal />
             <ModeToggle />
             {session && <UserNav user={user || {}} />}
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
-                  <Menu className="size-5" strokeWidth={1.5} />
+                  <Menu className="size-5" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] px-5 bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-xl border-l border-gray-200/50 dark:border-white/10 font-sans">

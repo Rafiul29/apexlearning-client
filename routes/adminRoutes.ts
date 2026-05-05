@@ -1,5 +1,12 @@
 import { Route } from "@/types";
-import { LayoutDashboard, Users, CalendarDays, Tags } from "lucide-react";
+import { 
+  LayoutDashboard, 
+  Users, 
+  CalendarDays, 
+  Tags, 
+  GraduationCap, 
+  UserCog 
+} from "lucide-react";
 
 export const adminRoutes: Route[] = [
     {
@@ -11,19 +18,29 @@ export const adminRoutes: Route[] = [
                 icon: LayoutDashboard,
             },
             {
-                title: "Users",
-                url: "/admin/users",
+                title: "Teacher Management",
+                url: "/admin/teacher-management",
+                icon: GraduationCap,
+            },
+            {
+                title: "Student Management",
+                url: "/admin/student-management",
                 icon: Users,
             },
             {
-                title: "Bookings",
+                title: "Booking Management",
                 url: "/admin/bookings",
                 icon: CalendarDays,
             },
             {
-                title: "Categories",
+                title: "Category Management",
                 url: "/admin/categories",
                 icon: Tags,
+            },
+            {
+                title: "User Management",
+                url: "/admin/users",
+                icon: UserCog,
             },
         ],
     },

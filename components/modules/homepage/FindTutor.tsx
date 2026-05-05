@@ -85,7 +85,7 @@ const FindTutor = ({ searchCategories }: { searchCategories: Category[] }) => {
               <Search className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-slate-400 dark:text-slate-500 group-hover:text-emerald-500 transition-colors" />
               <Input
                 placeholder="Search subject or tutor name..."
-                className="h-12 sm:h-14 pl-11 sm:pl-14 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 focus-visible:ring-2 focus-visible:ring-emerald-500/20 focus-visible:border-emerald-500/30 text-slate-900 dark:text-slate-100 text-sm sm:text-base placeholder:text-slate-400 dark:placeholder:text-slate-500 shadow-sm transition-all w-full"
+                className="h-12 sm:h-14 pl-11 sm:pl-14 pr-6 sm:pr-8 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 focus-visible:ring-2 focus-visible:ring-emerald-500/20 focus-visible:border-emerald-500/30 text-slate-900 dark:text-slate-100 text-sm sm:text-base placeholder:text-slate-400 dark:placeholder:text-slate-500 shadow-sm transition-all w-full"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -94,10 +94,10 @@ const FindTutor = ({ searchCategories }: { searchCategories: Category[] }) => {
             <div className="grid grid-cols-2 sm:flex sm:flex-wrap lg:flex-nowrap gap-3 sm:gap-4">
               {/* Sort By */}
               <Select onValueChange={setSortBy} value={sortBy}>
-                <SelectTrigger className="h-12 sm:h-14 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 sm:min-w-[140px] font-medium text-slate-700 dark:text-slate-200 text-xs sm:text-sm md:text-base shadow-sm hover:border-emerald-500/30 hover:bg-white dark:hover:bg-white/5 transition-all">
+                <SelectTrigger className="h-12 sm:h-14 px-6 py-6 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 sm:min-w-[140px] font-medium text-slate-700 dark:text-slate-200 text-xs sm:text-sm md:text-base shadow-sm hover:border-emerald-500/30 hover:bg-white dark:hover:bg-white/5 transition-all">
                   <SelectValue placeholder="Sort" />
                 </SelectTrigger>
-                <SelectContent className="rounded-2xl border-slate-200 dark:border-white/10 shadow-lg">
+                <SelectContent position="popper" sideOffset={4} className="max-h-[300px] w-[var(--radix-select-trigger-width)] overflow-y-auto rounded-2xl border-slate-200 dark:border-white/10 shadow-lg">
                   <SelectItem value="createdAt" className="rounded-xl cursor-pointer">Newest</SelectItem>
                   <SelectItem value="pricePerHour" className="rounded-xl cursor-pointer">Price</SelectItem>
                   <SelectItem value="averageRating" className="rounded-xl cursor-pointer">Rating</SelectItem>
@@ -106,10 +106,10 @@ const FindTutor = ({ searchCategories }: { searchCategories: Category[] }) => {
 
               {/* Price Filter */}
               <Select onValueChange={setPriceRange} value={priceRange}>
-                <SelectTrigger className="h-12 sm:h-14 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 sm:min-w-[130px] font-medium text-slate-700 dark:text-slate-200 text-xs sm:text-sm md:text-base shadow-sm hover:border-emerald-500/30 hover:bg-white dark:hover:bg-white/5 transition-all">
+                <SelectTrigger className="h-12 sm:h-14 px-6 py-6 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 sm:min-w-[130px] font-medium text-slate-700 dark:text-slate-200 text-xs sm:text-sm md:text-base shadow-sm hover:border-emerald-500/30 hover:bg-white dark:hover:bg-white/5 transition-all">
                   <SelectValue placeholder="Price" />
                 </SelectTrigger>
-                <SelectContent className="rounded-2xl border-slate-200 dark:border-white/10 shadow-lg">
+                <SelectContent position="popper" sideOffset={4} className="max-h-[300px] w-[var(--radix-select-trigger-width)] overflow-y-auto rounded-2xl border-slate-200 dark:border-white/10 shadow-lg">
                   <SelectItem value="all" className="rounded-xl cursor-pointer">Any Price</SelectItem>
                   <SelectItem value="0-30" className="rounded-xl cursor-pointer">$0 - $30</SelectItem>
                   <SelectItem value="30-50" className="rounded-xl cursor-pointer">$30 - $50</SelectItem>
@@ -119,10 +119,10 @@ const FindTutor = ({ searchCategories }: { searchCategories: Category[] }) => {
 
               {/* Rating Filter */}
               <Select onValueChange={setRating} value={rating}>
-                <SelectTrigger className="h-12 sm:h-14 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 sm:min-w-[130px] font-medium text-slate-700 dark:text-slate-200 text-xs sm:text-sm md:text-base shadow-sm hover:border-emerald-500/30 hover:bg-white dark:hover:bg-white/5 transition-all">
+                <SelectTrigger className="h-12 sm:h-14 px-6 py-6 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 sm:min-w-[130px] font-medium text-slate-700 dark:text-slate-200 text-xs sm:text-sm md:text-base shadow-sm hover:border-emerald-500/30 hover:bg-white dark:hover:bg-white/5 transition-all">
                   <SelectValue placeholder="Rating" />
                 </SelectTrigger>
-                <SelectContent className="rounded-2xl border-slate-200 dark:border-white/10 shadow-lg">
+                <SelectContent position="popper" sideOffset={4} className="max-h-[300px] w-[var(--radix-select-trigger-width)] overflow-y-auto rounded-2xl border-slate-200 dark:border-white/10 shadow-lg">
                   <SelectItem value="all" className="rounded-xl cursor-pointer">Any Rating</SelectItem>
                   <SelectItem value="3" className="rounded-xl cursor-pointer">3+ Stars</SelectItem>
                   <SelectItem value="4" className="rounded-xl cursor-pointer">4+ Stars</SelectItem>
@@ -133,10 +133,10 @@ const FindTutor = ({ searchCategories }: { searchCategories: Category[] }) => {
 
               {/* Category Filter */}
               <Select onValueChange={setCategoryId} value={categoryId}>
-                <SelectTrigger className="h-12 sm:h-14 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 sm:min-w-[160px] font-medium text-slate-700 dark:text-slate-200 text-xs sm:text-sm md:text-base shadow-sm hover:border-emerald-500/30 hover:bg-white dark:hover:bg-white/5 transition-all">
+                <SelectTrigger className="h-12 sm:h-14 px-6 py-6 rounded-full bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 sm:min-w-[160px] font-medium text-slate-700 dark:text-slate-200 text-xs sm:text-sm md:text-base shadow-sm hover:border-emerald-500/30 hover:bg-white dark:hover:bg-white/5 transition-all">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
-                <SelectContent className="rounded-2xl border-slate-200 dark:border-white/10 shadow-lg">
+                <SelectContent position="popper" sideOffset={4} className="max-h-[300px] w-[var(--radix-select-trigger-width)] overflow-y-auto rounded-2xl border-slate-200 dark:border-white/10 shadow-lg">
                   <SelectItem value="all" className="rounded-xl cursor-pointer">All Categories</SelectItem>
                   {searchCategories?.map((cat) => (
                     <SelectItem key={cat.id} value={cat.id} className="rounded-xl cursor-pointer">
@@ -147,7 +147,7 @@ const FindTutor = ({ searchCategories }: { searchCategories: Category[] }) => {
               </Select>
 
               <Button
-                className="h-12 sm:h-14 col-span-2 sm:col-span-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-transparent hover:border-rose-500/30 hover:bg-rose-50 dark:hover:bg-rose-500/10 hover:text-rose-600 dark:hover:text-rose-400 rounded-full px-6 font-medium shadow-sm transition-all text-xs sm:text-sm md:text-base w-full sm:w-auto"
+                className="h-12 sm:h-14 col-span-2 sm:col-span-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-transparent hover:border-rose-500/30 hover:bg-rose-50 dark:hover:bg-rose-500/10 hover:text-rose-600 dark:hover:text-rose-400 rounded-full px-8 py-6 font-medium shadow-sm transition-all text-xs sm:text-sm md:text-base w-full sm:w-auto"
                 onClick={resetFilters}
               >
                 <Filter className="w-4 h-4 mr-2 hidden sm:inline-block" />
@@ -178,7 +178,7 @@ const FindTutor = ({ searchCategories }: { searchCategories: Category[] }) => {
               <Button
                 variant="outline"
                 onClick={resetFilters}
-                className="rounded-full border-gray-200 dark:border-white/20 font-bold hover:bg-gray-50 dark:hover:bg-white/5"
+                className="h-12 px-8 rounded-full border-slate-200 dark:border-white/20 font-bold hover:bg-slate-50 dark:hover:bg-white/5 transition-all active:scale-95"
               >
                 Reset Search
               </Button>

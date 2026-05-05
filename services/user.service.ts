@@ -115,4 +115,153 @@ export const userService = {
       return { data: null, error: err.message };
     }
   },
+
+  getAllTeachers: async function () {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(`${API_URL}/admin/users/teachers`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        next: { tags: ["Teachers"] },
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) throw new Error(result.message || "Failed to fetch teachers");
+      return { data: result.data, error: null };
+    } catch (err: any) {
+      return {
+        data: null,
+        error: { message: err.message || "Something went wrong" },
+      };
+    }
+  },
+
+  getTeacherById: async function (id: string) {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(`${API_URL}/admin/users/teachers/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        next: { tags: [`Teacher-${id}`] },
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) throw new Error(result.message || "Failed to fetch teacher");
+      return { data: result.data, error: null };
+    } catch (err: any) {
+      return {
+        data: null,
+        error: { message: err.message || "Something went wrong" },
+      };
+    }
+  },
+
+  getAllStudents: async function () {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(`${API_URL}/admin/users/students`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        next: { tags: ["Students"] },
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) throw new Error(result.message || "Failed to fetch students");
+      return { data: result.data, error: null };
+    } catch (err: any) {
+      return {
+        data: null,
+        error: { message: err.message || "Something went wrong" },
+      };
+    }
+  },
+
+  getStudentById: async function (id: string) {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(`${API_URL}/admin/users/students/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        next: { tags: [`Student-${id}`] },
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) throw new Error(result.message || "Failed to fetch student");
+      return { data: result.data, error: null };
+    } catch (err: any) {
+      return {
+        data: null,
+        error: { message: err.message || "Something went wrong" },
+      };
+    }
+  },
+  getTutorStudents: async function () {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(`${API_URL}/admin/users/tutor-students`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        next: { tags: ["Tutor-Students"] },
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) throw new Error(result.message || "Failed to fetch students");
+      return { data: result.data, error: null };
+    } catch (err: any) {
+      return {
+        data: null,
+        error: { message: err.message || "Something went wrong" },
+      };
+    }
+  },
+
+  getTutorStudentById: async function (id: string) {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(`${API_URL}/admin/users/tutor-students/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        next: { tags: [`Tutor-Student-${id}`] },
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) throw new Error(result.message || "Failed to fetch student");
+      return { data: result.data, error: null };
+    } catch (err: any) {
+      return {
+        data: null,
+        error: { message: err.message || "Something went wrong" },
+      };
+    }
+  },
 };
