@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+
 html,
 body {
   overflow-x: hidden;
@@ -123,6 +124,7 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -130,6 +132,6 @@ body {
 
 @layer components {
   .wrapper {
-    @apply container mx-auto  px-4 lg:px-0;
+    @apply container mx-auto px-4 lg:px-0;
   }
 }

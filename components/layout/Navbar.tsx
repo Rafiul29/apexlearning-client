@@ -56,7 +56,7 @@ const Navbar = () => {
   const menu = getMenu();
 
   return (
-    <section className="fixed top-0 z-50 w-full border-b border-gray-200/50 dark:border-white/10 bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md py-3 font-sans transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+    <section className="fixed top-0 z-50 w-full border-b border-gray-200/50 dark:border-white/10 bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md py-3 font-sans transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.1)] pr-[var(--removed-body-scroll-bar-size,0px)]">
       <div className="wrapper">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
@@ -93,6 +93,7 @@ const Navbar = () => {
 
           <div className="flex items-center gap-3">
             <SearchModal />
+
             <ModeToggle />
             {session ? (
               <UserNav user={user || {}} refetch={refetch} />

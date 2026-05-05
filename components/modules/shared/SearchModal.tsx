@@ -117,7 +117,7 @@ export default function SearchModal() {
 
       <DialogContent
         onKeyDown={handleKeyDown}
-        className="fixed left-[50%] top-[10%] z-50 w-full max-w-[600px] translate-x-[-50%] translate-y-0 gap-0 overflow-hidden border-none bg-white p-0 shadow-2xl rounded-[24px] dark:bg-slate-900 [&>button]:hidden"
+        className="fixed left-[50%] top-[10%] z-50 w-[95vw] sm:w-full sm:max-w-[600px] translate-x-[-50%] translate-y-0 gap-0 overflow-hidden border-none bg-white p-0 shadow-2xl rounded-[24px] dark:bg-slate-900 [&>button]:hidden animate-in fade-in zoom-in-95 duration-200"
       >
         <VisuallyHidden.Root>
           <DialogTitle>Search</DialogTitle>
@@ -176,10 +176,10 @@ export default function SearchModal() {
                         : "hover:bg-white/40",
                     )}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
                       <div
                         className={cn(
-                          "p-2.5 rounded-xl transition-colors",
+                          "p-2.5 rounded-xl transition-colors shrink-0",
                           selectedIndex === index
                             ? "text-white"
                             : "bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400",
@@ -187,13 +187,13 @@ export default function SearchModal() {
                       >
                         <BookOpen className="w-4 h-4" />
                       </div>
-                      <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                      <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">
                         {cat.name}
                       </span>
                     </div>
                     <ArrowRight
                       className={cn(
-                        "w-4 h-4 text-emerald-500 dark:text-emerald-400 transition-all",
+                        "w-4 h-4 text-emerald-500 dark:text-emerald-400 transition-all shrink-0 ml-2",
                         selectedIndex === index
                           ? "opacity-100 translate-x-1"
                           : "opacity-0",
@@ -226,8 +226,8 @@ export default function SearchModal() {
                       : "hover:bg-white/40",
                   )}
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl overflow-hidden bg-slate-200 border border-slate-100">
+                  <div className="flex items-center gap-3 flex-1 min-w-0 mr-4">
+                    <div className="w-12 h-12 rounded-xl overflow-hidden bg-slate-200 border border-slate-100 shrink-0">
                       {tutor.user?.image ? (
                         <img
                           src={tutor.user.image}
@@ -240,10 +240,10 @@ export default function SearchModal() {
                         </div>
                       )}
                     </div>
-                    <div>
+                    <div className="flex-1 min-w-0">
                       <p
                         className={cn(
-                          "text-sm font-bold transition-colors",
+                          "text-sm font-bold transition-colors truncate",
                           selectedIndex === index
                             ? "text-emerald-600 dark:text-emerald-400"
                             : "text-slate-700 dark:text-slate-200",
@@ -251,12 +251,12 @@ export default function SearchModal() {
                       >
                         {tutor.user?.name}
                       </p>
-                      <p className="text-[11px] text-slate-400 line-clamp-1">
+                      <p className="text-[11px] text-slate-400 truncate">
                         {tutor.bio}
                       </p>
                     </div>
                   </div>
-                  <div className="text-right">
+                  <div className="text-right shrink-0">
                     <p className="text-xs font-bold text-slate-600 dark:text-slate-300">
                       ${tutor.pricePerHour}/hr
                     </p>
@@ -273,14 +273,15 @@ export default function SearchModal() {
 
           {/* No results state */}
           {query && results.length === 0 && !isLoading && (
-            <div className="py-20 text-center">
-              <div className="inline-flex p-4 rounded-full bg-slate-100 mb-4">
-                <Search className="w-8 h-8 text-slate-300" />
+            <div className="py-20 text-center animate-in fade-in slide-in-from-bottom-4 duration-300">
+              <div className="inline-flex p-4 rounded-full bg-slate-100 dark:bg-white/5 mb-4">
+                <Search className="w-8 h-8 text-slate-300 dark:text-slate-600" />
               </div>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-slate-500 dark:text-slate-400">
                 No matches found for{" "}
-                <span className="font-bold">"{query}"</span>
+                <span className="font-bold text-slate-900 dark:text-slate-200">"{query}"</span>
               </p>
+              <p className="text-[11px] text-slate-400 mt-1">Try searching for a different subject or name</p>
             </div>
           )}
         </div>

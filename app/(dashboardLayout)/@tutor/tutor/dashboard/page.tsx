@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import TutorStatsOverview from "./_components/tutor-stats-overview";
 import UpcomingSession from "./_components/upcoming-seesion";
 import TutorDashboardHeader from "./_components/tutor-dashboard-header";

@@ -108,9 +108,9 @@ export default function SlotForm({
   };
 
   return (
-    <Card className="shadow-sm border-slate-200 dark:border-white/5 bg-white dark:bg-white/[0.02] rounded-[32px] overflow-hidden">
-      <CardHeader className="pb-6 border-b dark:border-white/5">
-        <CardTitle className="text-xs font-black uppercase tracking-[0.2em] flex items-center gap-3 text-slate-400">
+    <Card className="shadow-sm border-slate-200 dark:border-white/5 bg-white dark:bg-white/[0.03] rounded-[32px] overflow-hidden">
+      <CardHeader className="pb-6 border-b border-slate-100 dark:border-white/5">
+        <CardTitle className="text-xs font-black uppercase tracking-[0.2em] flex items-center gap-3 text-slate-500 dark:text-slate-400">
           {editingSlot ? (
             <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
               <Edit2 className="text-amber-500" size={16} />
@@ -126,21 +126,21 @@ export default function SlotForm({
       <CardContent className="pt-8">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-2">
-            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">
+            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 px-1">
               Teaching Subject
             </Label>
             <select
               {...register("categoryId")}
               className={cn(
-                "w-full h-12 px-4 rounded-2xl border bg-slate-50 dark:bg-white/5 outline-none transition-all font-medium text-sm",
+                "w-full h-12 px-4 rounded-2xl border bg-slate-50 dark:bg-white/5 outline-none transition-all font-bold text-sm text-slate-900 dark:text-white cursor-pointer",
                 errors.categoryId
                   ? "border-rose-500 focus:ring-rose-500/10"
                   : "border-slate-200 dark:border-white/10 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500/50",
               )}
             >
-              <option value="" className="dark:bg-slate-900">Select Subject</option>
+              <option value="" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">Select Subject</option>
               {categories?.map((c: any) => (
-                <option key={c.id} value={c.id} className="dark:bg-slate-900">
+                <option key={c.id} value={c.id} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
                   {c.name}
                 </option>
               ))}
@@ -153,7 +153,7 @@ export default function SlotForm({
           </div>
 
           <div className="space-y-2">
-            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">
+            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 px-1">
               Preferred Day
             </Label>
             <div className="grid grid-cols-4 gap-2">
@@ -167,11 +167,11 @@ export default function SlotForm({
                   />
                   <div
                     className={cn(
-                      "py-2.5 text-center rounded-xl border text-[10px] font-black uppercase tracking-widest transition-all",
-                      "peer-checked:bg-emerald-600 peer-checked:text-white peer-checked:border-emerald-600 peer-checked:shadow-lg peer-checked:shadow-emerald-500/20",
+                      "py-3 text-center rounded-2xl border text-[10px] font-black uppercase tracking-widest transition-all duration-200",
+                      "peer-checked:bg-emerald-600 peer-checked:text-white peer-checked:border-emerald-600 peer-checked:shadow-xl peer-checked:shadow-emerald-500/20 peer-checked:scale-[1.02]",
                       errors.dayOfWeek
-                        ? "border-rose-500 bg-rose-500/5"
-                        : "border-slate-200 dark:border-white/10 dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10",
+                        ? "border-rose-500 text-rose-500"
+                        : "border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-400 hover:border-emerald-500/50 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 hover:text-emerald-600 dark:hover:text-emerald-400",
                     )}
                   >
                     {day.substring(0, 3)}
@@ -187,7 +187,7 @@ export default function SlotForm({
           </div>
 
           <div className="space-y-2">
-            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">
+            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 px-1">
               Time Range
             </Label>
             <div className="grid grid-cols-2 gap-4">
@@ -196,7 +196,7 @@ export default function SlotForm({
                   type="time"
                   {...register("startTime")}
                   className={cn(
-                    "h-12 rounded-2xl border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 font-bold",
+                    "h-12 rounded-2xl border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 font-bold text-slate-900 dark:text-white",
                     errors.startTime && "border-rose-500"
                   )}
                 />
@@ -209,7 +209,7 @@ export default function SlotForm({
                   type="time"
                   {...register("endTime")}
                   className={cn(
-                    "h-12 rounded-2xl border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 font-bold",
+                    "h-12 rounded-2xl border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 font-bold text-slate-900 dark:text-white",
                     errors.endTime && "border-rose-500"
                   )}
                 />
@@ -247,7 +247,7 @@ export default function SlotForm({
                 variant="ghost"
                 type="button"
                 onClick={onCancel}
-                className="w-full h-12 text-slate-400 hover:text-slate-600 dark:hover:text-white font-bold rounded-full text-[10px] uppercase tracking-widest"
+                className="w-full h-12 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-black rounded-full text-[10px] uppercase tracking-widest transition-colors"
               >
                 Discard Changes
               </Button>
