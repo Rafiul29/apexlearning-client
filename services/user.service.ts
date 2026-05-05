@@ -17,8 +17,6 @@ export const userService = {
       });
 
       const session = await res.json();
-      console.log({ session })
-      console.log("cookieStore.toString()", cookieStore.toString())
       if (!session || !session.user) {
         return { data: null, error: { message: "no active session" } };
       }

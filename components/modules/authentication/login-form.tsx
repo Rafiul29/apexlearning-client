@@ -23,6 +23,11 @@ import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { Spinner } from "@/components/ui/spinner";
+import { 
+  ShieldCheck, 
+  GraduationCap, 
+  User 
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
@@ -234,12 +239,56 @@ export function LoginForm({
         </CardContent>
       </Card>
 
+      <div className="mt-8 space-y-4">
+        <div className="flex items-center gap-4">
+          <div className="h-[1px] flex-1 bg-slate-200 dark:bg-white/10" />
+          <span className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 whitespace-nowrap">
+            Demo Credentials
+          </span>
+          <div className="h-[1px] flex-1 bg-slate-200 dark:bg-white/10" />
+        </div>
 
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <Button
+            type="button"
+            variant="outline"
+            className="h-14 rounded-2xl border-slate-200 dark:border-white/10 hover:border-rose-500/30 hover:bg-rose-50 dark:hover:bg-rose-500/5 group flex flex-col items-center justify-center gap-1 transition-all"
+            onClick={() => {
+              form.setFieldValue("email", "admin@apex.com");
+              form.setFieldValue("password", "12345678");
+            }}
+          >
+            <ShieldCheck className="w-5 h-5 text-rose-500 group-hover:scale-110 transition-transform" />
+            <span className="text-[11px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-300">Admin</span>
+          </Button>
 
-      <>
+          <Button
+            type="button"
+            variant="outline"
+            className="h-14 rounded-2xl border-slate-200 dark:border-white/10 hover:border-emerald-500/30 hover:bg-emerald-50 dark:hover:bg-emerald-500/5 group flex flex-col items-center justify-center gap-1 transition-all"
+            onClick={() => {
+              form.setFieldValue("email", "t13@ai.com");
+              form.setFieldValue("password", "12345678");
+            }}
+          >
+            <GraduationCap className="w-5 h-5 text-emerald-500 group-hover:scale-110 transition-transform" />
+            <span className="text-[11px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-300">Teacher</span>
+          </Button>
 
-      </>
+          <Button
+            type="button"
+            variant="outline"
+            className="h-14 rounded-2xl border-slate-200 dark:border-white/10 hover:border-blue-500/30 hover:bg-blue-50 dark:hover:bg-blue-500/5 group flex flex-col items-center justify-center gap-1 transition-all"
+            onClick={() => {
+              form.setFieldValue("email", "student1@gmail.com");
+              form.setFieldValue("password", "12345678");
+            }}
+          >
+            <User className="w-5 h-5 text-blue-500 group-hover:scale-110 transition-transform" />
+            <span className="text-[11px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-300">Student</span>
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
-
